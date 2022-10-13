@@ -1,13 +1,15 @@
 ﻿using Modding;
+using RandoSettingsManager.SettingsManagement;
 using System;
 
 namespace RandoSettingsManager
 {
     public class RandoSettingsManagerMod : Mod
     {
+        internal SettingsManager? settingsManager;
         private static RandoSettingsManagerMod? _instance;
 
-        internal static RandoSettingsManagerMod Instance
+        public static RandoSettingsManagerMod Instance
         {
             get
             {
@@ -21,19 +23,37 @@ namespace RandoSettingsManager
 
         public override string GetVersion() => GetType().Assembly.GetName().Version.ToString();
 
-        public RandoSettingsManagerMod() : base()
+        public RandoSettingsManagerMod() : base("RandoSettingsManager")
         {
             _instance = this;
         }
 
-        // if you need preloads, you will need to implement GetPreloadNames and use the other signature of Initialize.
         public override void Initialize()
         {
             Log("Initializing");
 
-            // put additional initialization logic here
+            // create menus and such
 
             Log("Initialized");
+        }
+
+        public void RegisterConnection<TSettings, TVersion>(RandoSettingsProxy<TSettings, TVersion> settingsProxy)
+        {
+            settingsManager ??= new SettingsManager();
+
+            Type rootProxyType = settingsProxy.GetType();
+            while (rootProxyType.GetGenericTypeDefinition() != typeof(RandoSettingsProxy<,>))
+            {
+                rootProxyType = rootProxyType.BaseType;
+            }
+
+            Type settingsType = rootProxyType.GenericTypeArguments[0];
+            Type versionType = rootProxyType.GenericTypeArguments[1];
+
+            settingsManager.Register(settingsProxy.ModKey, 
+                new ProxyMetadata(rootProxyType, settingsType, versionType, 
+                                  settingsProxy.VersioningPolicy, settingsProxy.CanProvideSettings, 
+                                  settingsProxy));
         }
     }
 }

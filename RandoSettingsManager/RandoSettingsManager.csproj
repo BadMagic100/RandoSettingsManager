@@ -24,9 +24,9 @@
     <MakeDir Directories="$(ExportDir)/" />
     <MakeDir Directories="$(ExportDir)/zip/" />
     <MakeDir Condition="!Exists('$(HollowKnightRefs)/Mods/$(TargetName)/')" Directories="$(HollowKnightRefs)/Mods/$(TargetName)/" />
-    <Copy SourceFiles="$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(HollowKnightRefs)/Mods/$(TargetName)/" />
+    <Copy SourceFiles="$(TargetPath);$(TargetDir)/$(TargetName).pdb;$(TargetDir)/ICSharpCode.SharpZipLib.dll" DestinationFolder="$(HollowKnightRefs)/Mods/$(TargetName)/" />
     <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ExportDir)/" />
-    <Copy SourceFiles="$(SolutionDir)/README.md;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/zip/" />
+    <Copy SourceFiles="$(SolutionDir)/README.md;$(TargetPath);$(TargetDir)/$(TargetName).pdb;$(TargetDir)/ICSharpCode.SharpZipLib.dll" DestinationFolder="$(ExportDir)/zip/" />
     <ZipDirectory SourceDirectory="$(ExportDir)/zip/" DestinationFile="$(ExportDir)/$(TargetName).zip" />
     <RemoveDir Directories="$(ExportDir)/zip/" />
     <GetFileHash Files="$(ExportDir)/$(TargetName).zip" Algorithm="SHA256">
@@ -332,5 +332,11 @@
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include="LocalOverrides.targets" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="SharpZipLib.NETStandard" Version="1.0.7" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Menu\" />
   </ItemGroup>
 </Project>
