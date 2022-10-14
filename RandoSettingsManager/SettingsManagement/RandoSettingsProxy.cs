@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using RandoSettingsManager.SettingsManagement.Versioning;
-using System;
-using System.Collections.Generic;
+﻿using RandoSettingsManager.SettingsManagement.Versioning;
 
 namespace RandoSettingsManager.SettingsManagement
 {
@@ -11,15 +8,12 @@ namespace RandoSettingsManager.SettingsManagement
 
         public abstract IVersioningPolicy<TVersion> VersioningPolicy { get; }
 
-        public abstract bool CanProvideSettings { get; }
-
-        public virtual TSettings? ProvideSettings()
+        public virtual bool TryProvideSettings(out TSettings? settings)
         {
-            throw new NotImplementedException($"{GetType().Name} does not support saving/sharing settings");
+            settings = default;
+            return false;
         }
 
         public abstract void ReceiveSettings(TSettings? settings);
-
-        public virtual IEnumerable<JsonConverter> GetAdditionalConverters() { yield break; }
     }
 }

@@ -52,8 +52,7 @@ namespace RandoSettingsManager
 
             settingsManager.Register(settingsProxy.ModKey, 
                 new ProxyMetadata(rootProxyType, settingsType, versionType, 
-                                  settingsProxy.VersioningPolicy, settingsProxy.CanProvideSettings, 
-                                  settingsProxy));
+                                  settingsProxy.VersioningPolicy, settingsProxy));
         }
     }
 }
