@@ -1,5 +1,7 @@
-﻿using RandoSettingsManager.SettingsManagement.Versioning;
+﻿using Newtonsoft.Json;
+using RandoSettingsManager.SettingsManagement.Versioning;
 using System;
+using System.Collections.Generic;
 
 namespace RandoSettingsManager.SettingsManagement
 {
@@ -17,5 +19,7 @@ namespace RandoSettingsManager.SettingsManagement
         }
 
         public abstract void ReceiveSettings(TSettings? settings);
+
+        public virtual IEnumerable<JsonConverter> GetAdditionalConverters() { yield break; }
     }
 }
