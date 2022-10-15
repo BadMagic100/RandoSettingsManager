@@ -2,15 +2,15 @@
 
 namespace RandoSettingsManager.SettingsManagement.Versioning
 {
-    public class StrictModVersioningPolicy : IVersioningPolicy<string>
+    public class StrictModVersioningPolicy : VersioningPolicy<string>
     {
-        public string Version { get; }
+        public override string Version { get; }
 
         public StrictModVersioningPolicy(Mod mod)
         {
             Version = mod.GetVersion();
         }
 
-        public bool Allow(string version) => Version == version;
+        public override bool Allow(string version) => Version == version;
     }
 }

@@ -1,9 +1,9 @@
 ﻿namespace RandoSettingsManager.SettingsManagement.Versioning
 {
-    public class NoVersioningPolicy : IVersioningPolicy<int>
+    public class NoVersioningPolicy : VersioningPolicy<int>
     {
-        public int Version => 0;
+        public override int Version => 0;
 
-        public bool Allow(int version) => true;
+        public override bool Allow(int version) => true;
     }
 }

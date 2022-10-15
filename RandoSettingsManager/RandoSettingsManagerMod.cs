@@ -41,18 +41,7 @@ namespace RandoSettingsManager
         {
             settingsManager ??= new SettingsManager();
 
-            Type rootProxyType = settingsProxy.GetType();
-            while (rootProxyType.GetGenericTypeDefinition() != typeof(RandoSettingsProxy<,>))
-            {
-                rootProxyType = rootProxyType.BaseType;
-            }
-
-            Type settingsType = rootProxyType.GenericTypeArguments[0];
-            Type versionType = rootProxyType.GenericTypeArguments[1];
-
-            settingsManager.Register(settingsProxy.ModKey, 
-                new ProxyMetadata(rootProxyType, settingsType, versionType, 
-                                  settingsProxy.VersioningPolicy, settingsProxy));
+            settingsManager.Register(settingsProxy.ModKey, new ProxyMetadata(settingsProxy, settingsProxy.VersioningPolicy));
         }
     }
 }

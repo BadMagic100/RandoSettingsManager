@@ -6,7 +6,7 @@ namespace RandoSettingsManager.SettingsManagement.Versioning
     public class SimpleSettingsProxy<T> : RandoSettingsProxy<T, string>
     {
         public override string ModKey { get; }
-        public override IVersioningPolicy<string> VersioningPolicy { get; }
+        public override VersioningPolicy<string> VersioningPolicy { get; }
 
         private readonly Action<T?> receiveSettings;
         private readonly Func<T?>? provideSettings;
