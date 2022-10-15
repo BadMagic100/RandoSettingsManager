@@ -42,9 +42,14 @@ namespace RandoSettingsManager.SettingsManagement
             TSettings? s = JsonConvert.DeserializeObject<TSettings>(settings);
             if (s == null)
             {
-                throw new JsonSerializationException($"Failed to deserialize settings for {GetType()}: {settings}");
+                // don't throw here - there are several reasons why settings may fail to deserialize under normal circumstances, such as
+                // mods changing their settings structure in contexts where versioning rules are ignored
+                RandoSettingsManagerMod.Instance.LogError($"Failed to deserialize settings for {GetType()}: {settings}");
             }
-            ReceiveSettings(s);
+            else
+            {
+                ReceiveSettings(s);
+            }
         }
     }
 }
