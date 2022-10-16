@@ -7,6 +7,7 @@ using RandoSettingsManager.SettingsManagement.Filer;
 using RandoSettingsManager.SettingsManagement.Versioning;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RandoSettingsManager.SettingsManagement
 {
@@ -62,6 +63,7 @@ namespace RandoSettingsManager.SettingsManagement
         {
             List<string> errors = new();
             GenerationSettings? randoSettings = null;
+            HashSet<string> receivedConnections = new();
             List<Action> modSettingsSetters = new();
 
             // don't start setting any settings until we've done all the validations!
@@ -105,6 +107,8 @@ namespace RandoSettingsManager.SettingsManagement
                 string? settings = modDir.GetFile(key + ".json")?.ReadContent();
                 // stage the file consumption after validation checks are done
                 modSettingsSetters.Add(() => md.Proxy.ReceiveSerializedSettings(settings));
+                // note that we've received settings for this connection
+                receivedConnections.Add(key);
 
                 if (checkVersion)
                 {
@@ -137,6 +141,10 @@ namespace RandoSettingsManager.SettingsManagement
             foreach (Action stagedSetter in modSettingsSetters)
             {
                 stagedSetter();
+            }
+            foreach (string unreceived in metadata.Keys.Except(receivedConnections))
+            {
+                metadata[unreceived].Proxy.ReceiveSerializedSettings(null);
             }
         }
     }
