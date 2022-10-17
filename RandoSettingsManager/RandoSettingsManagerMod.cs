@@ -4,6 +4,7 @@ using Modding;
 using RandomizerMod.Menu;
 using RandoSettingsManager.SettingsManagement;
 using RandoSettingsManager.SettingsManagement.Filer.Disk;
+using RandoSettingsManager.SettingsManagement.Filer.Tar;
 using RandoSettingsManager.Testing;
 using System;
 using System.IO;
@@ -16,7 +17,8 @@ namespace RandoSettingsManager
         internal SettingsManager? settingsManager;
         private static RandoSettingsManagerMod? _instance;
 
-        private static DiskFiler dFiler = new(Path.Combine(Application.persistentDataPath, "Randomizer 4", "Presets"));
+        private static readonly string presetPath = Path.Combine(Application.persistentDataPath, "Randomizer 4", "Presets");
+        private static readonly DiskFiler dFiler = new(presetPath);
 
         public static RandoSettingsManagerMod Instance
         {
@@ -55,7 +57,14 @@ namespace RandoSettingsManager
             button = new SmallButton(landingPage, "Send Settings");
             button.OnClick += () =>
             {
-                settingsManager?.SaveSettings(dFiler.RootDirectory.CreateDirectory("Preset1"), true, true);
+                //settingsManager?.SaveSettings(dFiler.RootDirectory.CreateDirectory("Preset1"), true, true);
+
+                FileStream fs = File.Create(Path.Combine(presetPath, "Preset1.tar.gz"));
+                TgzFiler tf = TgzFiler.CreateForWrite();
+                settingsManager?.SaveSettings(tf.RootDirectory, true, true);
+                tf.WriteAll(fs);
+                fs.Close();
+
                 Log("Sent settings");
             };
             return true;
@@ -66,7 +75,12 @@ namespace RandoSettingsManager
             button = new SmallButton(landingPage, "Receive Settings");
             button.OnClick += () =>
             {
-                settingsManager?.LoadSettings(dFiler.RootDirectory.CreateDirectory("Preset1"), true);
+                //settingsManager?.LoadSettings(dFiler.RootDirectory.CreateDirectory("Preset1"), true);
+
+                FileStream fs = File.OpenRead(Path.Combine(presetPath, "Preset1.tar.gz"));
+                TgzFiler tf = TgzFiler.LoadFromStream(fs);
+                settingsManager?.LoadSettings(tf.RootDirectory, true);
+
                 Log("Received settings");
             };
             return true;

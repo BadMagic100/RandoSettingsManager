@@ -338,6 +338,5 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Menu\" />
-    <Folder Include="SettingsManagement\Filer\Tar\" />
   </ItemGroup>
 </Project>
