@@ -87,12 +87,12 @@ namespace RandoSettingsManager.SettingsManagement.Filer.Tar
             while(entry != null)
             {
                 string name = entry.Name.TrimStart('/');
-                RandoSettingsManagerMod.Instance.Log($"Loading entry {name}");
+                RandoSettingsManagerMod.Instance.LogDebug($"Loading entry {name}");
                 if (entry.IsDirectory)
                 {
                     string dirName = Path.GetDirectoryName(name);
                     string parentDirName = Path.GetDirectoryName(dirName);
-                    RandoSettingsManagerMod.Instance.Log($"Looking for parent directory {parentDirName}");
+                    RandoSettingsManagerMod.Instance.LogDebug($"Looking for parent directory {parentDirName}");
                     TarDirectory parentDir = dirs[parentDirName];
                     TarDirectory childDir = new(parentDir, entry);
                     dirs[dirName] = childDir;
@@ -101,7 +101,7 @@ namespace RandoSettingsManager.SettingsManagement.Filer.Tar
                 else
                 {
                     string dirName = Path.GetDirectoryName(name);
-                    RandoSettingsManagerMod.Instance.Log($"Looking for parent directory {dirName}");
+                    RandoSettingsManagerMod.Instance.LogDebug($"Looking for parent directory {dirName}");
                     TarDirectory parentDir = dirs[dirName];
                     TarFile childFile = new(parentDir, entry, tar);
                     parentDir.files[childFile.Name] = childFile;
