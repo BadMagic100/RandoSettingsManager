@@ -2,6 +2,7 @@
 using MenuChanger.MenuElements;
 using Modding;
 using RandomizerMod.Menu;
+using RandoSettingsManager.Menu;
 using RandoSettingsManager.SettingsManagement;
 using RandoSettingsManager.SettingsManagement.Filer.Disk;
 using RandoSettingsManager.SettingsManagement.Filer.Tar;
@@ -12,13 +13,15 @@ using UnityEngine;
 
 namespace RandoSettingsManager
 {
-    public class RandoSettingsManagerMod : Mod
+    public class RandoSettingsManagerMod : Mod, IGlobalSettings<GlobalSettings>
     {
         internal SettingsManager? settingsManager;
         private static RandoSettingsManagerMod? _instance;
 
         private static readonly string presetPath = Path.Combine(Application.persistentDataPath, "Randomizer 4", "Presets");
         private static readonly DiskFiler dFiler = new(presetPath);
+
+        public GlobalSettings GS { get; private set; } = new();
 
         public static RandoSettingsManagerMod Instance
         {
@@ -44,6 +47,7 @@ namespace RandoSettingsManager
             Log("Initializing");
 
             // create menus and such
+            MenuManager.HookMenu();
             RegisterConnection(new TestSettingsProxy());
 
             RandomizerMenuAPI.AddMenuPage((page) => { }, MockSendSettings);
@@ -92,5 +96,9 @@ namespace RandoSettingsManager
 
             settingsManager.Register(settingsProxy.ModKey, new ProxyMetadata(settingsProxy, settingsProxy.VersioningPolicy));
         }
+
+        public void OnLoadGlobal(GlobalSettings s) => GS = s;
+
+        public GlobalSettings OnSaveGlobal() => GS;
     }
 }

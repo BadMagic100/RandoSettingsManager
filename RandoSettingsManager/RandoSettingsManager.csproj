@@ -336,7 +336,4 @@
   <ItemGroup>
     <PackageReference Include="SharpZipLib.NETStandard" Version="1.0.7" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Menu\" />
-  </ItemGroup>
 </Project>
