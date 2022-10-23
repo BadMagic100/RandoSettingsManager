@@ -1,10 +1,10 @@
 ﻿using MenuChanger;
-using MenuChanger.Extensions;
 using MenuChanger.MenuElements;
 using MenuChanger.MenuPanels;
 using Modding;
 using RandomizerMod.Menu;
 using System;
+using UnityEngine;
 
 namespace RandoSettingsManager.Menu
 {
@@ -23,46 +23,42 @@ namespace RandoSettingsManager.Menu
 
             MenuPage classic = ReflectionHelper.GetField<RandomizerMenu, MenuPage>(
                 rm, "ManageSettingsPage");
-            VerticalItemPanel codeVip = ReflectionHelper.GetField<RandomizerMenu, VerticalItemPanel>(
-                rm, "CodeVIP");
-            VerticalItemPanel profileVip = ReflectionHelper.GetField<RandomizerMenu, VerticalItemPanel>(
-                rm, "ProfileVIP");
 
             MenuPage modern = new("RandoSettingsManager Manage Settings", manageBtn.Parent);
 
-            PatchRandoMenuPages(manageBtn, codeVip, profileVip, classic, modern);
+            PatchRandoMenuPages(manageBtn, classic, modern);
             BuildManagePage(classic, modern);
         }
 
         private static void BuildManagePage(MenuPage classic, MenuPage modern)
         {
             SmallButton navToClassic = new(modern, "Classic Settings Management");
-            //modern.nav = new HorizontalNavWithItemAboveBackButton(modern, navToClassic);
-
             navToClassic.MoveTo(new(0, -450 + SpaceParameters.VSPACE_SMALL));
-            navToClassic.SymSetNeighbor(Neighbor.Down, modern.backButton);
-            // todo - set upward nav with some custom arrangement doodad
+            modern.ReplaceNavigation(new HorizontalNavWithItemAboveBackButton(modern, navToClassic));
 
             navToClassic.OnClick += () =>
             {
                 RandoSettingsManagerMod.Instance.GS.Mode = SettingsManagementMode.Classic;
                 VisitSettingsPageForCurrentMode(navToClassic, classic, modern);
             };
+
+            new VerticalItemPanel(modern, new Vector2(-400, 300), SpaceParameters.VSPACE_SMALL, true,
+                new SmallButton(modern, "hello"),
+                new SmallButton(modern, "world"));
+
+            new VerticalItemPanel(modern, new Vector2(400, 300), SpaceParameters.VSPACE_SMALL, true,
+               new SmallButton(modern, "hello"),
+               new SmallButton(modern, "world"));
         }
 
-        private static void PatchRandoMenuPages(SmallButton manageButton, 
-            VerticalItemPanel codeVip, VerticalItemPanel profileVip,
+        private static void PatchRandoMenuPages(SmallButton manageButton,
             MenuPage classic, MenuPage modern)
         {
             ReflectionHelper.SetField<BaseButton, Action?>(manageButton, nameof(SmallButton.OnClick), null);
 
             SmallButton navToModern = new(classic, "Modern Settings Management");
             navToModern.MoveTo(new(0, -450 + SpaceParameters.VSPACE_SMALL));
-            navToModern.SymSetNeighbor(Neighbor.Down, classic.backButton);
-
-            navToModern.SetNeighbor(Neighbor.Up, codeVip);
-            codeVip.SetNeighbor(Neighbor.Down, navToModern);
-            profileVip.SetNeighbor(Neighbor.Down, navToModern);
+            classic.ReplaceNavigation(new HorizontalNavWithItemAboveBackButton(classic, navToModern));
 
             manageButton.OnClick += () => VisitSettingsPageForCurrentMode(manageButton, classic, modern);
             navToModern.OnClick += () =>

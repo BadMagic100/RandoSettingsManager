@@ -13,21 +13,24 @@ namespace RandoSettingsManager.Menu
     internal class HorizontalNavWithItemAboveBackButton : MenuPageNavigation
     {
         readonly ISelectable aboveBackButton;
-        readonly List<ISelectable> Selectables = new();
+        readonly List<ISelectable> selectables = new();
+
+        public override IReadOnlyCollection<ISelectable> Items => selectables.AsReadOnly();
 
         public HorizontalNavWithItemAboveBackButton(MenuPage page, ISelectable aboveBackButton) : base(page)
         {
             this.aboveBackButton = aboveBackButton;
+            aboveBackButton.SymSetNeighbor(Neighbor.Down, Page.backButton);
             SetNavWhileEmpty();
         }
 
         public override void Add(ISelectable selectable)
         {
-            if (Selectables.Count > 0)
+            if (selectables.Count > 0)
             {
                 SetItemNav(selectable, false);
-                selectable.SymSetNeighbor(Neighbor.Right, Selectables.First());
-                selectable.SymSetNeighbor(Neighbor.Left, Selectables.Last());
+                selectable.SymSetNeighbor(Neighbor.Right, selectables.First());
+                selectable.SymSetNeighbor(Neighbor.Left, selectables.Last());
             }
             else
             {
@@ -36,19 +39,19 @@ namespace RandoSettingsManager.Menu
                 selectable.SetNeighbor(Neighbor.Right, selectable);
             }
 
-            Selectables.Add(selectable);
+            selectables.Add(selectable);
         }
 
         public override void Remove(ISelectable selectable)
         {
-            int i = Selectables.IndexOf(selectable);
+            int i = selectables.IndexOf(selectable);
             if (i >= 0)
             {
-                Selectables.RemoveAt(i);
-                if (Selectables.Count > 0)
+                selectables.RemoveAt(i);
+                if (selectables.Count > 0)
                 {
-                    ISelectable left = Selectables[IndexWithWraparound(i - 1)];
-                    ISelectable right = Selectables[IndexWithWraparound(i)];
+                    ISelectable left = selectables[IndexWithWraparound(i - 1)];
+                    ISelectable right = selectables[IndexWithWraparound(i)];
                     left.SymSetNeighbor(Neighbor.Right, right);
 
                     if (i == 0)
@@ -65,13 +68,13 @@ namespace RandoSettingsManager.Menu
 
         public override void ResetNavigation()
         {
-            if (Selectables.Count == 0)
+            if (selectables.Count == 0)
             {
                 SetNavWhileEmpty();
             }
             else
             {
-                foreach (ISelectable sel in Selectables)
+                foreach (ISelectable sel in selectables)
                 {
                     if (sel is ISelectableGroup isg)
                     {
@@ -79,21 +82,21 @@ namespace RandoSettingsManager.Menu
                     }
                 }
 
-                for (int i = 0; i < Selectables.Count; i++)
+                for (int i = 0; i < selectables.Count; i++)
                 {
                     int left = IndexWithWraparound(i - 1);
-                    Selectables[i].SymSetNeighbor(Neighbor.Left, Selectables[left]);
-                    Selectables[i].SetNeighbor(Neighbor.Up, Page.backButton);
-                    Selectables[i].SetNeighbor(Neighbor.Down, aboveBackButton);
+                    selectables[i].SymSetNeighbor(Neighbor.Left, selectables[left]);
+                    selectables[i].SetNeighbor(Neighbor.Up, Page.backButton);
+                    selectables[i].SetNeighbor(Neighbor.Down, aboveBackButton);
                 }
             }
         }
 
         public override void SelectDefault()
         {
-            if (Selectables.Count > 0)
+            if (selectables.Count > 0)
             {
-                Selectable s1 = Selectables[0].GetSelectable(Neighbor.Up);
+                Selectable s1 = selectables[0].GetSelectable(Neighbor.Up);
                 if (s1)
                 {
                     s1.Select();
@@ -117,10 +120,10 @@ namespace RandoSettingsManager.Menu
         /// </summary>
         private int IndexWithWraparound(int i)
         {
-            int j = i % Selectables.Count;
+            int j = i % selectables.Count;
             if (j < 0)
             {
-                j += Selectables.Count;
+                j += selectables.Count;
             }
             return j;
         }
