@@ -3,11 +3,13 @@ using MenuChanger.MenuElements;
 using MenuChanger.MenuPanels;
 using Modding;
 using Newtonsoft.Json;
+using RandomizerCore.Extensions;
 using RandomizerMod.Menu;
 using RandoSettingsManager.Model;
 using RandoSettingsManager.SettingsManagement;
 using RandoSettingsManager.SettingsManagement.Filer.Tar;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Text;
@@ -146,6 +148,20 @@ namespace RandoSettingsManager.Menu
 
         private static void DoCreateSettings()
         {
+            SettingsManager? manager = RandoSettingsManagerMod.Instance.settingsManager;
+            if (manager == null)
+            {
+                RandoSettingsManagerMod.Instance.LogError("SettingsManager was null when loading settings");
+                ThreadSupport.BeginInvoke(() =>
+                {
+                    messager!.Clear();
+                    messager.Write($"An unexpected error occurred while creating settings key.");
+                    quickShareCreate!.Unlock();
+                    quickShareLoad!.Unlock();
+                });
+                return;
+            }
+
             byte[] settings;
             try
             {
@@ -160,10 +176,13 @@ namespace RandoSettingsManager.Menu
             catch (Exception ex)
             {
                 RandoSettingsManagerMod.Instance.LogError(ex);
-                messager!.Clear();
-                messager.Write("An unexpected error occurred while creating settings key.");
-                quickShareCreate!.Unlock();
-                quickShareLoad!.Unlock();
+                ThreadSupport.BeginInvoke(() =>
+                {
+                    messager!.Clear();
+                    messager.Write("An unexpected error occurred while creating settings key.");
+                    quickShareCreate!.Unlock();
+                    quickShareLoad!.Unlock();
+                });
                 return;
             }
 
@@ -187,7 +206,9 @@ namespace RandoSettingsManager.Menu
                         GUIUtility.systemCopyBuffer = resp.SettingsKey;
                         messager!.Clear();
                         messager.WriteLine("Created settings code and copied to clipboard!");
-                        messager.Write(resp.SettingsKey);
+                        messager.WriteLine(resp.SettingsKey);
+                        messager.Write($"Settings were shared for {ListJoin(manager.LastSentMods)}. Settings for other " +
+                            $"connections must be shared manually if they're enabled.");
                     });
                 }
                 else
@@ -234,6 +255,20 @@ namespace RandoSettingsManager.Menu
 
         private static void DoLoadSettings(string key)
         {
+            SettingsManager? manager = RandoSettingsManagerMod.Instance.settingsManager;
+            if (manager == null)
+            {
+                RandoSettingsManagerMod.Instance.LogError("SettingsManager was null when loading settings");
+                ThreadSupport.BeginInvoke(() =>
+                {
+                    messager!.Clear();
+                    messager.Write($"An unexpected error occurred loading settings from key {key}");
+                    quickShareCreate!.Unlock();
+                    quickShareLoad!.Unlock();
+                });
+                return;
+            }
+
             byte[] settings;
             try
             {
@@ -289,15 +324,17 @@ namespace RandoSettingsManager.Menu
 
                 ThreadSupport.BlockUntilInvoked(() =>
                 {
-                    RandoSettingsManagerMod.Instance.settingsManager?.LoadSettings(filer.RootDirectory, true);
-                });
+                    manager.LoadSettings(filer.RootDirectory, true);
 
-                ThreadSupport.BeginInvoke(() =>
-                {
                     messager!.Clear();
-                    messager.Write($"Successfully loaded settings from key {key}");
+                    messager.WriteLine($"Successfully loaded settings from key {key}");
+                    messager.Write($"Settings were received for {ListJoin(manager.LastReceivedMods)}. ");
+                    if (manager.LastModsReceivedWithoutSettings.Count > 0)
+                    {
+                        messager.Write($"{ListJoin(manager.LastModsReceivedWithoutSettings)} received no settings and were disabled. ");
+                    }
+                    messager.Write($"Other connections must be configured manually.");
                 });
-                
             }
             catch (ValidationException ve)
             {
@@ -321,6 +358,26 @@ namespace RandoSettingsManager.Menu
             {
                 quickShareCreate?.Unlock();
                 quickShareLoad?.Unlock();
+            }
+        }
+
+        private static string ListJoin(List<string> strings)
+        {
+            if (strings.Count == 0)
+            {
+                return "";
+            }
+            else if (strings.Count == 1)
+            {
+                return strings[0];
+            }
+            else if (strings.Count == 2)
+            {
+                return string.Join(" and ", strings);
+            }
+            else
+            {
+                return string.Join(", ", strings.Slice(0, strings.Count - 1)) + ", and " + strings[strings.Count - 1];
             }
         }
     }

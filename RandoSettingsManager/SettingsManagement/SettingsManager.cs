@@ -21,6 +21,10 @@ namespace RandoSettingsManager.SettingsManagement
         readonly Dictionary<string, ProxyMetadata> metadata = new();
         readonly ISerializableVersioningPolicy randoVersionPolicy = new StrictModVersioningPolicy((Mod)ModHooks.GetMod("Randomizer 4"));
 
+        public List<string> LastSentMods { get; } = new();
+        public List<string> LastReceivedMods { get; } = new();
+        public List<string> LastModsReceivedWithoutSettings { get; } = new();
+
         public void Register(string key, ProxyMetadata md)
         {
             metadata[key] = md;
@@ -41,6 +45,9 @@ namespace RandoSettingsManager.SettingsManagement
                 version.WriteContent(randoVersionPolicy.SerializedVersion);
             }
 
+            LastSentMods.Clear();
+            LastSentMods.Add("Randomizer 4");
+
             foreach (KeyValuePair<string, ProxyMetadata> proxyData in metadata)
             {
                 string key = proxyData.Key;
@@ -55,6 +62,7 @@ namespace RandoSettingsManager.SettingsManagement
                         IFile version = modDir.CreateFile(VERSION_TXT);
                         version.WriteContent(vp.SerializedVersion);
                     }
+                    LastSentMods.Add(key);
                 }
             }
         }
@@ -131,6 +139,8 @@ namespace RandoSettingsManager.SettingsManagement
                     + string.Join("\n  - ", errors));
             }
 
+            LastReceivedMods.Clear();
+
             ReflectionHelper.CallMethod(RandomizerMenuAPI.Menu, "ApplySettingsToMenu", randoSettings);
             if (randoSettings!.Seed != int.MinValue)
             {
@@ -138,13 +148,16 @@ namespace RandoSettingsManager.SettingsManagement
                     RandomizerMenuAPI.Menu, "SeedEntryField");
                 seed.SetValue(randoSettings.Seed);
             }
+            LastReceivedMods.Add("Randomizer 4");
             foreach (Action stagedSetter in modSettingsSetters)
             {
                 stagedSetter();
             }
+            LastReceivedMods.AddRange(receivedConnections);
             foreach (string unreceived in metadata.Keys.Except(receivedConnections))
             {
                 metadata[unreceived].Proxy.ReceiveSerializedSettings(null);
+                LastModsReceivedWithoutSettings.Add(unreceived);
             }
         }
     }
