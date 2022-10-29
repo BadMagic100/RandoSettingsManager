@@ -19,23 +19,24 @@ using UnityEngine;
 
 namespace RandoSettingsManager.Menu
 {
-    internal class MenuManager
+    internal class SettingsMenu
     {
-        private static SmallButton? quickShareCreate;
-        private static SmallButton? quickShareLoad;
-        private static Messager? messager;
         private const string quickShareServiceUrl = "https://wakqqsjpt464rapvz5rz4po3pm0ucgty.lambda-url.us-west-2.on.aws/";
         private static readonly HttpClient httpClient = new()
         {
             Timeout = TimeSpan.FromSeconds(30)
         };
 
-        public static void HookMenu()
-        {
-            RandomizerMenuAPI.AddMenuPage(Construct, NoOpConstructButton!);
-        }
+        private readonly SmallButton navToClassic;
+        private readonly SmallButton quickShareCreate;
+        private readonly SmallButton quickShareLoad;
+        private readonly SmallButton manageProfiles;
+        private readonly SmallButton createTempProfile;
+        private readonly Messager messager;
 
-        private static void Construct(MenuPage connectionPage)
+        private SmallButton backButton;
+
+        private SettingsMenu()
         {
             RandomizerMenu rm = RandomizerMenuAPI.Menu;
             SmallButton manageBtn = ReflectionHelper.GetField<RandomizerMenu, SmallButton>(
@@ -46,11 +47,21 @@ namespace RandoSettingsManager.Menu
 
             MenuPage modern = new("RandoSettingsManager Manage Settings", manageBtn.Parent);
 
+            backButton = modern.backButton;
+
+            (navToClassic, quickShareCreate, quickShareLoad, manageProfiles, createTempProfile, messager)
+                = BuildManagePage(classic, modern); 
             PatchRandoMenuPages(manageBtn, classic, modern);
-            BuildManagePage(classic, modern);
+            
         }
 
-        private static void BuildManagePage(MenuPage classic, MenuPage modern)
+        public static void HookMenu()
+        {
+            RandomizerMenuAPI.AddMenuPage(page => new SettingsMenu(), NoOpConstructButton!);
+        }
+
+        private (SmallButton, SmallButton, SmallButton, SmallButton, SmallButton, Messager) 
+            BuildManagePage(MenuPage classic, MenuPage modern)
         {
             SmallButton navToClassic = new(modern, "Classic Settings Management");
             navToClassic.MoveTo(new(0, -450 + SpaceParameters.VSPACE_SMALL));
@@ -63,9 +74,9 @@ namespace RandoSettingsManager.Menu
             };
 
             ColumnHeader quickShareHeader = new(modern, "Quick Share");
-            quickShareCreate = new(modern, "Create Key");
+            SmallButton quickShareCreate = new(modern, "Create Key");
             quickShareCreate.OnClick += CreateKeyClick;
-            quickShareLoad = new(modern, "Paste Key");
+            SmallButton quickShareLoad = new(modern, "Paste Key");
             quickShareLoad.OnClick += LoadKeyClick;
 
             VerticalItemPanel quickShareVip = new(modern, Vector2.zero, SpaceParameters.VSPACE_SMALL, false,
@@ -83,7 +94,7 @@ namespace RandoSettingsManager.Menu
             quickShareHeader.MoveTo(new Vector2(-SpaceParameters.HSPACE_LARGE / 2, 300));
             profileHeader.MoveTo(new Vector2(SpaceParameters.HSPACE_LARGE / 2, 300));
 
-            messager = new(modern);
+            Messager messager = new(modern);
             messager.MoveTo(new Vector2(0, 125));
 
             modern.AfterHide += () =>
@@ -94,9 +105,11 @@ namespace RandoSettingsManager.Menu
             new GridItemPanel(modern, SpaceParameters.TOP_CENTER_UNDER_TITLE + new Vector2(0, -SpaceParameters.VSPACE_MEDIUM),
                 2, 0, SpaceParameters.HSPACE_LARGE, true,
                 quickShareVip, profileVip);
+
+            return (navToClassic, quickShareCreate, quickShareLoad, manageProfiles, createTempProfile, messager);
         }
 
-        private static void PatchRandoMenuPages(SmallButton manageButton,
+        private void PatchRandoMenuPages(SmallButton manageButton,
             MenuPage classic, MenuPage modern)
         {
             ReflectionHelper.SetField<BaseButton, Action?>(manageButton, nameof(SmallButton.OnClick), null);
@@ -113,40 +126,16 @@ namespace RandoSettingsManager.Menu
             };
         }
 
-        private static void VisitSettingsPageForCurrentMode(SmallButton sender, MenuPage classic, MenuPage modern)
+        private void CreateKeyClick()
         {
-            sender.Parent.Hide();
-            switch (RandoSettingsManagerMod.Instance.GS.Mode)
-            {
-                case SettingsManagementMode.Modern:
-                    modern.Show();
-                    break;
-                case SettingsManagementMode.Classic:
-                    classic.Show();
-                    break;
-                default:
-                    throw new NotImplementedException($"Missing mode handler for {RandoSettingsManagerMod.Instance.GS.Mode}");
-
-            }
-        }
-
-        private static bool NoOpConstructButton(MenuPage connectionPage, out SmallButton? b)
-        {
-            b = null;
-            return false;
-        }
-
-        private static void CreateKeyClick()
-        {
-            quickShareCreate!.Lock();
-            quickShareLoad!.Lock();
-            messager!.Clear();
+            LockMenu();
+            messager.Clear();
             messager.Write("Creating settings key...");
 
             new Thread(DoCreateSettings).Start();
         }
 
-        private static void DoCreateSettings()
+        private void DoCreateSettings()
         {
             SettingsManager? manager = RandoSettingsManagerMod.Instance.settingsManager;
             if (manager == null)
@@ -154,10 +143,9 @@ namespace RandoSettingsManager.Menu
                 RandoSettingsManagerMod.Instance.LogError("SettingsManager was null when loading settings");
                 ThreadSupport.BeginInvoke(() =>
                 {
-                    messager!.Clear();
+                    messager.Clear();
                     messager.Write($"An unexpected error occurred while creating settings key.");
-                    quickShareCreate!.Unlock();
-                    quickShareLoad!.Unlock();
+                    UnlockMenu();
                 });
                 return;
             }
@@ -178,10 +166,9 @@ namespace RandoSettingsManager.Menu
                 RandoSettingsManagerMod.Instance.LogError(ex);
                 ThreadSupport.BeginInvoke(() =>
                 {
-                    messager!.Clear();
+                    messager.Clear();
                     messager.Write("An unexpected error occurred while creating settings key.");
-                    quickShareCreate!.Unlock();
-                    quickShareLoad!.Unlock();
+                    UnlockMenu();
                 });
                 return;
             }
@@ -204,7 +191,7 @@ namespace RandoSettingsManager.Menu
                     ThreadSupport.BeginInvoke(() =>
                     {
                         GUIUtility.systemCopyBuffer = resp.SettingsKey;
-                        messager!.Clear();
+                        messager.Clear();
                         messager.WriteLine("Created settings code and copied to clipboard!");
                         messager.WriteLine(resp.SettingsKey);
                         messager.Write($"Settings were shared for {ListJoin(manager.LastSentMods)}. Settings for other " +
@@ -217,7 +204,7 @@ namespace RandoSettingsManager.Menu
                         $"creating settings key: {respContent.Result}");
                     ThreadSupport.BeginInvoke(() =>
                     {
-                        messager!.Clear();
+                        messager.Clear();
                         messager.Write($"An unexpected response was received while creating settings key.");
                     });
                 }
@@ -227,33 +214,28 @@ namespace RandoSettingsManager.Menu
                 RandoSettingsManagerMod.Instance.LogError(ex);
                 ThreadSupport.BeginInvoke(() =>
                 {
-                    messager!.Clear();
+                    messager.Clear();
                     messager.Write("Failed to create settings key.");
                 });
             }
             finally
             {
-                ThreadSupport.BeginInvoke(() =>
-                {
-                    quickShareCreate!.Unlock();
-                    quickShareLoad!.Unlock();
-                });
+                ThreadSupport.BeginInvoke(() => UnlockMenu());
             }
         }
 
-        private static void LoadKeyClick()
+        private void LoadKeyClick()
         {
             string key = GUIUtility.systemCopyBuffer.Trim();
 
-            quickShareCreate!.Lock();
-            quickShareLoad!.Lock();
-            messager!.Clear();
+            LockMenu();
+            messager.Clear();
             messager.Write($"Looking up settings from key {key}...");
 
             new Thread(() => DoLoadSettings(key)).Start();
         }
 
-        private static void DoLoadSettings(string key)
+        private void DoLoadSettings(string key)
         {
             SettingsManager? manager = RandoSettingsManagerMod.Instance.settingsManager;
             if (manager == null)
@@ -261,10 +243,9 @@ namespace RandoSettingsManager.Menu
                 RandoSettingsManagerMod.Instance.LogError("SettingsManager was null when loading settings");
                 ThreadSupport.BeginInvoke(() =>
                 {
-                    messager!.Clear();
+                    messager.Clear();
                     messager.Write($"An unexpected error occurred loading settings from key {key}");
-                    quickShareCreate!.Unlock();
-                    quickShareLoad!.Unlock();
+                    UnlockMenu();
                 });
                 return;
             }
@@ -281,10 +262,9 @@ namespace RandoSettingsManager.Menu
                 {
                     ThreadSupport.BeginInvoke(() =>
                     {
-                        messager!.Clear();
+                        messager.Clear();
                         messager.Write($"An unexpected response was received while reading settings from key {key}: {t.Result}");
-                        quickShareCreate?.Unlock();
-                        quickShareLoad?.Unlock();
+                        UnlockMenu();
                     });
                     return;
                 }
@@ -292,10 +272,9 @@ namespace RandoSettingsManager.Menu
                 {
                     ThreadSupport.BeginInvoke(() =>
                     {
-                        messager!.Clear();
+                        messager.Clear();
                         messager.Write($"Couldn't find settings with key {key}");
-                        quickShareCreate?.Unlock();
-                        quickShareLoad?.Unlock();
+                        UnlockMenu();
                     });
                     return;
                 }
@@ -309,10 +288,9 @@ namespace RandoSettingsManager.Menu
                 RandoSettingsManagerMod.Instance.LogError(ex);
                 ThreadSupport.BeginInvoke(() =>
                 {
-                    messager!.Clear();
+                    messager.Clear();
                     messager.Write($"An unexpected error occurred while reading settings from key {key}");
-                    quickShareCreate?.Unlock();
-                    quickShareLoad?.Unlock();
+                    UnlockMenu();
                 });
                 return;
             }
@@ -326,7 +304,7 @@ namespace RandoSettingsManager.Menu
                 {
                     manager.LoadSettings(filer.RootDirectory, true);
 
-                    messager!.Clear();
+                    messager.Clear();
                     messager.WriteLine($"Successfully loaded settings from key {key}");
                     messager.Write($"Settings were received for {ListJoin(manager.LastReceivedMods)}. ");
                     if (manager.LastModsReceivedWithoutSettings.Count > 0)
@@ -340,7 +318,7 @@ namespace RandoSettingsManager.Menu
             {
                 ThreadSupport.BeginInvoke(() =>
                 {
-                    messager!.Clear();
+                    messager.Clear();
                     messager.WriteLine($"The settings provided by key {key} failed validation!");
                     messager.Write(ve.Message);
                 });
@@ -350,15 +328,56 @@ namespace RandoSettingsManager.Menu
                 RandoSettingsManagerMod.Instance.LogError(ex);
                 ThreadSupport.BeginInvoke(() =>
                 {
-                    messager!.Clear();
+                    messager.Clear();
                     messager.Write($"An unexpected error occurred loading settings from key {key}");
                 });
             }
             finally
             {
-                quickShareCreate?.Unlock();
-                quickShareLoad?.Unlock();
+                ThreadSupport.BeginInvoke(() => UnlockMenu());
             }
+        }
+
+        private void LockMenu()
+        {
+            quickShareCreate.Lock();
+            quickShareLoad.Lock();
+            manageProfiles.Lock();
+            createTempProfile.Lock();
+            navToClassic.Lock();
+            backButton.Lock();
+        }
+
+        private void UnlockMenu()
+        {
+            quickShareCreate.Unlock();
+            quickShareLoad.Unlock();
+            manageProfiles.Unlock();
+            createTempProfile.Unlock();
+            navToClassic.Unlock();
+            backButton.Unlock();
+        }
+
+        private static void VisitSettingsPageForCurrentMode(SmallButton sender, MenuPage classic, MenuPage modern)
+        {
+            sender.Parent.Hide();
+            switch (RandoSettingsManagerMod.Instance.GS.Mode)
+            {
+                case SettingsManagementMode.Modern:
+                    modern.Show();
+                    break;
+                case SettingsManagementMode.Classic:
+                    classic.Show();
+                    break;
+                default:
+                    throw new NotImplementedException($"Missing mode handler for {RandoSettingsManagerMod.Instance.GS.Mode}");
+            }
+        }
+
+        private static bool NoOpConstructButton(MenuPage connectionPage, out SmallButton? b)
+        {
+            b = null;
+            return false;
         }
 
         private static string ListJoin(List<string> strings)

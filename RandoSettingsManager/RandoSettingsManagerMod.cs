@@ -47,7 +47,7 @@ namespace RandoSettingsManager
             Log("Initializing");
 
             // create menus and such
-            MenuManager.HookMenu();
+            SettingsMenu.HookMenu();
             RegisterConnection(new TestSettingsProxy());
 
             RandomizerMenuAPI.AddMenuPage((page) => { }, MockSendSettings);
