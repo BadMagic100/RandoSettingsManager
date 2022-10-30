@@ -1,4 +1,5 @@
-﻿using MenuChanger;
+﻿using ICSharpCode.SharpZipLib.Zip;
+using MenuChanger;
 using MenuChanger.MenuElements;
 using MenuChanger.MenuPanels;
 using Modding;
@@ -7,6 +8,8 @@ using RandomizerCore.Extensions;
 using RandomizerMod.Menu;
 using RandoSettingsManager.Model;
 using RandoSettingsManager.SettingsManagement;
+using RandoSettingsManager.SettingsManagement.Filer;
+using RandoSettingsManager.SettingsManagement.Filer.Disk;
 using RandoSettingsManager.SettingsManagement.Filer.Tar;
 using System;
 using System.Collections.Generic;
@@ -22,10 +25,16 @@ namespace RandoSettingsManager.Menu
     internal class SettingsMenu
     {
         private const string quickShareServiceUrl = "https://wakqqsjpt464rapvz5rz4po3pm0ucgty.lambda-url.us-west-2.on.aws/";
+        private const string tempProfileName = "temp.zip";
         private static readonly HttpClient httpClient = new()
         {
             Timeout = TimeSpan.FromSeconds(30)
         };
+        private static readonly string ProfilesDir = Path.Combine(Application.persistentDataPath, "Randomizer 4", "Profiles");
+        private static readonly string TempProfilePath = Path.Combine(ProfilesDir, tempProfileName);
+        private static readonly DiskFiler profiler = new(ProfilesDir);
+
+        private readonly FileSystemWatcher tempWatcher;
 
         private readonly SmallButton navToClassic;
         private readonly SmallButton quickShareCreate;
@@ -34,7 +43,7 @@ namespace RandoSettingsManager.Menu
         private readonly SmallButton createTempProfile;
         private readonly Messager messager;
 
-        private SmallButton backButton;
+        private readonly SmallButton backButton;
 
         private SettingsMenu()
         {
@@ -53,6 +62,12 @@ namespace RandoSettingsManager.Menu
                 = BuildManagePage(classic, modern); 
             PatchRandoMenuPages(manageBtn, classic, modern);
             
+            tempWatcher = new FileSystemWatcher(ProfilesDir, "*.zip")
+            {
+                EnableRaisingEvents = false,
+                NotifyFilter = NotifyFilters.CreationTime
+            };
+            tempWatcher.Created += OnFileCreated;
         }
 
         public static void HookMenu()
@@ -87,6 +102,8 @@ namespace RandoSettingsManager.Menu
             SmallButton manageProfiles = new(modern, "Manage Profiles");
             SmallButton createTempProfile = new(modern, "Create Temporary Profile");
 
+            createTempProfile.OnClick += CreateTempProfileClick;
+
             VerticalItemPanel profileVip = new(modern, Vector2.zero, SpaceParameters.VSPACE_SMALL, false,
                 manageProfiles,
                 createTempProfile);
@@ -97,9 +114,22 @@ namespace RandoSettingsManager.Menu
             Messager messager = new(modern);
             messager.MoveTo(new Vector2(0, 125));
 
+            modern.AfterShow += () =>
+            {
+                tempWatcher.EnableRaisingEvents = true;
+                if (File.Exists(TempProfilePath))
+                {
+                    LockMenu();
+                    messager.Clear();
+                    messager.Write($"Attempting to load temporary profile from {TempProfilePath}");
+                    new Thread(DoLoadTempProfile).Start();
+                }
+            };
+
             modern.AfterHide += () =>
             {
                 messager.Clear();
+                tempWatcher.EnableRaisingEvents = false;
             };
 
             new GridItemPanel(modern, SpaceParameters.TOP_CENTER_UNDER_TITLE + new Vector2(0, -SpaceParameters.VSPACE_MEDIUM),
@@ -140,7 +170,7 @@ namespace RandoSettingsManager.Menu
             SettingsManager? manager = RandoSettingsManagerMod.Instance.settingsManager;
             if (manager == null)
             {
-                RandoSettingsManagerMod.Instance.LogError("SettingsManager was null when loading settings");
+                RandoSettingsManagerMod.Instance.LogError("SettingsManager was null when creating settings");
                 ThreadSupport.BeginInvoke(() =>
                 {
                     messager.Clear();
@@ -215,7 +245,7 @@ namespace RandoSettingsManager.Menu
                 ThreadSupport.BeginInvoke(() =>
                 {
                     messager.Clear();
-                    messager.Write("Failed to create settings key.");
+                    messager.Write("Failed to create settings key over the network.");
                 });
             }
             finally
@@ -304,14 +334,7 @@ namespace RandoSettingsManager.Menu
                 {
                     manager.LoadSettings(filer.RootDirectory, true);
 
-                    messager.Clear();
-                    messager.WriteLine($"Successfully loaded settings from key {key}");
-                    messager.Write($"Settings were received for {ListJoin(manager.LastReceivedMods)}. ");
-                    if (manager.LastModsReceivedWithoutSettings.Count > 0)
-                    {
-                        messager.Write($"{ListJoin(manager.LastModsReceivedWithoutSettings)} received no settings and were disabled. ");
-                    }
-                    messager.Write($"Other connections must be configured manually.");
+                    WriteReceivedSettingsToMessager(manager, $"Successfully loaded settings from key {key}");
                 });
             }
             catch (ValidationException ve)
@@ -338,8 +361,145 @@ namespace RandoSettingsManager.Menu
             }
         }
 
+        private void CreateTempProfileClick()
+        {
+            LockMenu();
+            messager.Clear();
+            messager.Write("Creating temporary profile...");
+
+            new Thread(DoCreateTempProfile).Start();
+        }
+
+        private void DoCreateTempProfile()
+        {
+            SettingsManager? manager = RandoSettingsManagerMod.Instance.settingsManager;
+            if (manager == null)
+            {
+                RandoSettingsManagerMod.Instance.LogError("SettingsManager was null when creating temp profile");
+                ThreadSupport.BeginInvoke(() =>
+                {
+                    messager.Clear();
+                    messager.Write($"An unexpected error occurred while creating a temporary profile.");
+                    UnlockMenu();
+                });
+                return;
+            }
+
+            try
+            {
+                string profileName = Guid.NewGuid().ToString();
+                string folderPath = Path.Combine(ProfilesDir, profileName);
+                IDirectory tmpDirectory = profiler.RootDirectory.CreateDirectory(profileName);
+
+                manager.SaveSettings(tmpDirectory, true, true);
+
+                FastZip z = new();
+                z.CreateZip(TempProfilePath, folderPath, true, "");
+
+                Directory.Delete(folderPath, true);
+                System.Diagnostics.Process.Start(ProfilesDir);
+
+                ThreadSupport.BeginInvoke(() =>
+                {
+                    messager.Clear();
+                    messager.Write($"Successfully wrote temp profile to {TempProfilePath}");
+                });
+            }
+            catch (Exception ex)
+            {
+                RandoSettingsManagerMod.Instance.LogError(ex);
+                ThreadSupport.BeginInvoke(() =>
+                {
+                    messager.Clear();
+                    messager.Write("An unexpected error occurred while creating a temporary profile.");
+                });
+            }
+            finally
+            {
+                ThreadSupport.BeginInvoke(UnlockMenu);
+            }
+        }
+
+        private void DoLoadTempProfile()
+        {
+            SettingsManager? manager = RandoSettingsManagerMod.Instance.settingsManager;
+            if (manager == null)
+            {
+                RandoSettingsManagerMod.Instance.LogError("SettingsManager was null when loading temp profile");
+                ThreadSupport.BeginInvoke(() =>
+                {
+                    messager.Clear();
+                    messager.Write($"An unexpected error occurred while loading a temporary profile.");
+                    UnlockMenu();
+                });
+                return;
+            }
+
+            try
+            {
+                string profileName = Guid.NewGuid().ToString();
+                string folderPath = Path.Combine(ProfilesDir, profileName);
+                IDirectory tmpDirectory = profiler.RootDirectory.CreateDirectory(profileName);
+
+                FastZip z = new();
+                z.ExtractZip(TempProfilePath, folderPath, "");
+
+                ThreadSupport.BlockUntilInvoked(() =>
+                {
+                    manager.LoadSettings(tmpDirectory, true);
+                });
+
+                Directory.Delete(folderPath, true);
+                File.Delete(TempProfilePath);
+
+                ThreadSupport.BeginInvoke(() =>
+                {
+                    WriteReceivedSettingsToMessager(manager, "Successfully loaded settings from the temporary profile!");
+                });
+            }
+            catch (ValidationException ve)
+            {
+                ThreadSupport.BeginInvoke(() =>
+                {
+                    messager.Clear();
+                    messager.WriteLine($"The settings loaded from the temporary profile failed validation!");
+                    messager.Write(ve.Message);
+                });
+            }
+            catch (Exception ex)
+            {
+                RandoSettingsManagerMod.Instance.LogError(ex);
+                ThreadSupport.BeginInvoke(() =>
+                {
+                    messager.Clear();
+                    messager.Write("An unexpected error occurred while loading a temporary profile.");
+                });
+            }
+            finally
+            {
+                ThreadSupport.BeginInvoke(UnlockMenu);
+            }
+        }
+
+        private void OnFileCreated(object sender, FileSystemEventArgs e)
+        {
+            RandoSettingsManagerMod.Instance.LogDebug($"Saw {e.Name} created");
+            // if the file is temp.zip, lock up and queue it for extraction
+            if (Path.GetFileName(e.Name) == tempProfileName)
+            {
+                ThreadSupport.BlockUntilInvoked(() =>
+                {
+                    LockMenu();
+                    messager.Clear();
+                    messager.Write($"Attempting to load temporary profile from {TempProfilePath}");
+                });
+                new Thread(DoLoadTempProfile).Start();
+            }
+        }
+
         private void LockMenu()
         {
+            tempWatcher.EnableRaisingEvents = false;
             quickShareCreate.Lock();
             quickShareLoad.Lock();
             manageProfiles.Lock();
@@ -356,6 +516,19 @@ namespace RandoSettingsManager.Menu
             createTempProfile.Unlock();
             navToClassic.Unlock();
             backButton.Unlock();
+            tempWatcher.EnableRaisingEvents = true;
+        }
+
+        private void WriteReceivedSettingsToMessager(SettingsManager manager, string statusMessage)
+        {
+            messager.Clear();
+            messager.WriteLine(statusMessage);
+            messager.Write($"Settings were received for {ListJoin(manager.LastReceivedMods)}. ");
+            if (manager.LastModsReceivedWithoutSettings.Count > 0)
+            {
+                messager.Write($"{ListJoin(manager.LastModsReceivedWithoutSettings)} received no settings and were disabled. ");
+            }
+            messager.Write($"Other connections must be configured manually.");
         }
 
         private static void VisitSettingsPageForCurrentMode(SmallButton sender, MenuPage classic, MenuPage modern)

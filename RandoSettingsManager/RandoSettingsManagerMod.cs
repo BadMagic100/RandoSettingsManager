@@ -1,15 +1,8 @@
-﻿using MenuChanger;
-using MenuChanger.MenuElements;
-using Modding;
-using RandomizerMod.Menu;
+﻿using Modding;
 using RandoSettingsManager.Menu;
 using RandoSettingsManager.SettingsManagement;
-using RandoSettingsManager.SettingsManagement.Filer.Disk;
-using RandoSettingsManager.SettingsManagement.Filer.Tar;
 using RandoSettingsManager.Testing;
 using System;
-using System.IO;
-using UnityEngine;
 
 namespace RandoSettingsManager
 {
@@ -17,9 +10,6 @@ namespace RandoSettingsManager
     {
         internal SettingsManager? settingsManager;
         private static RandoSettingsManagerMod? _instance;
-
-        private static readonly string presetPath = Path.Combine(Application.persistentDataPath, "Randomizer 4", "Presets");
-        private static readonly DiskFiler dFiler = new(presetPath);
 
         public GlobalSettings GS { get; private set; } = new();
 
@@ -50,44 +40,7 @@ namespace RandoSettingsManager
             SettingsMenu.HookMenu();
             RegisterConnection(new TestSettingsProxy());
 
-            RandomizerMenuAPI.AddMenuPage((page) => { }, MockSendSettings);
-            RandomizerMenuAPI.AddMenuPage((page) => { }, MockReceiveSettings);
-
             Log("Initialized");
-        }
-
-        private bool MockSendSettings(MenuPage landingPage, out SmallButton button)
-        {
-            button = new SmallButton(landingPage, "Send Settings");
-            button.OnClick += () =>
-            {
-                //settingsManager?.SaveSettings(dFiler.RootDirectory.CreateDirectory("Preset1"), true, true);
-
-                FileStream fs = File.Create(Path.Combine(presetPath, "Preset1.tar.gz"));
-                TgzFiler tf = TgzFiler.CreateForWrite();
-                settingsManager?.SaveSettings(tf.RootDirectory, true, true);
-                tf.WriteAll(fs);
-                fs.Close();
-
-                Log("Sent settings");
-            };
-            return true;
-        }
-
-        private bool MockReceiveSettings(MenuPage landingPage, out SmallButton button)
-        {
-            button = new SmallButton(landingPage, "Receive Settings");
-            button.OnClick += () =>
-            {
-                //settingsManager?.LoadSettings(dFiler.RootDirectory.CreateDirectory("Preset1"), true);
-
-                FileStream fs = File.OpenRead(Path.Combine(presetPath, "Preset1.tar.gz"));
-                TgzFiler tf = TgzFiler.LoadFromStream(fs);
-                settingsManager?.LoadSettings(tf.RootDirectory, true);
-
-                Log("Received settings");
-            };
-            return true;
         }
 
         public void RegisterConnection<TSettings, TVersion>(RandoSettingsProxy<TSettings, TVersion> settingsProxy)
