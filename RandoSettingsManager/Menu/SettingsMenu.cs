@@ -1,5 +1,6 @@
 ﻿using ICSharpCode.SharpZipLib.Zip;
 using MenuChanger;
+using MenuChanger.Extensions;
 using MenuChanger.MenuElements;
 using MenuChanger.MenuPanels;
 using Modding;
@@ -30,7 +31,7 @@ namespace RandoSettingsManager.Menu
         {
             Timeout = TimeSpan.FromSeconds(30)
         };
-        private static readonly string ProfilesDir = Path.Combine(Application.persistentDataPath, "Randomizer 4", "Profiles");
+        public static readonly string ProfilesDir = Path.Combine(Application.persistentDataPath, "Randomizer 4", "Profiles");
         private static readonly string TempProfilePath = Path.Combine(ProfilesDir, tempProfileName);
         private static readonly DiskFiler profiler = new(ProfilesDir);
 
@@ -78,6 +79,8 @@ namespace RandoSettingsManager.Menu
         private (SmallButton, SmallButton, SmallButton, SmallButton, SmallButton, Messager) 
             BuildManagePage(MenuPage classic, MenuPage modern)
         {
+            ProfilesPage profiles = new(modern);
+
             SmallButton navToClassic = new(modern, "Classic Settings Management");
             navToClassic.MoveTo(new(0, -450 + SpaceParameters.VSPACE_SMALL));
             modern.ReplaceNavigation(new HorizontalNavWithItemAboveBackButton(modern, navToClassic));
@@ -102,6 +105,7 @@ namespace RandoSettingsManager.Menu
             SmallButton manageProfiles = new(modern, "Manage Profiles");
             SmallButton createTempProfile = new(modern, "Create Temporary Profile");
 
+            manageProfiles.AddHideAndShowEvent(profiles.RootPage);
             createTempProfile.OnClick += CreateTempProfileClick;
 
             VerticalItemPanel profileVip = new(modern, Vector2.zero, SpaceParameters.VSPACE_SMALL, false,
@@ -130,6 +134,17 @@ namespace RandoSettingsManager.Menu
             {
                 messager.Clear();
                 tempWatcher.EnableRaisingEvents = false;
+                try
+                {
+                    if (File.Exists(TempProfilePath))
+                    {
+                        File.Delete(TempProfilePath);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    RandoSettingsManagerMod.Instance.LogWarn($"Failed to delete temp profile: {ex}");
+                }
             };
 
             new GridItemPanel(modern, SpaceParameters.TOP_CENTER_UNDER_TITLE + new Vector2(0, -SpaceParameters.VSPACE_MEDIUM),
@@ -420,6 +435,22 @@ namespace RandoSettingsManager.Menu
             }
         }
 
+        private void OnFileCreated(object sender, FileSystemEventArgs e)
+        {
+            RandoSettingsManagerMod.Instance.LogDebug($"Saw {e.Name} created");
+            // if the file is temp.zip, lock up and queue it for extraction
+            if (Path.GetFileName(e.Name) == tempProfileName)
+            {
+                ThreadSupport.BlockUntilInvoked(() =>
+                {
+                    LockMenu();
+                    messager.Clear();
+                    messager.Write($"Attempting to load temporary profile from {TempProfilePath}");
+                });
+                new Thread(DoLoadTempProfile).Start();
+            }
+        }
+
         private void DoLoadTempProfile()
         {
             SettingsManager? manager = RandoSettingsManagerMod.Instance.settingsManager;
@@ -478,22 +509,6 @@ namespace RandoSettingsManager.Menu
             finally
             {
                 ThreadSupport.BeginInvoke(UnlockMenu);
-            }
-        }
-
-        private void OnFileCreated(object sender, FileSystemEventArgs e)
-        {
-            RandoSettingsManagerMod.Instance.LogDebug($"Saw {e.Name} created");
-            // if the file is temp.zip, lock up and queue it for extraction
-            if (Path.GetFileName(e.Name) == tempProfileName)
-            {
-                ThreadSupport.BlockUntilInvoked(() =>
-                {
-                    LockMenu();
-                    messager.Clear();
-                    messager.Write($"Attempting to load temporary profile from {TempProfilePath}");
-                });
-                new Thread(DoLoadTempProfile).Start();
             }
         }
 
