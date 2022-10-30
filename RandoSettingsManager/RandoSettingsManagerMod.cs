@@ -1,14 +1,13 @@
 ﻿using Modding;
 using RandoSettingsManager.Menu;
 using RandoSettingsManager.SettingsManagement;
-using RandoSettingsManager.Testing;
 using System;
 
 namespace RandoSettingsManager
 {
     public class RandoSettingsManagerMod : Mod, IGlobalSettings<GlobalSettings>
     {
-        internal SettingsManager? settingsManager;
+        internal SettingsManager settingsManager = new();
         private static RandoSettingsManagerMod? _instance;
 
         public GlobalSettings GS { get; private set; } = new();
@@ -38,15 +37,13 @@ namespace RandoSettingsManager
 
             // create menus and such
             SettingsMenu.HookMenu();
-            RegisterConnection(new TestSettingsProxy());
+            //RegisterConnection(new TestSettingsProxy());
 
             Log("Initialized");
         }
 
         public void RegisterConnection<TSettings, TVersion>(RandoSettingsProxy<TSettings, TVersion> settingsProxy)
         {
-            settingsManager ??= new SettingsManager();
-
             settingsManager.Register(settingsProxy.ModKey, new ProxyMetadata(settingsProxy, settingsProxy.VersioningPolicy));
         }
 

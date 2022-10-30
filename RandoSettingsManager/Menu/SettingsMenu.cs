@@ -182,18 +182,7 @@ namespace RandoSettingsManager.Menu
 
         private void DoCreateSettings()
         {
-            SettingsManager? manager = RandoSettingsManagerMod.Instance.settingsManager;
-            if (manager == null)
-            {
-                RandoSettingsManagerMod.Instance.LogError("SettingsManager was null when creating settings");
-                ThreadSupport.BeginInvoke(() =>
-                {
-                    messager.Clear();
-                    messager.Write($"An unexpected error occurred while creating settings key.");
-                    UnlockMenu();
-                });
-                return;
-            }
+            SettingsManager manager = RandoSettingsManagerMod.Instance.settingsManager;
 
             byte[] settings;
             try
@@ -282,18 +271,7 @@ namespace RandoSettingsManager.Menu
 
         private void DoLoadSettings(string key)
         {
-            SettingsManager? manager = RandoSettingsManagerMod.Instance.settingsManager;
-            if (manager == null)
-            {
-                RandoSettingsManagerMod.Instance.LogError("SettingsManager was null when loading settings");
-                ThreadSupport.BeginInvoke(() =>
-                {
-                    messager.Clear();
-                    messager.Write($"An unexpected error occurred loading settings from key {key}");
-                    UnlockMenu();
-                });
-                return;
-            }
+            SettingsManager manager = RandoSettingsManagerMod.Instance.settingsManager;
 
             byte[] settings;
             try
@@ -387,18 +365,7 @@ namespace RandoSettingsManager.Menu
 
         private void DoCreateTempProfile()
         {
-            SettingsManager? manager = RandoSettingsManagerMod.Instance.settingsManager;
-            if (manager == null)
-            {
-                RandoSettingsManagerMod.Instance.LogError("SettingsManager was null when creating temp profile");
-                ThreadSupport.BeginInvoke(() =>
-                {
-                    messager.Clear();
-                    messager.Write($"An unexpected error occurred while creating a temporary profile.");
-                    UnlockMenu();
-                });
-                return;
-            }
+            SettingsManager manager = RandoSettingsManagerMod.Instance.settingsManager;
 
             try
             {
@@ -453,18 +420,7 @@ namespace RandoSettingsManager.Menu
 
         private void DoLoadTempProfile()
         {
-            SettingsManager? manager = RandoSettingsManagerMod.Instance.settingsManager;
-            if (manager == null)
-            {
-                RandoSettingsManagerMod.Instance.LogError("SettingsManager was null when loading temp profile");
-                ThreadSupport.BeginInvoke(() =>
-                {
-                    messager.Clear();
-                    messager.Write($"An unexpected error occurred while loading a temporary profile.");
-                    UnlockMenu();
-                });
-                return;
-            }
+            SettingsManager manager = RandoSettingsManagerMod.Instance.settingsManager;
 
             try
             {

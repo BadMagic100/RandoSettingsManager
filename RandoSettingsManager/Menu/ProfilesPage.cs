@@ -184,13 +184,7 @@ namespace RandoSettingsManager.Menu
                 return;
             }
 
-            SettingsManager? manager = RandoSettingsManagerMod.Instance.settingsManager;
-            if (manager == null)
-            {
-                RandoSettingsManagerMod.Instance.LogError("SettingsManager was null when creating profile.");
-                createProfileStatus.Text.text = "Failed to save settings";
-                return;
-            }
+            SettingsManager manager = RandoSettingsManagerMod.Instance.settingsManager;
 
             try
             {
@@ -208,13 +202,7 @@ namespace RandoSettingsManager.Menu
 
         private void LoadSettings()
         {
-            SettingsManager? manager = RandoSettingsManagerMod.Instance.settingsManager;
-            if (manager == null)
-            {
-                RandoSettingsManagerMod.Instance.LogError("SettingsManager was null when loading profile.");
-                editProfileStatus.Text.text = "Failed to load";
-                return;
-            }
+            SettingsManager manager = RandoSettingsManagerMod.Instance.settingsManager;
 
             string dir = Path.Combine(SettingsMenu.ProfilesDir, selectedProfile);
             if (!Directory.Exists(dir))
@@ -240,13 +228,7 @@ namespace RandoSettingsManager.Menu
 
         private void OverwriteSettings()
         {
-            SettingsManager? manager = RandoSettingsManagerMod.Instance.settingsManager;
-            if (manager == null)
-            {
-                RandoSettingsManagerMod.Instance.LogError("SettingsManager was null when saving profile.");
-                editProfileStatus.Text.text = "Failed to save settings";
-                return;
-            }
+            SettingsManager manager = RandoSettingsManagerMod.Instance.settingsManager;
 
             try
             {
