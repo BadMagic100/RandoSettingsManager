@@ -10,13 +10,19 @@ using System.Text;
 
 namespace RandoSettingsManager
 {
+    /// <summary>
+    /// Mod class for RandoSettingsManager which provides an API interface for connections to hook into settings events
+    /// </summary>
     public class RandoSettingsManagerMod : Mod, IGlobalSettings<GlobalSettings>
     {
         internal SettingsManager settingsManager = new();
         private static RandoSettingsManagerMod? _instance;
 
-        public GlobalSettings GS { get; private set; } = new();
+        internal GlobalSettings GS { get; private set; } = new();
 
+        /// <summary>
+        /// Singleton instance of the mod
+        /// </summary>
         public static RandoSettingsManagerMod Instance
         {
             get
@@ -29,13 +35,16 @@ namespace RandoSettingsManager
             }
         }
 
+        /// <inheritdoc/>
         public override string GetVersion() => GetType().Assembly.GetName().Version.ToString();
 
+        /// <inheritdoc/>
         public RandoSettingsManagerMod() : base("RandoSettingsManager")
         {
             _instance = this;
         }
 
+        /// <inheritdoc/>
         public override void Initialize()
         {
             Log("Initializing");
@@ -74,13 +83,19 @@ namespace RandoSettingsManager
             Log("Initialized");
         }
 
+        /// <summary>
+        /// Registers a connection mod for settings events
+        /// </summary>
+        /// <typeparam name="TSettings">The type used to store settings</typeparam>
+        /// <typeparam name="TVersion">The type used to store version information</typeparam>
+        /// <param name="settingsProxy">The settings proxy hosting event handlers and version information</param>
         public void RegisterConnection<TSettings, TVersion>(RandoSettingsProxy<TSettings, TVersion> settingsProxy)
         {
             settingsManager.Register(settingsProxy.ModKey, new ProxyMetadata(settingsProxy, settingsProxy.VersioningPolicy));
         }
 
-        public void OnLoadGlobal(GlobalSettings s) => GS = s;
+        void IGlobalSettings<GlobalSettings>.OnLoadGlobal(GlobalSettings s) => GS = s;
 
-        public GlobalSettings OnSaveGlobal() => GS;
+        GlobalSettings IGlobalSettings<GlobalSettings>.OnSaveGlobal() => GS;
     }
 }

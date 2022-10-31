@@ -3,7 +3,7 @@ using System.Text;
 
 namespace RandoSettingsManager.Model
 {
-    public class RetrieveSettingsInput
+    internal class RetrieveSettingsInput
     {
         public string? SettingsKey { get; set; }
 
@@ -19,7 +19,7 @@ namespace RandoSettingsManager.Model
         }
     }
 
-    public class RetrieveSettingsOutput
+    internal class RetrieveSettingsOutput
     {
         public bool Found { get; set; } = false;
 

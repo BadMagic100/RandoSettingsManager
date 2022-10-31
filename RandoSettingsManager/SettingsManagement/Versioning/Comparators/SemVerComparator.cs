@@ -3,14 +3,23 @@ using System.Linq;
 
 namespace RandoSettingsManager.SettingsManagement.Versioning.Comparators
 {
+    /// <summary>
+    /// A comparer which implements semantic version comparison.
+    /// </summary>
     public class SemVerComparator : Comparer<string>
     {
         readonly string? suffixSeparator;
+
+        /// <summary>
+        /// Constructs a SemVerComparer
+        /// </summary>
+        /// <param name="suffixSeparator">A string to use to remove suffixes, eg + for a mod versioned like X.Y.Z.W+hash</param>
         public SemVerComparator(string? suffixSeparator = null)
         {
             this.suffixSeparator = suffixSeparator;
         }
 
+        /// <inheritdoc/>
         public override int Compare(string x, string y)
         {
             string x1 = RemoveSuffix(x);

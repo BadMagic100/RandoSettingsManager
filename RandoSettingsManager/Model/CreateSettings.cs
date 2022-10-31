@@ -1,6 +1,6 @@
 ﻿namespace RandoSettingsManager.Model
 {
-    public class CreateSettingsInput
+    internal class CreateSettingsInput
     {
         /// <summary>
         /// Base64 encoded settings data
@@ -8,7 +8,7 @@
         public string? Settings { get; set; }
     }
 
-    public class CreateSettingsOutput
+    internal class CreateSettingsOutput
     {
         public string SettingsKey { get; set; }
 
