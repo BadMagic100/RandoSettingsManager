@@ -30,9 +30,8 @@ namespace RandoSettingsManager.SettingsManagement
             metadata[key] = md;
         }
 
-        public void SaveSettings(IDirectory targetDir, bool storeVersion, bool storeSeed)
+        public void WriteRandoProfile(IDirectory targetDir, bool storeVersion, bool storeSeed, GenerationSettings gs)
         {
-            GenerationSettings gs = (GenerationSettings)RandomizerMod.RandomizerMod.GS.DefaultMenuSettings.Clone();
             if (!storeSeed)
             {
                 gs.Seed = int.MinValue;
@@ -44,6 +43,12 @@ namespace RandoSettingsManager.SettingsManagement
                 IFile version = targetDir.CreateFile(VERSION_TXT);
                 version.WriteContent(randoVersionPolicy.SerializedVersion);
             }
+        }
+
+        public void SaveSettings(IDirectory targetDir, bool storeVersion, bool storeSeed)
+        {
+            GenerationSettings gs = (GenerationSettings)RandomizerMod.RandomizerMod.GS.DefaultMenuSettings.Clone();
+            WriteRandoProfile(targetDir, storeVersion, storeSeed, gs);
 
             LastSentMods.Clear();
             LastSentMods.Add("Randomizer 4");

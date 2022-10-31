@@ -11,6 +11,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace RandoSettingsManager.Menu
 {
@@ -70,14 +72,15 @@ namespace RandoSettingsManager.Menu
             // create page
 
             createNameEntry = new(createPage, "Profile Name");
-            createNameEntry.InputField.characterLimit = 100;
-            createNameEntry.InputField.lineType = UnityEngine.UI.InputField.LineType.SingleLine;
+            createNameEntry.InputField.characterLimit = 30;
+            createNameEntry.InputField.lineType = InputField.LineType.SingleLine;
+            createNameEntry.InputField.textComponent.rectTransform.sizeDelta = new Vector2(700, 800);
             createNameEntry.ModifyInputString += MakeLegalFilename;
 
-            SmallButton save = new(createPage, "Save Profile");
+            SmallButton save = new(createPage, "Create Profile");
             save.OnClick += CreateProfile;
             createProfileStatus = new MenuLabel(createPage, "", MenuLabel.Style.Body);
-            createProfileStatus.Text.alignment = UnityEngine.TextAnchor.UpperCenter;
+            createProfileStatus.Text.alignment = TextAnchor.UpperCenter;
 
             VerticalItemPanel createVip = new(createPage, SpaceParameters.TOP_CENTER_UNDER_TITLE, 
                 SpaceParameters.VSPACE_MEDIUM, true,
@@ -91,8 +94,9 @@ namespace RandoSettingsManager.Menu
             // edit page
 
             editNameEntry = new(editPage, "Profile Name");
-            editNameEntry.InputField.characterLimit = 100;
-            editNameEntry.InputField.lineType = UnityEngine.UI.InputField.LineType.SingleLine;
+            editNameEntry.InputField.characterLimit = 30;
+            editNameEntry.InputField.lineType = InputField.LineType.SingleLine;
+            editNameEntry.InputField.textComponent.rectTransform.sizeDelta = new Vector2(700, 800);
             editNameEntry.ModifyInputString += MakeLegalFilename;
 
             SmallButton load = new(editPage, "Load Profile");
@@ -102,7 +106,7 @@ namespace RandoSettingsManager.Menu
             SmallButton delete = new(editPage, "Delete Profile");
             delete.OnClick += DeleteSettings;
             editProfileStatus = new MenuLabel(editPage, "", MenuLabel.Style.Body);
-            editProfileStatus.Text.alignment = UnityEngine.TextAnchor.UpperCenter;
+            editProfileStatus.Text.alignment = TextAnchor.UpperCenter;
 
             VerticalItemPanel editVip = new(editPage, SpaceParameters.TOP_CENTER_UNDER_TITLE, 
                 SpaceParameters.VSPACE_MEDIUM, true,
