@@ -19,7 +19,7 @@ namespace RandoSettingsManager.SettingsManagement
         const string VERSION_TXT = "version.txt";
 
         readonly Dictionary<string, ProxyMetadata> metadata = new();
-        readonly ISerializableVersioningPolicy randoVersionPolicy = new StrictModVersioningPolicy((Mod)ModHooks.GetMod("Randomizer 4"));
+        ISerializableVersioningPolicy? randoVersionPolicy;
 
         public List<string> LastSentMods { get; } = new();
         public List<string> LastReceivedMods { get; } = new();
@@ -41,6 +41,7 @@ namespace RandoSettingsManager.SettingsManagement
             if (storeVersion)
             {
                 IFile version = targetDir.CreateFile(VERSION_TXT);
+                randoVersionPolicy ??= new StrictModVersioningPolicy((Mod)ModHooks.GetMod("Randomizer 4"));
                 version.WriteContent(randoVersionPolicy.SerializedVersion);
             }
         }
@@ -95,6 +96,8 @@ namespace RandoSettingsManager.SettingsManagement
 
             if (checkVersion)
             {
+                randoVersionPolicy ??= new StrictModVersioningPolicy((Mod)ModHooks.GetMod("Randomizer 4"));
+
                 string receivedRandoVersion;
                 if (sourceDir.GetFile(VERSION_TXT) is not IFile randoVersion)
                 {
