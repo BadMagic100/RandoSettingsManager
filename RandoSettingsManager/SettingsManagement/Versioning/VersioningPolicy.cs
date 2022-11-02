@@ -5,6 +5,25 @@ namespace RandoSettingsManager.SettingsManagement.Versioning
     /// <summary>
     /// A policy to determine what the current version is, and whether a received version is allowable
     /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Versioning is used as an early validation mechanism for settings sharing. Changes to settings themselves,
+    /// or logic (or anything else hash-impacting) should result in a change in version. Long-lived profiles are
+    /// never version-checked.
+    /// </para>
+    /// 
+    /// <para>
+    /// When choosing or implementing a versioning policy consider that, for any pair of builds of the same mod,
+    /// the versioning policies should symmetrically accept or reject the version provided by the other build.
+    /// A version should be accepted if and only if it can be verified that any possible settings sent by the
+    /// sender will generate the same hash when applied, based on the sent version.
+    /// </para>
+    /// 
+    /// <para>
+    /// When in doubt, prefer a stricter policy. <see cref="StrictModVersioningPolicy"/> is the most strict
+    /// policy available in this library.
+    /// </para>
+    /// </remarks>
     /// <typeparam name="T">The type used to store version info</typeparam>
     public abstract class VersioningPolicy<T> : ISerializableVersioningPolicy
     {
@@ -25,9 +44,10 @@ namespace RandoSettingsManager.SettingsManagement.Versioning
         bool ISerializableVersioningPolicy.AllowSerialized(string version)
         {
             T? ver = JsonConvert.DeserializeObject<T>(version);
+            // if we're unable to recognize the type, of course we cannot allow the provided version
             if (ver == null)
             {
-                throw new JsonSerializationException($"Failed to deserialize version for {GetType()}: {version}");
+                return false;
             }
             return Allow(ver);
         }

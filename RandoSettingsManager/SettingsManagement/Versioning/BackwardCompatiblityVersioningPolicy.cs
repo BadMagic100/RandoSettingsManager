@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace RandoSettingsManager.SettingsManagement.Versioning
 {
@@ -6,6 +7,7 @@ namespace RandoSettingsManager.SettingsManagement.Versioning
     /// A versioning policy which guarantees backwards compatibility until a given target version.
     /// </summary>
     /// <typeparam name="T">The type to store version</typeparam>
+    [Obsolete("Prefer EqualityVersioningPolicy instead, it's the same but named better")]
     public class BackwardCompatiblityVersioningPolicy<T> : VersioningPolicy<T>
     {
         private readonly Comparer<T> versionComparer;
@@ -35,9 +37,10 @@ namespace RandoSettingsManager.SettingsManagement.Versioning
         /// <inheritdoc/>
         public override bool Allow(T version)
         {
-            // allow the settings if the provided version (version) is at least as new as
-            // the target version (Version)
-            return versionComparer.Compare(version, Version) != -1;
+            // allow the settings if the provided version (version) is the same as the
+            // target version (Version). Compatible versions in the future are "rolled back"
+            // in the constructor
+            return versionComparer.Compare(version, Version) == 0;
         }
     }
 }
