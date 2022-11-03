@@ -1,0 +1,15 @@
+apiRules:
+- include:
+    uidRegex: ^RandoSettingsManager\.RandoSettingsManagerMod$
+- exclude:
+    uidRegex: ^RandoSettingsManager\.GlobalSettings$
+- exclude:
+    uidRegex: ^RandoSettingsManager\.SettingsManagementMode$
+- include:
+    uidRegex: ^RandoSettingsManager\.RandoSettingsManagerMod\.RegisterConnection
+- exclude:
+    uidRegex: ^RandoSettingsManager\.RandoSettingsManagerMod\.
+    type: Method
+- exclude:
+    hasAttribute:
+        uid: System.ObsoleteAttribute
