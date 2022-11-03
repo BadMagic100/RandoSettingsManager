@@ -1,4 +1,5 @@
-# This is the **HOMEPAGE**.
-Refer to [Markdown](http://daringfireball.net/projects/markdown/) for how to write markdown files.
-## Quick Start Notes:
-1. Add images to the *images* folder if the file is referencing an image.
+# RandoSettingsManager
+
+This is the documentation homepage for RandoSettingsManger, a Hollow Knight mod that reimplements and extends Randomizer's settings sharing and preset management with rich support for connection mods.
+
+API documentation is available from the link above. There will probably be article content at some point as well.
