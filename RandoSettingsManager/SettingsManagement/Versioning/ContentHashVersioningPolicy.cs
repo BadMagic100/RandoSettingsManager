@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System.IO;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace RandoSettingsManager.SettingsManagement.Versioning
@@ -16,6 +17,23 @@ namespace RandoSettingsManager.SettingsManagement.Versioning
         /// </summary>
         /// <param name="content">The content to hash</param>
         public ContentHashVersioningPolicy(byte[] content)
+        {
+            using SHA1Managed sha1 = new();
+
+            byte[] hash = sha1.ComputeHash(content);
+            StringBuilder sb = new(hash.Length * 2);
+            foreach (byte b in hash)
+            {
+                sb.Append(b.ToString("X2"));
+            }
+            Version = sb.ToString();
+        }
+
+        /// <summary>
+        /// Constructs a policy based off of the provided content
+        /// </summary>
+        /// <param name="content">The content to hash</param>
+        public ContentHashVersioningPolicy(Stream content)
         {
             using SHA1Managed sha1 = new();
 
