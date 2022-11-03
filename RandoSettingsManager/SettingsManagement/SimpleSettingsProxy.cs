@@ -1,7 +1,8 @@
 ﻿using Modding;
+using RandoSettingsManager.SettingsManagement.Versioning;
 using System;
 
-namespace RandoSettingsManager.SettingsManagement.Versioning
+namespace RandoSettingsManager.SettingsManagement
 {
     /// <summary>
     /// A simple settings proxy implementing strict versioning and standard naming

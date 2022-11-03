@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 using RandoSettingsManager.SettingsManagement.Versioning;
 
 namespace RandoSettingsManager.SettingsManagement
@@ -49,7 +51,7 @@ namespace RandoSettingsManager.SettingsManagement
         {
             if (TryProvideSettings(out TSettings? s))
             {
-                settings = JsonConvert.SerializeObject(s);
+                settings = JsonConvert.SerializeObject(s, new StringEnumConverter(new DefaultNamingStrategy()));
                 return true;
             }
             else
@@ -67,7 +69,8 @@ namespace RandoSettingsManager.SettingsManagement
                 return;
             }
             
-            TSettings? s = JsonConvert.DeserializeObject<TSettings>(settings);
+            TSettings? s = JsonConvert.DeserializeObject<TSettings>(settings, 
+                new StringEnumConverter(new DefaultNamingStrategy()));
             if (s == null)
             {
                 // don't throw here - there are several reasons why settings may fail to deserialize under normal circumstances, such as

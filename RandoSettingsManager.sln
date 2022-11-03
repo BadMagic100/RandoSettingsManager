@@ -3,11 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandoSettingsManager", "RandoSettingsManager\RandoSettingsManager.csproj", "{821F4514-D4DF-417F-B381-B7A45A3418B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RandoSettingsManager", "RandoSettingsManager\RandoSettingsManager.csproj", "{821F4514-D4DF-417F-B381-B7A45A3418B5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution Files", "{9269A67B-E694-4A4A-970D-B02A64346F0C}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\build.yml = .github\workflows\build.yml
+		.github\workflows\pages.yml = .github\workflows\pages.yml
 		README.md = README.md
 	EndProjectSection
 EndProject
