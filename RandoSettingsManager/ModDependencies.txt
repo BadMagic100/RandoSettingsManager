@@ -1,4 +1,4 @@
 ItemChanger
-MenuChanger from https://files.catbox.moe/0sa0nc.zip
+MenuChanger
 Randomizer 4
 RandomizerCore
