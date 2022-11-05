@@ -1,6 +1,7 @@
 ﻿using ICSharpCode.SharpZipLib.Tar;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace RandoSettingsManager.SettingsManagement.Filer.Tar
 {
@@ -57,6 +58,41 @@ namespace RandoSettingsManager.SettingsManagement.Filer.Tar
         public IEnumerable<IDirectory> ListDirectories() => dirs.Values;
 
         public IEnumerable<IFile> ListFiles() => files.Values;
+
+        internal void ReleaseSubdirectory(string name)
+        {
+            dirs.Remove(name);
+        }
+
+        internal void ReleaseFile(string name)
+        {
+            files.Remove(name);
+        }
+
+        public void Delete(bool recursive)
+        {
+            if (!recursive && (dirs.Any() || files.Any()))
+            {
+                throw new IOException("Cannot delete a non-empty directory non-recursively");
+            }
+
+            Clear(recursive);
+            (Parent as TarDirectory)?.ReleaseSubdirectory(Name);
+        }
+
+        public void Clear(bool recursiveDeletes)
+        {
+            foreach (IDirectory d in dirs.Values)
+            {
+                d.Delete(recursiveDeletes);
+            }
+            foreach (IFile f in files.Values)
+            {
+                f.Delete();
+            }
+            dirs.Clear();
+            files.Clear();
+        }
 
         public void Persist(TarOutputStream target)
         {

@@ -41,6 +41,11 @@ namespace RandoSettingsManager.SettingsManagement.Filer.Tar
 
         public void WriteContent(string content) => this.content = content;
 
+        public void Delete()
+        {
+            (Parent as TarDirectory)?.ReleaseFile(Name);
+        }
+
         public void Persist(TarOutputStream target)
         {
             string path = this.TarPath();

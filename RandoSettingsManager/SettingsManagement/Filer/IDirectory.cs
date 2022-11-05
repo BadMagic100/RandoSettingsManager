@@ -15,5 +15,8 @@ namespace RandoSettingsManager.SettingsManagement.Filer
 
         public IFile CreateFile(string name);
         public IDirectory CreateDirectory(string name);
+
+        public void Delete(bool recursive);
+        public void Clear(bool recursiveDeletes);
     }
 }

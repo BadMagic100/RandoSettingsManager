@@ -8,5 +8,7 @@
 
         public void WriteContent(string content);
         public string ReadContent();
+
+        public void Delete();
     }
 }

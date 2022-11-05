@@ -71,5 +71,22 @@ namespace RandoSettingsManager.SettingsManagement.Filer.Disk
                 yield return new DiskFile(f);
             }
         }
+
+        public void Delete(bool recursive)
+        {
+            dir.Delete(recursive);
+        }
+
+        public void Clear(bool recursiveDeletes)
+        {
+            foreach (IDirectory d in ListDirectories())
+            {
+                d.Delete(recursiveDeletes);
+            }
+            foreach (IFile f in ListFiles())
+            {
+                f.Delete();
+            }
+        }
     }
 }

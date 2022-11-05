@@ -39,5 +39,10 @@ namespace RandoSettingsManager.SettingsManagement.Filer.Disk
             using StreamWriter sw = f.CreateText();
             sw.Write(content);
         }
+
+        public void Delete()
+        {
+            f.Delete();
+        }
     }
 }

@@ -2,7 +2,10 @@
 using MenuChanger.Extensions;
 using MenuChanger.MenuElements;
 using MenuChanger.MenuPanels;
+using Modding;
+using RandomizerMod.Menu;
 using RandoSettingsManager.SettingsManagement;
+using RandoSettingsManager.SettingsManagement.Filer;
 using RandoSettingsManager.SettingsManagement.Filer.Disk;
 using System;
 using System.Collections.Generic;
@@ -36,6 +39,8 @@ namespace RandoSettingsManager.Menu
 
         public MenuPage RootPage { get; }
 
+        private readonly MenuPage randoHomePage;
+
         private readonly MultiGridItemPanel profilePanel;
         private readonly SmallButton newProfile;
 
@@ -51,6 +56,9 @@ namespace RandoSettingsManager.Menu
 
         public ProfilesPage(MenuPage parent)
         {
+            randoHomePage = ReflectionHelper.GetField<RandomizerMenu, MenuPage>(
+                RandomizerMenuAPI.Menu, "StartPage");
+
             RootPage = new("RandoSettingsManager Manage Profiles Page", parent);
             editPage = new("RandoSettingsManager Edit Profile Page", RootPage);
             createPage = new("RandoSettingsManager Create Profile Page", RootPage);
@@ -237,7 +245,9 @@ namespace RandoSettingsManager.Menu
             try
             {
                 string path = Path.Combine(SettingsMenu.ProfilesDir, selectedProfile);
-                manager.SaveSettings(new DiskFiler(path).RootDirectory, false, false);
+                IDirectory dir = new DiskFiler(path).RootDirectory;
+                dir.Clear(true);
+                manager.SaveSettings(dir, false, false);
                 editProfileStatus.Text.text = "Saved successfully!";
             }
             catch (Exception ex)
@@ -252,10 +262,7 @@ namespace RandoSettingsManager.Menu
             try
             {
                 string path = Path.Combine(SettingsMenu.ProfilesDir, selectedProfile);
-                if (Directory.Exists(path))
-                {
-                    Directory.Delete(path, true);
-                }
+                new DiskFiler(path).RootDirectory.Delete(true);
                 editPage.Hide();
                 editPage.backTo.Show();
             }
