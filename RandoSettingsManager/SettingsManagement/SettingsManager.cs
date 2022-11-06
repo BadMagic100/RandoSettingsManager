@@ -148,6 +148,7 @@ namespace RandoSettingsManager.SettingsManagement
             }
 
             LastReceivedMods.Clear();
+            LastModsReceivedWithoutSettings.Clear();
 
             ReflectionHelper.CallMethod(RandomizerMenuAPI.Menu, "ApplySettingsToMenu", randoSettings);
             if (randoSettings!.Seed != int.MinValue)

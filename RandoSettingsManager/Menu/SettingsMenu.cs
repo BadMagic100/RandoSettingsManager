@@ -339,6 +339,15 @@ namespace RandoSettingsManager.Menu
                     messager.Write(ve.Message);
                 });
             }
+            catch (Exception ex) when (ex.InnerException is ValidationException ve)
+            {
+                ThreadSupport.BeginInvoke(() =>
+                {
+                    messager.Clear();
+                    messager.WriteLine($"The settings provided by key {key} failed validation!");
+                    messager.Write(ve.Message);
+                });
+            }
             catch (Exception ex)
             {
                 RandoSettingsManagerMod.Instance.LogError(ex);
@@ -445,6 +454,15 @@ namespace RandoSettingsManager.Menu
                 });
             }
             catch (ValidationException ve)
+            {
+                ThreadSupport.BeginInvoke(() =>
+                {
+                    messager.Clear();
+                    messager.WriteLine($"The settings loaded from the temporary profile failed validation!");
+                    messager.Write(ve.Message);
+                });
+            }
+            catch (Exception ex) when (ex.InnerException is ValidationException ve)
             {
                 ThreadSupport.BeginInvoke(() =>
                 {
