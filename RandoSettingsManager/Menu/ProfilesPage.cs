@@ -53,6 +53,7 @@ namespace RandoSettingsManager.Menu
         private readonly MenuLabel editProfileStatus;
 
         private string? selectedProfile;
+        private bool shouldGoToHomePage = false;
 
         public ProfilesPage(MenuPage parent)
         {
@@ -120,6 +121,20 @@ namespace RandoSettingsManager.Menu
                 SpaceParameters.VSPACE_MEDIUM, true,
                 editNameEntry, load, overwrite, delete, editProfileStatus);
             editPage.AfterHide += RenameProfile;
+            editPage.backButton.OnClick -= editPage.GoBack;
+            editPage.backButton.OnClick += CustomGoBack;
+        }
+
+        private void CustomGoBack()
+        {
+            editPage.Hide();
+            MenuPage next = shouldGoToHomePage switch
+            {
+                true => randoHomePage,
+                false => editPage.backTo
+            };
+            next.Show();
+            shouldGoToHomePage = false;
         }
 
         private void DoReloadProfiles()
@@ -226,6 +241,7 @@ namespace RandoSettingsManager.Menu
             {
                 manager.LoadSettings(new DiskFiler(dir).RootDirectory, false);
                 editProfileStatus.Text.text = "Loaded successfully!";
+                shouldGoToHomePage = true;
             }
             catch (ValidationException ve)
             {
@@ -249,6 +265,7 @@ namespace RandoSettingsManager.Menu
                 dir.Clear(true);
                 manager.SaveSettings(dir, false, false);
                 editProfileStatus.Text.text = "Saved successfully!";
+                shouldGoToHomePage = true;
             }
             catch (Exception ex)
             {
