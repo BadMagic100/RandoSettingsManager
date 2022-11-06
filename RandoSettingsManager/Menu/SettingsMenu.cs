@@ -42,6 +42,7 @@ namespace RandoSettingsManager.Menu
         private readonly SmallButton quickShareLoad;
         private readonly SmallButton manageProfiles;
         private readonly SmallButton createTempProfile;
+        private readonly SmallButton disableConnections;
         private readonly Messager messager;
 
         private readonly SmallButton backButton;
@@ -59,7 +60,10 @@ namespace RandoSettingsManager.Menu
 
             backButton = modern.backButton;
 
-            (navToClassic, quickShareCreate, quickShareLoad, manageProfiles, createTempProfile, messager)
+            (navToClassic, 
+                quickShareCreate, quickShareLoad, 
+                manageProfiles, createTempProfile, disableConnections,
+                messager)
                 = BuildManagePage(classic, modern); 
             PatchRandoMenuPages(manageBtn, classic, modern);
             
@@ -76,7 +80,7 @@ namespace RandoSettingsManager.Menu
             RandomizerMenuAPI.AddMenuPage(page => new SettingsMenu(), NoOpConstructButton!);
         }
 
-        private (SmallButton, SmallButton, SmallButton, SmallButton, SmallButton, Messager) 
+        private (SmallButton, SmallButton, SmallButton, SmallButton, SmallButton, SmallButton, Messager) 
             BuildManagePage(MenuPage classic, MenuPage modern)
         {
             ProfilesPage profiles = new(modern);
@@ -104,19 +108,22 @@ namespace RandoSettingsManager.Menu
             ColumnHeader profileHeader = new(modern, "Profiles");
             SmallButton manageProfiles = new(modern, "Manage Profiles");
             SmallButton createTempProfile = new(modern, "Create Temporary Profile");
+            SmallButton disableConnections = new(modern, "Disable Connections");
 
             manageProfiles.AddHideAndShowEvent(profiles.RootPage);
             createTempProfile.OnClick += CreateTempProfileClick;
+            disableConnections.OnClick += DisableConnectionsClick;
 
             VerticalItemPanel profileVip = new(modern, Vector2.zero, SpaceParameters.VSPACE_SMALL, false,
                 manageProfiles,
-                createTempProfile);
+                createTempProfile,
+                disableConnections);
 
             quickShareHeader.MoveTo(new Vector2(-SpaceParameters.HSPACE_LARGE / 2, 300));
             profileHeader.MoveTo(new Vector2(SpaceParameters.HSPACE_LARGE / 2, 300));
 
             Messager messager = new(modern);
-            messager.MoveTo(new Vector2(0, 125));
+            messager.MoveTo(new Vector2(0, 95));
 
             modern.AfterShow += () =>
             {
@@ -151,7 +158,10 @@ namespace RandoSettingsManager.Menu
                 2, 0, SpaceParameters.HSPACE_LARGE, true,
                 quickShareVip, profileVip);
 
-            return (navToClassic, quickShareCreate, quickShareLoad, manageProfiles, createTempProfile, messager);
+            return (navToClassic, 
+                quickShareCreate, quickShareLoad, 
+                manageProfiles, createTempProfile, disableConnections, 
+                messager);
         }
 
         private void PatchRandoMenuPages(SmallButton manageButton,
@@ -486,6 +496,22 @@ namespace RandoSettingsManager.Menu
             }
         }
 
+        private void DisableConnectionsClick()
+        {
+            SettingsManager manager = RandoSettingsManagerMod.Instance.settingsManager;
+            try
+            {
+                manager.DisableAllConnections();
+                WriteReceivedSettingsToMessager(manager, "Successfully disabled connections!");
+            }
+            catch (Exception ex)
+            {
+                RandoSettingsManagerMod.Instance.LogError(ex);
+                messager.Clear();
+                messager.Write("An unexpected error occurred while disabling connections.");
+            }
+        }
+
         private void LockMenu()
         {
             tempWatcher.EnableRaisingEvents = false;
@@ -493,6 +519,7 @@ namespace RandoSettingsManager.Menu
             quickShareLoad.Lock();
             manageProfiles.Lock();
             createTempProfile.Lock();
+            disableConnections.Lock();
             navToClassic.Lock();
             backButton.Lock();
         }
@@ -504,6 +531,7 @@ namespace RandoSettingsManager.Menu
             manageProfiles.Unlock();
             createTempProfile.Unlock();
             navToClassic.Unlock();
+            disableConnections.Unlock();
             backButton.Unlock();
             tempWatcher.EnableRaisingEvents = true;
         }
@@ -512,10 +540,13 @@ namespace RandoSettingsManager.Menu
         {
             messager.Clear();
             messager.WriteLine(statusMessage);
-            messager.Write($"Settings were received for {ListJoin(manager.LastReceivedMods)}. ");
+            if (manager.LastReceivedMods.Count > 0)
+            {
+                messager.Write($"Settings were received for {ListJoin(manager.LastReceivedMods)}. ");
+            }
             if (manager.LastModsReceivedWithoutSettings.Count > 0)
             {
-                messager.Write($"{ListJoin(manager.LastModsReceivedWithoutSettings)} received no settings and were disabled. ");
+                messager.Write($"{ListJoin(manager.LastModsReceivedWithoutSettings)} were disabled. ");
             }
             messager.Write($"Other connections must be configured manually.");
         }

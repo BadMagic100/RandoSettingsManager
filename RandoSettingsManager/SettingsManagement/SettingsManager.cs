@@ -73,6 +73,17 @@ namespace RandoSettingsManager.SettingsManagement
             }
         }
 
+        public void DisableAllConnections()
+        {
+            LastReceivedMods.Clear();
+            LastModsReceivedWithoutSettings.Clear();
+            foreach (KeyValuePair<string, ProxyMetadata> md in metadata)
+            {
+                md.Value.Proxy.ReceiveSerializedSettings(null);
+                LastModsReceivedWithoutSettings.Add(md.Key);
+            }
+        }
+
         public void LoadSettings(IDirectory sourceDir, bool checkVersion)
         {
             List<string> errors = new();
