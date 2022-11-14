@@ -335,6 +335,7 @@
     <None Include="LocalOverrides.targets" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="PolySharp" Version="1.7.1" />
     <PackageReference Include="SharpZipLib.NETStandard" Version="1.0.7" />
   </ItemGroup>
 </Project>

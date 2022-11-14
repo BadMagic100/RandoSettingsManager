@@ -58,13 +58,12 @@ namespace RandoSettingsManager.Menu
                 full = true;
 
                 int start = gen.lines.Last().startCharIdx;
-                int end = gen.characterCountVisible - 1;
-                int len = end - start + 1;
-                string lastLine = Text.text.Substring(start, len);
+                int end = gen.characterCountVisible;
+                string lastLine = Text.text[start..end];
                 float lw = gen.GetPreferredWidth(lastLine, settings);
                 float ew = gen.GetPreferredWidth(ellipses, settings);
 
-                Text.text = Text.text.Remove(end + 1);
+                Text.text = Text.text[..end];
 
                 if (ew + lw <= Text.rectTransform.rect.width)
                 {
@@ -72,7 +71,7 @@ namespace RandoSettingsManager.Menu
                 }
                 else
                 {
-                    Text.text = Text.text.Remove(end - 2) + ellipses;
+                    Text.text = Text.text[..(end - 3)] + ellipses;
                 }
             }
         }

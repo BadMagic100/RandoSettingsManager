@@ -14,6 +14,7 @@ using RandoSettingsManager.SettingsManagement.Filer.Disk;
 using RandoSettingsManager.SettingsManagement.Filer.Tar;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net.Http;
 using System.Text;
@@ -37,13 +38,13 @@ namespace RandoSettingsManager.Menu
 
         private readonly FileSystemWatcher tempWatcher;
 
-        private readonly SmallButton navToClassic;
-        private readonly SmallButton quickShareCreate;
-        private readonly SmallButton quickShareLoad;
-        private readonly SmallButton manageProfiles;
-        private readonly SmallButton createTempProfile;
-        private readonly SmallButton disableConnections;
-        private readonly Messager messager;
+        private SmallButton navToClassic;
+        private SmallButton quickShareCreate;
+        private SmallButton quickShareLoad;
+        private SmallButton manageProfiles;
+        private SmallButton createTempProfile;
+        private SmallButton disableConnections;
+        private Messager messager;
 
         private readonly SmallButton backButton;
 
@@ -60,11 +61,7 @@ namespace RandoSettingsManager.Menu
 
             backButton = modern.backButton;
 
-            (navToClassic, 
-                quickShareCreate, quickShareLoad, 
-                manageProfiles, createTempProfile, disableConnections,
-                messager)
-                = BuildManagePage(classic, modern); 
+            BuildManagePage(classic, modern); 
             PatchRandoMenuPages(manageBtn, classic, modern);
             
             tempWatcher = new FileSystemWatcher(ProfilesDir, "*.zip")
@@ -80,12 +77,17 @@ namespace RandoSettingsManager.Menu
             RandomizerMenuAPI.AddMenuPage(page => new SettingsMenu(), NoOpConstructButton!);
         }
 
-        private (SmallButton, SmallButton, SmallButton, SmallButton, SmallButton, SmallButton, Messager) 
-            BuildManagePage(MenuPage classic, MenuPage modern)
+        [MemberNotNull(
+            nameof(navToClassic), 
+            nameof(quickShareCreate), nameof(quickShareLoad),
+            nameof(manageProfiles), nameof(createTempProfile), nameof(disableConnections), 
+            nameof(messager)
+        )]
+        private void BuildManagePage(MenuPage classic, MenuPage modern)
         {
             ProfilesPage profiles = new(modern);
 
-            SmallButton navToClassic = new(modern, "Classic Settings Management");
+            navToClassic = new(modern, "Classic Settings Management");
             navToClassic.MoveTo(new(0, -450 + SpaceParameters.VSPACE_SMALL));
             modern.ReplaceNavigation(new HorizontalNavWithItemAboveBackButton(modern, navToClassic));
 
@@ -96,9 +98,9 @@ namespace RandoSettingsManager.Menu
             };
 
             ColumnHeader quickShareHeader = new(modern, "Quick Share");
-            SmallButton quickShareCreate = new(modern, "Create Key");
+            quickShareCreate = new(modern, "Create Key");
             quickShareCreate.OnClick += CreateKeyClick;
-            SmallButton quickShareLoad = new(modern, "Paste Key");
+            quickShareLoad = new(modern, "Paste Key");
             quickShareLoad.OnClick += LoadKeyClick;
 
             VerticalItemPanel quickShareVip = new(modern, Vector2.zero, SpaceParameters.VSPACE_SMALL, false,
@@ -106,9 +108,9 @@ namespace RandoSettingsManager.Menu
                 quickShareLoad);
 
             ColumnHeader profileHeader = new(modern, "Profiles");
-            SmallButton manageProfiles = new(modern, "Manage Profiles");
-            SmallButton createTempProfile = new(modern, "Create Temporary Profile");
-            SmallButton disableConnections = new(modern, "Disable Connections");
+            manageProfiles = new(modern, "Manage Profiles");
+            createTempProfile = new(modern, "Create Temporary Profile");
+            disableConnections = new(modern, "Disable Connections");
 
             manageProfiles.AddHideAndShowEvent(profiles.RootPage);
             createTempProfile.OnClick += CreateTempProfileClick;
@@ -122,7 +124,7 @@ namespace RandoSettingsManager.Menu
             quickShareHeader.MoveTo(new Vector2(-SpaceParameters.HSPACE_LARGE / 2, 300));
             profileHeader.MoveTo(new Vector2(SpaceParameters.HSPACE_LARGE / 2, 300));
 
-            Messager messager = new(modern);
+            messager = new(modern);
             messager.MoveTo(new Vector2(0, 95));
 
             modern.AfterShow += () =>
@@ -157,11 +159,6 @@ namespace RandoSettingsManager.Menu
             new GridItemPanel(modern, SpaceParameters.TOP_CENTER_UNDER_TITLE + new Vector2(0, -SpaceParameters.VSPACE_MEDIUM),
                 2, 0, SpaceParameters.HSPACE_LARGE, true,
                 quickShareVip, profileVip);
-
-            return (navToClassic, 
-                quickShareCreate, quickShareLoad, 
-                manageProfiles, createTempProfile, disableConnections, 
-                messager);
         }
 
         private void PatchRandoMenuPages(SmallButton manageButton,
