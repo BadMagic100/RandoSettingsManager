@@ -50,6 +50,7 @@ namespace RandoSettingsManager.Menu
 
         private readonly MenuPage editPage;
         private readonly TextEntryField editNameEntry;
+        private readonly ToggleButton editPageModeToggle;
         private readonly MenuLabel editProfileStatus;
 
         private string? selectedProfile;
@@ -114,13 +115,17 @@ namespace RandoSettingsManager.Menu
             overwrite.OnClick += OverwriteSettings;
             SmallButton delete = new(editPage, "Delete Profile");
             delete.OnClick += DeleteSettings;
+            editPageModeToggle = new(editPage, "Show on Mode Select");
             editProfileStatus = new MenuLabel(editPage, "", MenuLabel.Style.Body);
             editProfileStatus.Text.alignment = TextAnchor.UpperCenter;
 
             VerticalItemPanel editVip = new(editPage, SpaceParameters.TOP_CENTER_UNDER_TITLE, 
                 SpaceParameters.VSPACE_MEDIUM, true,
-                editNameEntry, load, overwrite, delete, editProfileStatus);
-            editPage.AfterHide += RenameProfile;
+                editNameEntry, 
+                load, overwrite, delete,
+                editPageModeToggle,
+                editProfileStatus);
+            editPage.AfterHide += SetProfileDetails;
             editPage.backButton.OnClick -= editPage.GoBack;
             editPage.backButton.OnClick += CustomGoBack;
         }
@@ -157,6 +162,8 @@ namespace RandoSettingsManager.Menu
                         prof.OnClick += () =>
                         {
                             selectedProfile = name;
+                            editPageModeToggle.SetValue(
+                                RandoSettingsManagerMod.Instance.GS.ModeProfiles.Contains(selectedProfile));
                             SetEntryFieldValueUnvalidated(editNameEntry, name);
                         };
                         prof.AddHideAndShowEvent(editPage);
@@ -289,14 +296,26 @@ namespace RandoSettingsManager.Menu
             }
         }
 
-        private void RenameProfile()
+        private void SetProfileDetails()
         {
             try
             {
+                bool createMode = editPageModeToggle.Value;
+                string newProfileName = editNameEntry.Value;
+                bool profileNameChanged = newProfileName != selectedProfile;
+                if (!createMode || profileNameChanged)
+                {
+                    RandoSettingsManagerMod.Instance.GS.ModeProfiles.Remove(selectedProfile!);
+                }
+                if (createMode)
+                {
+                    RandoSettingsManagerMod.Instance.GS.ModeProfiles.Add(newProfileName);
+                }
+
                 string path = Path.Combine(SettingsMenu.ProfilesDir, selectedProfile);
                 if (Directory.Exists(path))
                 {
-                    string newPath = Path.Combine(SettingsMenu.ProfilesDir, editNameEntry.Value);
+                    string newPath = Path.Combine(SettingsMenu.ProfilesDir, newProfileName);
                     if (path != newPath)
                     {
                         Directory.Move(path, newPath);

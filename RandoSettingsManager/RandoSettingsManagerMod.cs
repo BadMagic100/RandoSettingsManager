@@ -1,4 +1,5 @@
-﻿using Modding;
+﻿using MenuChanger;
+using Modding;
 using RandomizerMod.Settings;
 using RandoSettingsManager.Menu;
 using RandoSettingsManager.SettingsManagement;
@@ -49,8 +50,8 @@ namespace RandoSettingsManager
         {
             Log("Initializing");
 
-            // create menus and such
             SettingsMenu.HookMenu();
+
             // auto-import profiles from rando4's profile management
             if (!GS.HasImportedProfiles)
             {
@@ -78,6 +79,11 @@ namespace RandoSettingsManager
                     }
                 }
                 GS.HasImportedProfiles = true;
+            }
+
+            foreach (string profile in GS.ModeProfiles)
+            {
+                ModeMenu.AddMode(new ProfileModeConstructor(profile));
             }
 
             Log("Initialized");
