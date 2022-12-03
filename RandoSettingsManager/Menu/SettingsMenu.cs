@@ -539,11 +539,11 @@ namespace RandoSettingsManager.Menu
             messager.WriteLine(statusMessage);
             if (manager.LastReceivedMods.Count > 0)
             {
-                messager.Write($"Settings were received for {ListJoin(manager.LastReceivedMods)}. ");
+                messager.WriteLine($"Settings were received for the following mods: {ListJoin(manager.LastReceivedMods)}.");
             }
             if (manager.LastModsReceivedWithoutSettings.Count > 0)
             {
-                messager.Write($"{ListJoin(manager.LastModsReceivedWithoutSettings)} were disabled. ");
+                messager.WriteLine($"The following mods received no settings and were disabled: {ListJoin(manager.LastModsReceivedWithoutSettings)}.");
             }
             messager.Write($"Other connections must be configured manually.");
         }
