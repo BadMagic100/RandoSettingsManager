@@ -543,7 +543,7 @@ namespace RandoSettingsManager.Menu
             }
             if (manager.LastModsReceivedWithoutSettings.Count > 0)
             {
-                messager.WriteLine($"The following mods received no settings and were disabled: {ListJoin(manager.LastModsReceivedWithoutSettings)}.");
+                messager.WriteLine($"The following mods were disabled: {ListJoin(manager.LastModsReceivedWithoutSettings)}.");
             }
             messager.Write($"Other connections must be configured manually.");
         }
