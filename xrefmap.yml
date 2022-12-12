@@ -1,0 +1,914 @@
+### YamlMime:XRefMap
+sorted: true
+references:
+- uid: RandoSettingsManager
+  name: RandoSettingsManager
+  href: api/RandoSettingsManager.html
+  commentId: N:RandoSettingsManager
+  fullName: RandoSettingsManager
+  nameWithType: RandoSettingsManager
+- uid: RandoSettingsManager.RandoSettingsManagerMod
+  name: RandoSettingsManagerMod
+  href: api/RandoSettingsManager.RandoSettingsManagerMod.html
+  commentId: T:RandoSettingsManager.RandoSettingsManagerMod
+  fullName: RandoSettingsManager.RandoSettingsManagerMod
+  nameWithType: RandoSettingsManagerMod
+- uid: RandoSettingsManager.RandoSettingsManagerMod.Instance
+  name: Instance
+  href: api/RandoSettingsManager.RandoSettingsManagerMod.html#RandoSettingsManager_RandoSettingsManagerMod_Instance
+  commentId: P:RandoSettingsManager.RandoSettingsManagerMod.Instance
+  fullName: RandoSettingsManager.RandoSettingsManagerMod.Instance
+  nameWithType: RandoSettingsManagerMod.Instance
+- uid: RandoSettingsManager.RandoSettingsManagerMod.Instance*
+  name: Instance
+  href: api/RandoSettingsManager.RandoSettingsManagerMod.html#RandoSettingsManager_RandoSettingsManagerMod_Instance_
+  commentId: Overload:RandoSettingsManager.RandoSettingsManagerMod.Instance
+  isSpec: "True"
+  fullName: RandoSettingsManager.RandoSettingsManagerMod.Instance
+  nameWithType: RandoSettingsManagerMod.Instance
+- uid: RandoSettingsManager.RandoSettingsManagerMod.RegisterConnection*
+  name: RegisterConnection
+  href: api/RandoSettingsManager.RandoSettingsManagerMod.html#RandoSettingsManager_RandoSettingsManagerMod_RegisterConnection_
+  commentId: Overload:RandoSettingsManager.RandoSettingsManagerMod.RegisterConnection
+  isSpec: "True"
+  fullName: RandoSettingsManager.RandoSettingsManagerMod.RegisterConnection
+  nameWithType: RandoSettingsManagerMod.RegisterConnection
+- uid: RandoSettingsManager.RandoSettingsManagerMod.RegisterConnection``2(RandoSettingsManager.SettingsManagement.RandoSettingsProxy{``0,``1})
+  name: RegisterConnection<TSettings, TVersion>(RandoSettingsProxy<TSettings, TVersion>)
+  href: api/RandoSettingsManager.RandoSettingsManagerMod.html#RandoSettingsManager_RandoSettingsManagerMod_RegisterConnection__2_RandoSettingsManager_SettingsManagement_RandoSettingsProxy___0___1__
+  commentId: M:RandoSettingsManager.RandoSettingsManagerMod.RegisterConnection``2(RandoSettingsManager.SettingsManagement.RandoSettingsProxy{``0,``1})
+  name.vb: RegisterConnection(Of TSettings, TVersion)(RandoSettingsProxy(Of TSettings, TVersion))
+  fullName: RandoSettingsManager.RandoSettingsManagerMod.RegisterConnection<TSettings, TVersion>(RandoSettingsManager.SettingsManagement.RandoSettingsProxy<TSettings, TVersion>)
+  fullName.vb: RandoSettingsManager.RandoSettingsManagerMod.RegisterConnection(Of TSettings, TVersion)(RandoSettingsManager.SettingsManagement.RandoSettingsProxy(Of TSettings, TVersion))
+  nameWithType: RandoSettingsManagerMod.RegisterConnection<TSettings, TVersion>(RandoSettingsProxy<TSettings, TVersion>)
+  nameWithType.vb: RandoSettingsManagerMod.RegisterConnection(Of TSettings, TVersion)(RandoSettingsProxy(Of TSettings, TVersion))
+- uid: RandoSettingsManager.SettingsManagement
+  name: RandoSettingsManager.SettingsManagement
+  href: api/RandoSettingsManager.SettingsManagement.html
+  commentId: N:RandoSettingsManager.SettingsManagement
+  fullName: RandoSettingsManager.SettingsManagement
+  nameWithType: RandoSettingsManager.SettingsManagement
+- uid: RandoSettingsManager.SettingsManagement.RandoSettingsProxy`2
+  name: RandoSettingsProxy<TSettings, TVersion>
+  href: api/RandoSettingsManager.SettingsManagement.RandoSettingsProxy-2.html
+  commentId: T:RandoSettingsManager.SettingsManagement.RandoSettingsProxy`2
+  name.vb: RandoSettingsProxy(Of TSettings, TVersion)
+  fullName: RandoSettingsManager.SettingsManagement.RandoSettingsProxy<TSettings, TVersion>
+  fullName.vb: RandoSettingsManager.SettingsManagement.RandoSettingsProxy(Of TSettings, TVersion)
+  nameWithType: RandoSettingsProxy<TSettings, TVersion>
+  nameWithType.vb: RandoSettingsProxy(Of TSettings, TVersion)
+- uid: RandoSettingsManager.SettingsManagement.RandoSettingsProxy`2.ModKey
+  name: ModKey
+  href: api/RandoSettingsManager.SettingsManagement.RandoSettingsProxy-2.html#RandoSettingsManager_SettingsManagement_RandoSettingsProxy_2_ModKey
+  commentId: P:RandoSettingsManager.SettingsManagement.RandoSettingsProxy`2.ModKey
+  fullName: RandoSettingsManager.SettingsManagement.RandoSettingsProxy<TSettings, TVersion>.ModKey
+  fullName.vb: RandoSettingsManager.SettingsManagement.RandoSettingsProxy(Of TSettings, TVersion).ModKey
+  nameWithType: RandoSettingsProxy<TSettings, TVersion>.ModKey
+  nameWithType.vb: RandoSettingsProxy(Of TSettings, TVersion).ModKey
+- uid: RandoSettingsManager.SettingsManagement.RandoSettingsProxy`2.ModKey*
+  name: ModKey
+  href: api/RandoSettingsManager.SettingsManagement.RandoSettingsProxy-2.html#RandoSettingsManager_SettingsManagement_RandoSettingsProxy_2_ModKey_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.RandoSettingsProxy`2.ModKey
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.RandoSettingsProxy<TSettings, TVersion>.ModKey
+  fullName.vb: RandoSettingsManager.SettingsManagement.RandoSettingsProxy(Of TSettings, TVersion).ModKey
+  nameWithType: RandoSettingsProxy<TSettings, TVersion>.ModKey
+  nameWithType.vb: RandoSettingsProxy(Of TSettings, TVersion).ModKey
+- uid: RandoSettingsManager.SettingsManagement.RandoSettingsProxy`2.ReceiveSettings(`0)
+  name: ReceiveSettings(TSettings)
+  href: api/RandoSettingsManager.SettingsManagement.RandoSettingsProxy-2.html#RandoSettingsManager_SettingsManagement_RandoSettingsProxy_2_ReceiveSettings__0_
+  commentId: M:RandoSettingsManager.SettingsManagement.RandoSettingsProxy`2.ReceiveSettings(`0)
+  fullName: RandoSettingsManager.SettingsManagement.RandoSettingsProxy<TSettings, TVersion>.ReceiveSettings(TSettings)
+  fullName.vb: RandoSettingsManager.SettingsManagement.RandoSettingsProxy(Of TSettings, TVersion).ReceiveSettings(TSettings)
+  nameWithType: RandoSettingsProxy<TSettings, TVersion>.ReceiveSettings(TSettings)
+  nameWithType.vb: RandoSettingsProxy(Of TSettings, TVersion).ReceiveSettings(TSettings)
+- uid: RandoSettingsManager.SettingsManagement.RandoSettingsProxy`2.ReceiveSettings*
+  name: ReceiveSettings
+  href: api/RandoSettingsManager.SettingsManagement.RandoSettingsProxy-2.html#RandoSettingsManager_SettingsManagement_RandoSettingsProxy_2_ReceiveSettings_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.RandoSettingsProxy`2.ReceiveSettings
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.RandoSettingsProxy<TSettings, TVersion>.ReceiveSettings
+  fullName.vb: RandoSettingsManager.SettingsManagement.RandoSettingsProxy(Of TSettings, TVersion).ReceiveSettings
+  nameWithType: RandoSettingsProxy<TSettings, TVersion>.ReceiveSettings
+  nameWithType.vb: RandoSettingsProxy(Of TSettings, TVersion).ReceiveSettings
+- uid: RandoSettingsManager.SettingsManagement.RandoSettingsProxy`2.TryProvideSettings(`0@)
+  name: TryProvideSettings(out TSettings)
+  href: api/RandoSettingsManager.SettingsManagement.RandoSettingsProxy-2.html#RandoSettingsManager_SettingsManagement_RandoSettingsProxy_2_TryProvideSettings__0__
+  commentId: M:RandoSettingsManager.SettingsManagement.RandoSettingsProxy`2.TryProvideSettings(`0@)
+  name.vb: TryProvideSettings(ByRef TSettings)
+  fullName: RandoSettingsManager.SettingsManagement.RandoSettingsProxy<TSettings, TVersion>.TryProvideSettings(out TSettings)
+  fullName.vb: RandoSettingsManager.SettingsManagement.RandoSettingsProxy(Of TSettings, TVersion).TryProvideSettings(ByRef TSettings)
+  nameWithType: RandoSettingsProxy<TSettings, TVersion>.TryProvideSettings(out TSettings)
+  nameWithType.vb: RandoSettingsProxy(Of TSettings, TVersion).TryProvideSettings(ByRef TSettings)
+- uid: RandoSettingsManager.SettingsManagement.RandoSettingsProxy`2.TryProvideSettings*
+  name: TryProvideSettings
+  href: api/RandoSettingsManager.SettingsManagement.RandoSettingsProxy-2.html#RandoSettingsManager_SettingsManagement_RandoSettingsProxy_2_TryProvideSettings_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.RandoSettingsProxy`2.TryProvideSettings
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.RandoSettingsProxy<TSettings, TVersion>.TryProvideSettings
+  fullName.vb: RandoSettingsManager.SettingsManagement.RandoSettingsProxy(Of TSettings, TVersion).TryProvideSettings
+  nameWithType: RandoSettingsProxy<TSettings, TVersion>.TryProvideSettings
+  nameWithType.vb: RandoSettingsProxy(Of TSettings, TVersion).TryProvideSettings
+- uid: RandoSettingsManager.SettingsManagement.RandoSettingsProxy`2.VersioningPolicy
+  name: VersioningPolicy
+  href: api/RandoSettingsManager.SettingsManagement.RandoSettingsProxy-2.html#RandoSettingsManager_SettingsManagement_RandoSettingsProxy_2_VersioningPolicy
+  commentId: P:RandoSettingsManager.SettingsManagement.RandoSettingsProxy`2.VersioningPolicy
+  fullName: RandoSettingsManager.SettingsManagement.RandoSettingsProxy<TSettings, TVersion>.VersioningPolicy
+  fullName.vb: RandoSettingsManager.SettingsManagement.RandoSettingsProxy(Of TSettings, TVersion).VersioningPolicy
+  nameWithType: RandoSettingsProxy<TSettings, TVersion>.VersioningPolicy
+  nameWithType.vb: RandoSettingsProxy(Of TSettings, TVersion).VersioningPolicy
+- uid: RandoSettingsManager.SettingsManagement.RandoSettingsProxy`2.VersioningPolicy*
+  name: VersioningPolicy
+  href: api/RandoSettingsManager.SettingsManagement.RandoSettingsProxy-2.html#RandoSettingsManager_SettingsManagement_RandoSettingsProxy_2_VersioningPolicy_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.RandoSettingsProxy`2.VersioningPolicy
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.RandoSettingsProxy<TSettings, TVersion>.VersioningPolicy
+  fullName.vb: RandoSettingsManager.SettingsManagement.RandoSettingsProxy(Of TSettings, TVersion).VersioningPolicy
+  nameWithType: RandoSettingsProxy<TSettings, TVersion>.VersioningPolicy
+  nameWithType.vb: RandoSettingsProxy(Of TSettings, TVersion).VersioningPolicy
+- uid: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1
+  name: SimpleSettingsProxy<T>
+  href: api/RandoSettingsManager.SettingsManagement.SimpleSettingsProxy-1.html
+  commentId: T:RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1
+  name.vb: SimpleSettingsProxy(Of T)
+  fullName: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy<T>
+  fullName.vb: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy(Of T)
+  nameWithType: SimpleSettingsProxy<T>
+  nameWithType.vb: SimpleSettingsProxy(Of T)
+- uid: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1.#ctor(Mod,System.Action{`0},System.Func{`0})
+  name: SimpleSettingsProxy(Mod, Action<T>, Func<T>)
+  href: api/RandoSettingsManager.SettingsManagement.SimpleSettingsProxy-1.html#RandoSettingsManager_SettingsManagement_SimpleSettingsProxy_1__ctor_Mod_System_Action__0__System_Func__0__
+  commentId: M:RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1.#ctor(Mod,System.Action{`0},System.Func{`0})
+  name.vb: SimpleSettingsProxy(Mod, Action(Of T), Func(Of T))
+  fullName: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy<T>.SimpleSettingsProxy(Mod, System.Action<T>, System.Func<T>)
+  fullName.vb: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy(Of T).SimpleSettingsProxy(Mod, System.Action(Of T), System.Func(Of T))
+  nameWithType: SimpleSettingsProxy<T>.SimpleSettingsProxy(Mod, Action<T>, Func<T>)
+  nameWithType.vb: SimpleSettingsProxy(Of T).SimpleSettingsProxy(Mod, Action(Of T), Func(Of T))
+- uid: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1.#ctor*
+  name: SimpleSettingsProxy
+  href: api/RandoSettingsManager.SettingsManagement.SimpleSettingsProxy-1.html#RandoSettingsManager_SettingsManagement_SimpleSettingsProxy_1__ctor_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1.#ctor
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy<T>.SimpleSettingsProxy
+  fullName.vb: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy(Of T).SimpleSettingsProxy
+  nameWithType: SimpleSettingsProxy<T>.SimpleSettingsProxy
+  nameWithType.vb: SimpleSettingsProxy(Of T).SimpleSettingsProxy
+- uid: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1.ModKey
+  name: ModKey
+  href: api/RandoSettingsManager.SettingsManagement.SimpleSettingsProxy-1.html#RandoSettingsManager_SettingsManagement_SimpleSettingsProxy_1_ModKey
+  commentId: P:RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1.ModKey
+  fullName: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy<T>.ModKey
+  fullName.vb: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy(Of T).ModKey
+  nameWithType: SimpleSettingsProxy<T>.ModKey
+  nameWithType.vb: SimpleSettingsProxy(Of T).ModKey
+- uid: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1.ModKey*
+  name: ModKey
+  href: api/RandoSettingsManager.SettingsManagement.SimpleSettingsProxy-1.html#RandoSettingsManager_SettingsManagement_SimpleSettingsProxy_1_ModKey_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1.ModKey
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy<T>.ModKey
+  fullName.vb: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy(Of T).ModKey
+  nameWithType: SimpleSettingsProxy<T>.ModKey
+  nameWithType.vb: SimpleSettingsProxy(Of T).ModKey
+- uid: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1.ReceiveSettings(`0)
+  name: ReceiveSettings(T)
+  href: api/RandoSettingsManager.SettingsManagement.SimpleSettingsProxy-1.html#RandoSettingsManager_SettingsManagement_SimpleSettingsProxy_1_ReceiveSettings__0_
+  commentId: M:RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1.ReceiveSettings(`0)
+  fullName: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy<T>.ReceiveSettings(T)
+  fullName.vb: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy(Of T).ReceiveSettings(T)
+  nameWithType: SimpleSettingsProxy<T>.ReceiveSettings(T)
+  nameWithType.vb: SimpleSettingsProxy(Of T).ReceiveSettings(T)
+- uid: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1.ReceiveSettings*
+  name: ReceiveSettings
+  href: api/RandoSettingsManager.SettingsManagement.SimpleSettingsProxy-1.html#RandoSettingsManager_SettingsManagement_SimpleSettingsProxy_1_ReceiveSettings_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1.ReceiveSettings
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy<T>.ReceiveSettings
+  fullName.vb: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy(Of T).ReceiveSettings
+  nameWithType: SimpleSettingsProxy<T>.ReceiveSettings
+  nameWithType.vb: SimpleSettingsProxy(Of T).ReceiveSettings
+- uid: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1.TryProvideSettings(`0@)
+  name: TryProvideSettings(out T)
+  href: api/RandoSettingsManager.SettingsManagement.SimpleSettingsProxy-1.html#RandoSettingsManager_SettingsManagement_SimpleSettingsProxy_1_TryProvideSettings__0__
+  commentId: M:RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1.TryProvideSettings(`0@)
+  name.vb: TryProvideSettings(ByRef T)
+  fullName: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy<T>.TryProvideSettings(out T)
+  fullName.vb: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy(Of T).TryProvideSettings(ByRef T)
+  nameWithType: SimpleSettingsProxy<T>.TryProvideSettings(out T)
+  nameWithType.vb: SimpleSettingsProxy(Of T).TryProvideSettings(ByRef T)
+- uid: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1.TryProvideSettings*
+  name: TryProvideSettings
+  href: api/RandoSettingsManager.SettingsManagement.SimpleSettingsProxy-1.html#RandoSettingsManager_SettingsManagement_SimpleSettingsProxy_1_TryProvideSettings_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1.TryProvideSettings
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy<T>.TryProvideSettings
+  fullName.vb: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy(Of T).TryProvideSettings
+  nameWithType: SimpleSettingsProxy<T>.TryProvideSettings
+  nameWithType.vb: SimpleSettingsProxy(Of T).TryProvideSettings
+- uid: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1.VersioningPolicy
+  name: VersioningPolicy
+  href: api/RandoSettingsManager.SettingsManagement.SimpleSettingsProxy-1.html#RandoSettingsManager_SettingsManagement_SimpleSettingsProxy_1_VersioningPolicy
+  commentId: P:RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1.VersioningPolicy
+  fullName: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy<T>.VersioningPolicy
+  fullName.vb: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy(Of T).VersioningPolicy
+  nameWithType: SimpleSettingsProxy<T>.VersioningPolicy
+  nameWithType.vb: SimpleSettingsProxy(Of T).VersioningPolicy
+- uid: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1.VersioningPolicy*
+  name: VersioningPolicy
+  href: api/RandoSettingsManager.SettingsManagement.SimpleSettingsProxy-1.html#RandoSettingsManager_SettingsManagement_SimpleSettingsProxy_1_VersioningPolicy_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1.VersioningPolicy
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy<T>.VersioningPolicy
+  fullName.vb: RandoSettingsManager.SettingsManagement.SimpleSettingsProxy(Of T).VersioningPolicy
+  nameWithType: SimpleSettingsProxy<T>.VersioningPolicy
+  nameWithType.vb: SimpleSettingsProxy(Of T).VersioningPolicy
+- uid: RandoSettingsManager.SettingsManagement.ValidationException
+  name: ValidationException
+  href: api/RandoSettingsManager.SettingsManagement.ValidationException.html
+  commentId: T:RandoSettingsManager.SettingsManagement.ValidationException
+  fullName: RandoSettingsManager.SettingsManagement.ValidationException
+  nameWithType: ValidationException
+- uid: RandoSettingsManager.SettingsManagement.ValidationException.#ctor(System.String)
+  name: ValidationException(String)
+  href: api/RandoSettingsManager.SettingsManagement.ValidationException.html#RandoSettingsManager_SettingsManagement_ValidationException__ctor_System_String_
+  commentId: M:RandoSettingsManager.SettingsManagement.ValidationException.#ctor(System.String)
+  fullName: RandoSettingsManager.SettingsManagement.ValidationException.ValidationException(System.String)
+  nameWithType: ValidationException.ValidationException(String)
+- uid: RandoSettingsManager.SettingsManagement.ValidationException.#ctor*
+  name: ValidationException
+  href: api/RandoSettingsManager.SettingsManagement.ValidationException.html#RandoSettingsManager_SettingsManagement_ValidationException__ctor_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.ValidationException.#ctor
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.ValidationException.ValidationException
+  nameWithType: ValidationException.ValidationException
+- uid: RandoSettingsManager.SettingsManagement.Versioning
+  name: RandoSettingsManager.SettingsManagement.Versioning
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.html
+  commentId: N:RandoSettingsManager.SettingsManagement.Versioning
+  fullName: RandoSettingsManager.SettingsManagement.Versioning
+  nameWithType: RandoSettingsManager.SettingsManagement.Versioning
+- uid: RandoSettingsManager.SettingsManagement.Versioning.Comparators
+  name: RandoSettingsManager.SettingsManagement.Versioning.Comparators
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.Comparators.html
+  commentId: N:RandoSettingsManager.SettingsManagement.Versioning.Comparators
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.Comparators
+  nameWithType: RandoSettingsManager.SettingsManagement.Versioning.Comparators
+- uid: RandoSettingsManager.SettingsManagement.Versioning.Comparators.SemVerComparator
+  name: SemVerComparator
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.Comparators.SemVerComparator.html
+  commentId: T:RandoSettingsManager.SettingsManagement.Versioning.Comparators.SemVerComparator
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.Comparators.SemVerComparator
+  nameWithType: SemVerComparator
+- uid: RandoSettingsManager.SettingsManagement.Versioning.Comparators.SemVerComparator.#ctor(System.String,System.Int32)
+  name: SemVerComparator(String, Int32)
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.Comparators.SemVerComparator.html#RandoSettingsManager_SettingsManagement_Versioning_Comparators_SemVerComparator__ctor_System_String_System_Int32_
+  commentId: M:RandoSettingsManager.SettingsManagement.Versioning.Comparators.SemVerComparator.#ctor(System.String,System.Int32)
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.Comparators.SemVerComparator.SemVerComparator(System.String, System.Int32)
+  nameWithType: SemVerComparator.SemVerComparator(String, Int32)
+- uid: RandoSettingsManager.SettingsManagement.Versioning.Comparators.SemVerComparator.#ctor*
+  name: SemVerComparator
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.Comparators.SemVerComparator.html#RandoSettingsManager_SettingsManagement_Versioning_Comparators_SemVerComparator__ctor_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.Versioning.Comparators.SemVerComparator.#ctor
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.Comparators.SemVerComparator.SemVerComparator
+  nameWithType: SemVerComparator.SemVerComparator
+- uid: RandoSettingsManager.SettingsManagement.Versioning.Comparators.SemVerComparator.Compare(System.String,System.String)
+  name: Compare(String, String)
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.Comparators.SemVerComparator.html#RandoSettingsManager_SettingsManagement_Versioning_Comparators_SemVerComparator_Compare_System_String_System_String_
+  commentId: M:RandoSettingsManager.SettingsManagement.Versioning.Comparators.SemVerComparator.Compare(System.String,System.String)
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.Comparators.SemVerComparator.Compare(System.String, System.String)
+  nameWithType: SemVerComparator.Compare(String, String)
+- uid: RandoSettingsManager.SettingsManagement.Versioning.Comparators.SemVerComparator.Compare*
+  name: Compare
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.Comparators.SemVerComparator.html#RandoSettingsManager_SettingsManagement_Versioning_Comparators_SemVerComparator_Compare_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.Versioning.Comparators.SemVerComparator.Compare
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.Comparators.SemVerComparator.Compare
+  nameWithType: SemVerComparator.Compare
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy
+  name: CompoundVersioningPolicy
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.html
+  commentId: T:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy
+  nameWithType: CompoundVersioningPolicy
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.Of*
+  name: Of
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_Of_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.Of
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.Of
+  nameWithType: CompoundVersioningPolicy.Of
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.Of``2(RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``0},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``1})
+  name: Of<T1, T2>(VersioningPolicy<T1>, VersioningPolicy<T2>)
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_Of__2_RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___0__RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___1__
+  commentId: M:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.Of``2(RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``0},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``1})
+  name.vb: Of(Of T1, T2)(VersioningPolicy(Of T1), VersioningPolicy(Of T2))
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.Of<T1, T2>(RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T1>, RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T2>)
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.Of(Of T1, T2)(RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T1), RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T2))
+  nameWithType: CompoundVersioningPolicy.Of<T1, T2>(VersioningPolicy<T1>, VersioningPolicy<T2>)
+  nameWithType.vb: CompoundVersioningPolicy.Of(Of T1, T2)(VersioningPolicy(Of T1), VersioningPolicy(Of T2))
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.Of``3(RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``0},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``1},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``2})
+  name: Of<T1, T2, T3>(VersioningPolicy<T1>, VersioningPolicy<T2>, VersioningPolicy<T3>)
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_Of__3_RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___0__RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___1__RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___2__
+  commentId: M:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.Of``3(RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``0},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``1},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``2})
+  name.vb: Of(Of T1, T2, T3)(VersioningPolicy(Of T1), VersioningPolicy(Of T2), VersioningPolicy(Of T3))
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.Of<T1, T2, T3>(RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T1>, RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T2>, RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T3>)
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.Of(Of T1, T2, T3)(RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T1), RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T2), RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T3))
+  nameWithType: CompoundVersioningPolicy.Of<T1, T2, T3>(VersioningPolicy<T1>, VersioningPolicy<T2>, VersioningPolicy<T3>)
+  nameWithType.vb: CompoundVersioningPolicy.Of(Of T1, T2, T3)(VersioningPolicy(Of T1), VersioningPolicy(Of T2), VersioningPolicy(Of T3))
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.Of``4(RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``0},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``1},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``2},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``3})
+  name: Of<T1, T2, T3, T4>(VersioningPolicy<T1>, VersioningPolicy<T2>, VersioningPolicy<T3>, VersioningPolicy<T4>)
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_Of__4_RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___0__RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___1__RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___2__RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___3__
+  commentId: M:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.Of``4(RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``0},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``1},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``2},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``3})
+  name.vb: Of(Of T1, T2, T3, T4)(VersioningPolicy(Of T1), VersioningPolicy(Of T2), VersioningPolicy(Of T3), VersioningPolicy(Of T4))
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.Of<T1, T2, T3, T4>(RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T1>, RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T2>, RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T3>, RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T4>)
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.Of(Of T1, T2, T3, T4)(RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T1), RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T2), RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T3), RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T4))
+  nameWithType: CompoundVersioningPolicy.Of<T1, T2, T3, T4>(VersioningPolicy<T1>, VersioningPolicy<T2>, VersioningPolicy<T3>, VersioningPolicy<T4>)
+  nameWithType.vb: CompoundVersioningPolicy.Of(Of T1, T2, T3, T4)(VersioningPolicy(Of T1), VersioningPolicy(Of T2), VersioningPolicy(Of T3), VersioningPolicy(Of T4))
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.Of``5(RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``0},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``1},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``2},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``3},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``4})
+  name: Of<T1, T2, T3, T4, T5>(VersioningPolicy<T1>, VersioningPolicy<T2>, VersioningPolicy<T3>, VersioningPolicy<T4>, VersioningPolicy<T5>)
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_Of__5_RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___0__RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___1__RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___2__RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___3__RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___4__
+  commentId: M:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.Of``5(RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``0},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``1},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``2},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``3},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``4})
+  name.vb: Of(Of T1, T2, T3, T4, T5)(VersioningPolicy(Of T1), VersioningPolicy(Of T2), VersioningPolicy(Of T3), VersioningPolicy(Of T4), VersioningPolicy(Of T5))
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.Of<T1, T2, T3, T4, T5>(RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T1>, RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T2>, RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T3>, RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T4>, RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T5>)
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.Of(Of T1, T2, T3, T4, T5)(RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T1), RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T2), RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T3), RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T4), RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T5))
+  nameWithType: CompoundVersioningPolicy.Of<T1, T2, T3, T4, T5>(VersioningPolicy<T1>, VersioningPolicy<T2>, VersioningPolicy<T3>, VersioningPolicy<T4>, VersioningPolicy<T5>)
+  nameWithType.vb: CompoundVersioningPolicy.Of(Of T1, T2, T3, T4, T5)(VersioningPolicy(Of T1), VersioningPolicy(Of T2), VersioningPolicy(Of T3), VersioningPolicy(Of T4), VersioningPolicy(Of T5))
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.Of``6(RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``0},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``1},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``2},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``3},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``4},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``5})
+  name: Of<T1, T2, T3, T4, T5, T6>(VersioningPolicy<T1>, VersioningPolicy<T2>, VersioningPolicy<T3>, VersioningPolicy<T4>, VersioningPolicy<T5>, VersioningPolicy<T6>)
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_Of__6_RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___0__RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___1__RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___2__RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___3__RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___4__RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___5__
+  commentId: M:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.Of``6(RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``0},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``1},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``2},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``3},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``4},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``5})
+  name.vb: Of(Of T1, T2, T3, T4, T5, T6)(VersioningPolicy(Of T1), VersioningPolicy(Of T2), VersioningPolicy(Of T3), VersioningPolicy(Of T4), VersioningPolicy(Of T5), VersioningPolicy(Of T6))
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.Of<T1, T2, T3, T4, T5, T6>(RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T1>, RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T2>, RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T3>, RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T4>, RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T5>, RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T6>)
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.Of(Of T1, T2, T3, T4, T5, T6)(RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T1), RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T2), RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T3), RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T4), RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T5), RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T6))
+  nameWithType: CompoundVersioningPolicy.Of<T1, T2, T3, T4, T5, T6>(VersioningPolicy<T1>, VersioningPolicy<T2>, VersioningPolicy<T3>, VersioningPolicy<T4>, VersioningPolicy<T5>, VersioningPolicy<T6>)
+  nameWithType.vb: CompoundVersioningPolicy.Of(Of T1, T2, T3, T4, T5, T6)(VersioningPolicy(Of T1), VersioningPolicy(Of T2), VersioningPolicy(Of T3), VersioningPolicy(Of T4), VersioningPolicy(Of T5), VersioningPolicy(Of T6))
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.Of``7(RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``0},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``1},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``2},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``3},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``4},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``5},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``6})
+  name: Of<T1, T2, T3, T4, T5, T6, T7>(VersioningPolicy<T1>, VersioningPolicy<T2>, VersioningPolicy<T3>, VersioningPolicy<T4>, VersioningPolicy<T5>, VersioningPolicy<T6>, VersioningPolicy<T7>)
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_Of__7_RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___0__RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___1__RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___2__RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___3__RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___4__RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___5__RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___6__
+  commentId: M:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.Of``7(RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``0},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``1},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``2},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``3},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``4},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``5},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``6})
+  name.vb: Of(Of T1, T2, T3, T4, T5, T6, T7)(VersioningPolicy(Of T1), VersioningPolicy(Of T2), VersioningPolicy(Of T3), VersioningPolicy(Of T4), VersioningPolicy(Of T5), VersioningPolicy(Of T6), VersioningPolicy(Of T7))
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.Of<T1, T2, T3, T4, T5, T6, T7>(RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T1>, RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T2>, RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T3>, RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T4>, RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T5>, RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T6>, RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T7>)
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.Of(Of T1, T2, T3, T4, T5, T6, T7)(RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T1), RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T2), RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T3), RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T4), RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T5), RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T6), RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T7))
+  nameWithType: CompoundVersioningPolicy.Of<T1, T2, T3, T4, T5, T6, T7>(VersioningPolicy<T1>, VersioningPolicy<T2>, VersioningPolicy<T3>, VersioningPolicy<T4>, VersioningPolicy<T5>, VersioningPolicy<T6>, VersioningPolicy<T7>)
+  nameWithType.vb: CompoundVersioningPolicy.Of(Of T1, T2, T3, T4, T5, T6, T7)(VersioningPolicy(Of T1), VersioningPolicy(Of T2), VersioningPolicy(Of T3), VersioningPolicy(Of T4), VersioningPolicy(Of T5), VersioningPolicy(Of T6), VersioningPolicy(Of T7))
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.Of``8(RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``0},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``1},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``2},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``3},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``4},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``5},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``6},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``7})
+  name: Of<T1, T2, T3, T4, T5, T6, T7, T8>(VersioningPolicy<T1>, VersioningPolicy<T2>, VersioningPolicy<T3>, VersioningPolicy<T4>, VersioningPolicy<T5>, VersioningPolicy<T6>, VersioningPolicy<T7>, VersioningPolicy<T8>)
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_Of__8_RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___0__RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___1__RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___2__RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___3__RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___4__RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___5__RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___6__RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy___7__
+  commentId: M:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.Of``8(RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``0},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``1},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``2},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``3},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``4},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``5},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``6},RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy{``7})
+  name.vb: Of(Of T1, T2, T3, T4, T5, T6, T7, T8)(VersioningPolicy(Of T1), VersioningPolicy(Of T2), VersioningPolicy(Of T3), VersioningPolicy(Of T4), VersioningPolicy(Of T5), VersioningPolicy(Of T6), VersioningPolicy(Of T7), VersioningPolicy(Of T8))
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.Of<T1, T2, T3, T4, T5, T6, T7, T8>(RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T1>, RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T2>, RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T3>, RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T4>, RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T5>, RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T6>, RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T7>, RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T8>)
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.Of(Of T1, T2, T3, T4, T5, T6, T7, T8)(RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T1), RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T2), RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T3), RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T4), RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T5), RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T6), RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T7), RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T8))
+  nameWithType: CompoundVersioningPolicy.Of<T1, T2, T3, T4, T5, T6, T7, T8>(VersioningPolicy<T1>, VersioningPolicy<T2>, VersioningPolicy<T3>, VersioningPolicy<T4>, VersioningPolicy<T5>, VersioningPolicy<T6>, VersioningPolicy<T7>, VersioningPolicy<T8>)
+  nameWithType.vb: CompoundVersioningPolicy.Of(Of T1, T2, T3, T4, T5, T6, T7, T8)(VersioningPolicy(Of T1), VersioningPolicy(Of T2), VersioningPolicy(Of T3), VersioningPolicy(Of T4), VersioningPolicy(Of T5), VersioningPolicy(Of T6), VersioningPolicy(Of T7), VersioningPolicy(Of T8))
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`2
+  name: CompoundVersioningPolicy<T1, T2>
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-2.html
+  commentId: T:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`2
+  name.vb: CompoundVersioningPolicy(Of T1, T2)
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2>
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2)
+  nameWithType: CompoundVersioningPolicy<T1, T2>
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2)
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`2.Allow(System.ValueTuple{`0,`1})
+  name: Allow((T1, T2))
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-2.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_2_Allow_System_ValueTuple__0__1__
+  commentId: M:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`2.Allow(System.ValueTuple{`0,`1})
+  name.vb: Allow((T1, T2)(Of T1, T2))
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2>.Allow(System.ValueTuple<T1, T2>)
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2).Allow(System.ValueTuple(Of T1, T2))
+  nameWithType: CompoundVersioningPolicy<T1, T2>.Allow((T1, T2))
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2).Allow((T1, T2)(Of T1, T2))
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`2.Allow*
+  name: Allow
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-2.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_2_Allow_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`2.Allow
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2>.Allow
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2).Allow
+  nameWithType: CompoundVersioningPolicy<T1, T2>.Allow
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2).Allow
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`2.Version
+  name: Version
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-2.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_2_Version
+  commentId: P:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`2.Version
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2>.Version
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2).Version
+  nameWithType: CompoundVersioningPolicy<T1, T2>.Version
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2).Version
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`2.Version*
+  name: Version
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-2.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_2_Version_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`2.Version
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2>.Version
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2).Version
+  nameWithType: CompoundVersioningPolicy<T1, T2>.Version
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2).Version
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`3
+  name: CompoundVersioningPolicy<T1, T2, T3>
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-3.html
+  commentId: T:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`3
+  name.vb: CompoundVersioningPolicy(Of T1, T2, T3)
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2, T3>
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2, T3)
+  nameWithType: CompoundVersioningPolicy<T1, T2, T3>
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2, T3)
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`3.Allow(System.ValueTuple{`0,`1,`2})
+  name: Allow((T1, T2, T3))
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-3.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_3_Allow_System_ValueTuple__0__1__2__
+  commentId: M:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`3.Allow(System.ValueTuple{`0,`1,`2})
+  name.vb: Allow((T1, T2, T3)(Of T1, T2, T3))
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2, T3>.Allow(System.ValueTuple<T1, T2, T3>)
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2, T3).Allow(System.ValueTuple(Of T1, T2, T3))
+  nameWithType: CompoundVersioningPolicy<T1, T2, T3>.Allow((T1, T2, T3))
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2, T3).Allow((T1, T2, T3)(Of T1, T2, T3))
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`3.Allow*
+  name: Allow
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-3.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_3_Allow_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`3.Allow
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2, T3>.Allow
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2, T3).Allow
+  nameWithType: CompoundVersioningPolicy<T1, T2, T3>.Allow
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2, T3).Allow
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`3.Version
+  name: Version
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-3.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_3_Version
+  commentId: P:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`3.Version
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2, T3>.Version
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2, T3).Version
+  nameWithType: CompoundVersioningPolicy<T1, T2, T3>.Version
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2, T3).Version
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`3.Version*
+  name: Version
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-3.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_3_Version_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`3.Version
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2, T3>.Version
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2, T3).Version
+  nameWithType: CompoundVersioningPolicy<T1, T2, T3>.Version
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2, T3).Version
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`4
+  name: CompoundVersioningPolicy<T1, T2, T3, T4>
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-4.html
+  commentId: T:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`4
+  name.vb: CompoundVersioningPolicy(Of T1, T2, T3, T4)
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2, T3, T4>
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2, T3, T4)
+  nameWithType: CompoundVersioningPolicy<T1, T2, T3, T4>
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2, T3, T4)
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`4.Allow(System.ValueTuple{`0,`1,`2,`3})
+  name: Allow((T1, T2, T3, T4))
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-4.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_4_Allow_System_ValueTuple__0__1__2__3__
+  commentId: M:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`4.Allow(System.ValueTuple{`0,`1,`2,`3})
+  name.vb: Allow((T1, T2, T3, T4)(Of T1, T2, T3, T4))
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2, T3, T4>.Allow(System.ValueTuple<T1, T2, T3, T4>)
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2, T3, T4).Allow(System.ValueTuple(Of T1, T2, T3, T4))
+  nameWithType: CompoundVersioningPolicy<T1, T2, T3, T4>.Allow((T1, T2, T3, T4))
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2, T3, T4).Allow((T1, T2, T3, T4)(Of T1, T2, T3, T4))
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`4.Allow*
+  name: Allow
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-4.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_4_Allow_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`4.Allow
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2, T3, T4>.Allow
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2, T3, T4).Allow
+  nameWithType: CompoundVersioningPolicy<T1, T2, T3, T4>.Allow
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2, T3, T4).Allow
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`4.Version
+  name: Version
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-4.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_4_Version
+  commentId: P:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`4.Version
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2, T3, T4>.Version
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2, T3, T4).Version
+  nameWithType: CompoundVersioningPolicy<T1, T2, T3, T4>.Version
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2, T3, T4).Version
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`4.Version*
+  name: Version
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-4.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_4_Version_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`4.Version
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2, T3, T4>.Version
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2, T3, T4).Version
+  nameWithType: CompoundVersioningPolicy<T1, T2, T3, T4>.Version
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2, T3, T4).Version
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`5
+  name: CompoundVersioningPolicy<T1, T2, T3, T4, T5>
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-5.html
+  commentId: T:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`5
+  name.vb: CompoundVersioningPolicy(Of T1, T2, T3, T4, T5)
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2, T3, T4, T5>
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2, T3, T4, T5)
+  nameWithType: CompoundVersioningPolicy<T1, T2, T3, T4, T5>
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2, T3, T4, T5)
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`5.Allow(System.ValueTuple{`0,`1,`2,`3,`4})
+  name: Allow((T1, T2, T3, T4, T5))
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-5.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_5_Allow_System_ValueTuple__0__1__2__3__4__
+  commentId: M:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`5.Allow(System.ValueTuple{`0,`1,`2,`3,`4})
+  name.vb: Allow((T1, T2, T3, T4, T5)(Of T1, T2, T3, T4, T5))
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2, T3, T4, T5>.Allow(System.ValueTuple<T1, T2, T3, T4, T5>)
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2, T3, T4, T5).Allow(System.ValueTuple(Of T1, T2, T3, T4, T5))
+  nameWithType: CompoundVersioningPolicy<T1, T2, T3, T4, T5>.Allow((T1, T2, T3, T4, T5))
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2, T3, T4, T5).Allow((T1, T2, T3, T4, T5)(Of T1, T2, T3, T4, T5))
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`5.Allow*
+  name: Allow
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-5.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_5_Allow_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`5.Allow
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2, T3, T4, T5>.Allow
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2, T3, T4, T5).Allow
+  nameWithType: CompoundVersioningPolicy<T1, T2, T3, T4, T5>.Allow
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2, T3, T4, T5).Allow
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`5.Version
+  name: Version
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-5.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_5_Version
+  commentId: P:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`5.Version
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2, T3, T4, T5>.Version
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2, T3, T4, T5).Version
+  nameWithType: CompoundVersioningPolicy<T1, T2, T3, T4, T5>.Version
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2, T3, T4, T5).Version
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`5.Version*
+  name: Version
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-5.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_5_Version_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`5.Version
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2, T3, T4, T5>.Version
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2, T3, T4, T5).Version
+  nameWithType: CompoundVersioningPolicy<T1, T2, T3, T4, T5>.Version
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2, T3, T4, T5).Version
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`6
+  name: CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6>
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-6.html
+  commentId: T:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`6
+  name.vb: CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6)
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6>
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6)
+  nameWithType: CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6>
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6)
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`6.Allow(System.ValueTuple{`0,`1,`2,`3,`4,`5})
+  name: Allow((T1, T2, T3, T4, T5, T6))
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-6.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_6_Allow_System_ValueTuple__0__1__2__3__4__5__
+  commentId: M:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`6.Allow(System.ValueTuple{`0,`1,`2,`3,`4,`5})
+  name.vb: Allow((T1, T2, T3, T4, T5, T6)(Of T1, T2, T3, T4, T5, T6))
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6>.Allow(System.ValueTuple<T1, T2, T3, T4, T5, T6>)
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6).Allow(System.ValueTuple(Of T1, T2, T3, T4, T5, T6))
+  nameWithType: CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6>.Allow((T1, T2, T3, T4, T5, T6))
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6).Allow((T1, T2, T3, T4, T5, T6)(Of T1, T2, T3, T4, T5, T6))
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`6.Allow*
+  name: Allow
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-6.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_6_Allow_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`6.Allow
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6>.Allow
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6).Allow
+  nameWithType: CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6>.Allow
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6).Allow
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`6.Version
+  name: Version
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-6.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_6_Version
+  commentId: P:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`6.Version
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6>.Version
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6).Version
+  nameWithType: CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6>.Version
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6).Version
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`6.Version*
+  name: Version
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-6.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_6_Version_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`6.Version
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6>.Version
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6).Version
+  nameWithType: CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6>.Version
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6).Version
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`7
+  name: CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6, T7>
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-7.html
+  commentId: T:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`7
+  name.vb: CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6, T7)
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6, T7>
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6, T7)
+  nameWithType: CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6, T7>
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6, T7)
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`7.Allow(System.ValueTuple{`0,`1,`2,`3,`4,`5,`6})
+  name: Allow((T1, T2, T3, T4, T5, T6, T7))
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-7.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_7_Allow_System_ValueTuple__0__1__2__3__4__5__6__
+  commentId: M:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`7.Allow(System.ValueTuple{`0,`1,`2,`3,`4,`5,`6})
+  name.vb: Allow((T1, T2, T3, T4, T5, T6, T7)(Of T1, T2, T3, T4, T5, T6, T7))
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6, T7>.Allow(System.ValueTuple<T1, T2, T3, T4, T5, T6, T7>)
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6, T7).Allow(System.ValueTuple(Of T1, T2, T3, T4, T5, T6, T7))
+  nameWithType: CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6, T7>.Allow((T1, T2, T3, T4, T5, T6, T7))
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6, T7).Allow((T1, T2, T3, T4, T5, T6, T7)(Of T1, T2, T3, T4, T5, T6, T7))
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`7.Allow*
+  name: Allow
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-7.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_7_Allow_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`7.Allow
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6, T7>.Allow
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6, T7).Allow
+  nameWithType: CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6, T7>.Allow
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6, T7).Allow
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`7.Version
+  name: Version
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-7.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_7_Version
+  commentId: P:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`7.Version
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6, T7>.Version
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6, T7).Version
+  nameWithType: CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6, T7>.Version
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6, T7).Version
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`7.Version*
+  name: Version
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-7.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_7_Version_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`7.Version
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6, T7>.Version
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6, T7).Version
+  nameWithType: CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6, T7>.Version
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6, T7).Version
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`8
+  name: CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6, T7, T8>
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-8.html
+  commentId: T:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`8
+  name.vb: CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6, T7, T8)
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6, T7, T8>
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6, T7, T8)
+  nameWithType: CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6, T7, T8>
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6, T7, T8)
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`8.Allow(System.ValueTuple{`0,`1,`2,`3,`4,`5,`6,System.ValueTuple{`7}})
+  name: Allow((T1, T2, T3, T4, T5, T6, T7, T8))
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-8.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_8_Allow_System_ValueTuple__0__1__2__3__4__5__6_System_ValueTuple__7___
+  commentId: M:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`8.Allow(System.ValueTuple{`0,`1,`2,`3,`4,`5,`6,System.ValueTuple{`7}})
+  name.vb: Allow((T1, T2, T3, T4, T5, T6, T7, T8)(Of T1, T2, T3, T4, T5, T6, T7, (T8)(Of T8)))
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6, T7, T8>.Allow(System.ValueTuple<T1, T2, T3, T4, T5, T6, T7, System.ValueTuple<T8>>)
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6, T7, T8).Allow(System.ValueTuple(Of T1, T2, T3, T4, T5, T6, T7, System.ValueTuple(Of T8)))
+  nameWithType: CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6, T7, T8>.Allow((T1, T2, T3, T4, T5, T6, T7, T8))
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6, T7, T8).Allow((T1, T2, T3, T4, T5, T6, T7, T8)(Of T1, T2, T3, T4, T5, T6, T7, (T8)(Of T8)))
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`8.Allow*
+  name: Allow
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-8.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_8_Allow_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`8.Allow
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6, T7, T8>.Allow
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6, T7, T8).Allow
+  nameWithType: CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6, T7, T8>.Allow
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6, T7, T8).Allow
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`8.Version
+  name: Version
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-8.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_8_Version
+  commentId: P:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`8.Version
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6, T7, T8>.Version
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6, T7, T8).Version
+  nameWithType: CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6, T7, T8>.Version
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6, T7, T8).Version
+- uid: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`8.Version*
+  name: Version
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy-8.html#RandoSettingsManager_SettingsManagement_Versioning_CompoundVersioningPolicy_8_Version_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy`8.Version
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6, T7, T8>.Version
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6, T7, T8).Version
+  nameWithType: CompoundVersioningPolicy<T1, T2, T3, T4, T5, T6, T7, T8>.Version
+  nameWithType.vb: CompoundVersioningPolicy(Of T1, T2, T3, T4, T5, T6, T7, T8).Version
+- uid: RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy
+  name: ContentHashVersioningPolicy
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy.html
+  commentId: T:RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy
+  nameWithType: ContentHashVersioningPolicy
+- uid: RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy.#ctor(System.Byte[])
+  name: ContentHashVersioningPolicy(Byte[])
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy.html#RandoSettingsManager_SettingsManagement_Versioning_ContentHashVersioningPolicy__ctor_System_Byte___
+  commentId: M:RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy.#ctor(System.Byte[])
+  name.vb: ContentHashVersioningPolicy(Byte())
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy.ContentHashVersioningPolicy(System.Byte[])
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy.ContentHashVersioningPolicy(System.Byte())
+  nameWithType: ContentHashVersioningPolicy.ContentHashVersioningPolicy(Byte[])
+  nameWithType.vb: ContentHashVersioningPolicy.ContentHashVersioningPolicy(Byte())
+- uid: RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy.#ctor(System.IO.Stream)
+  name: ContentHashVersioningPolicy(Stream)
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy.html#RandoSettingsManager_SettingsManagement_Versioning_ContentHashVersioningPolicy__ctor_System_IO_Stream_
+  commentId: M:RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy.#ctor(System.IO.Stream)
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy.ContentHashVersioningPolicy(System.IO.Stream)
+  nameWithType: ContentHashVersioningPolicy.ContentHashVersioningPolicy(Stream)
+- uid: RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy.#ctor*
+  name: ContentHashVersioningPolicy
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy.html#RandoSettingsManager_SettingsManagement_Versioning_ContentHashVersioningPolicy__ctor_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy.#ctor
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy.ContentHashVersioningPolicy
+  nameWithType: ContentHashVersioningPolicy.ContentHashVersioningPolicy
+- uid: RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy.Allow(System.String)
+  name: Allow(String)
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy.html#RandoSettingsManager_SettingsManagement_Versioning_ContentHashVersioningPolicy_Allow_System_String_
+  commentId: M:RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy.Allow(System.String)
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy.Allow(System.String)
+  nameWithType: ContentHashVersioningPolicy.Allow(String)
+- uid: RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy.Allow*
+  name: Allow
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy.html#RandoSettingsManager_SettingsManagement_Versioning_ContentHashVersioningPolicy_Allow_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy.Allow
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy.Allow
+  nameWithType: ContentHashVersioningPolicy.Allow
+- uid: RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy.Version
+  name: Version
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy.html#RandoSettingsManager_SettingsManagement_Versioning_ContentHashVersioningPolicy_Version
+  commentId: P:RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy.Version
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy.Version
+  nameWithType: ContentHashVersioningPolicy.Version
+- uid: RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy.Version*
+  name: Version
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy.html#RandoSettingsManager_SettingsManagement_Versioning_ContentHashVersioningPolicy_Version_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy.Version
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy.Version
+  nameWithType: ContentHashVersioningPolicy.Version
+- uid: RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy`1
+  name: EqualityVersioningPolicy<T>
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy-1.html
+  commentId: T:RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy`1
+  name.vb: EqualityVersioningPolicy(Of T)
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy<T>
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy(Of T)
+  nameWithType: EqualityVersioningPolicy<T>
+  nameWithType.vb: EqualityVersioningPolicy(Of T)
+- uid: RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy`1.#ctor(`0)
+  name: EqualityVersioningPolicy(T)
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy-1.html#RandoSettingsManager_SettingsManagement_Versioning_EqualityVersioningPolicy_1__ctor__0_
+  commentId: M:RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy`1.#ctor(`0)
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy<T>.EqualityVersioningPolicy(T)
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy(Of T).EqualityVersioningPolicy(T)
+  nameWithType: EqualityVersioningPolicy<T>.EqualityVersioningPolicy(T)
+  nameWithType.vb: EqualityVersioningPolicy(Of T).EqualityVersioningPolicy(T)
+- uid: RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy`1.#ctor(`0,System.Collections.Generic.IComparer{`0})
+  name: EqualityVersioningPolicy(T, IComparer<T>)
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy-1.html#RandoSettingsManager_SettingsManagement_Versioning_EqualityVersioningPolicy_1__ctor__0_System_Collections_Generic_IComparer__0__
+  commentId: M:RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy`1.#ctor(`0,System.Collections.Generic.IComparer{`0})
+  name.vb: EqualityVersioningPolicy(T, IComparer(Of T))
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy<T>.EqualityVersioningPolicy(T, System.Collections.Generic.IComparer<T>)
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy(Of T).EqualityVersioningPolicy(T, System.Collections.Generic.IComparer(Of T))
+  nameWithType: EqualityVersioningPolicy<T>.EqualityVersioningPolicy(T, IComparer<T>)
+  nameWithType.vb: EqualityVersioningPolicy(Of T).EqualityVersioningPolicy(T, IComparer(Of T))
+- uid: RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy`1.#ctor*
+  name: EqualityVersioningPolicy
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy-1.html#RandoSettingsManager_SettingsManagement_Versioning_EqualityVersioningPolicy_1__ctor_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy`1.#ctor
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy<T>.EqualityVersioningPolicy
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy(Of T).EqualityVersioningPolicy
+  nameWithType: EqualityVersioningPolicy<T>.EqualityVersioningPolicy
+  nameWithType.vb: EqualityVersioningPolicy(Of T).EqualityVersioningPolicy
+- uid: RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy`1.Allow(`0)
+  name: Allow(T)
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy-1.html#RandoSettingsManager_SettingsManagement_Versioning_EqualityVersioningPolicy_1_Allow__0_
+  commentId: M:RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy`1.Allow(`0)
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy<T>.Allow(T)
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy(Of T).Allow(T)
+  nameWithType: EqualityVersioningPolicy<T>.Allow(T)
+  nameWithType.vb: EqualityVersioningPolicy(Of T).Allow(T)
+- uid: RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy`1.Allow*
+  name: Allow
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy-1.html#RandoSettingsManager_SettingsManagement_Versioning_EqualityVersioningPolicy_1_Allow_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy`1.Allow
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy<T>.Allow
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy(Of T).Allow
+  nameWithType: EqualityVersioningPolicy<T>.Allow
+  nameWithType.vb: EqualityVersioningPolicy(Of T).Allow
+- uid: RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy`1.Version
+  name: Version
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy-1.html#RandoSettingsManager_SettingsManagement_Versioning_EqualityVersioningPolicy_1_Version
+  commentId: P:RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy`1.Version
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy<T>.Version
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy(Of T).Version
+  nameWithType: EqualityVersioningPolicy<T>.Version
+  nameWithType.vb: EqualityVersioningPolicy(Of T).Version
+- uid: RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy`1.Version*
+  name: Version
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy-1.html#RandoSettingsManager_SettingsManagement_Versioning_EqualityVersioningPolicy_1_Version_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy`1.Version
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy<T>.Version
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy(Of T).Version
+  nameWithType: EqualityVersioningPolicy<T>.Version
+  nameWithType.vb: EqualityVersioningPolicy(Of T).Version
+- uid: RandoSettingsManager.SettingsManagement.Versioning.NoVersioningPolicy
+  name: NoVersioningPolicy
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.NoVersioningPolicy.html
+  commentId: T:RandoSettingsManager.SettingsManagement.Versioning.NoVersioningPolicy
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.NoVersioningPolicy
+  nameWithType: NoVersioningPolicy
+- uid: RandoSettingsManager.SettingsManagement.Versioning.NoVersioningPolicy.Allow(System.Object)
+  name: Allow(Object)
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.NoVersioningPolicy.html#RandoSettingsManager_SettingsManagement_Versioning_NoVersioningPolicy_Allow_System_Object_
+  commentId: M:RandoSettingsManager.SettingsManagement.Versioning.NoVersioningPolicy.Allow(System.Object)
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.NoVersioningPolicy.Allow(System.Object)
+  nameWithType: NoVersioningPolicy.Allow(Object)
+- uid: RandoSettingsManager.SettingsManagement.Versioning.NoVersioningPolicy.Allow*
+  name: Allow
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.NoVersioningPolicy.html#RandoSettingsManager_SettingsManagement_Versioning_NoVersioningPolicy_Allow_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.Versioning.NoVersioningPolicy.Allow
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.NoVersioningPolicy.Allow
+  nameWithType: NoVersioningPolicy.Allow
+- uid: RandoSettingsManager.SettingsManagement.Versioning.NoVersioningPolicy.Version
+  name: Version
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.NoVersioningPolicy.html#RandoSettingsManager_SettingsManagement_Versioning_NoVersioningPolicy_Version
+  commentId: P:RandoSettingsManager.SettingsManagement.Versioning.NoVersioningPolicy.Version
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.NoVersioningPolicy.Version
+  nameWithType: NoVersioningPolicy.Version
+- uid: RandoSettingsManager.SettingsManagement.Versioning.NoVersioningPolicy.Version*
+  name: Version
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.NoVersioningPolicy.html#RandoSettingsManager_SettingsManagement_Versioning_NoVersioningPolicy_Version_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.Versioning.NoVersioningPolicy.Version
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.NoVersioningPolicy.Version
+  nameWithType: NoVersioningPolicy.Version
+- uid: RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy
+  name: StrictModVersioningPolicy
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy.html
+  commentId: T:RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy
+  nameWithType: StrictModVersioningPolicy
+- uid: RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy.#ctor(Mod)
+  name: StrictModVersioningPolicy(Mod)
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy.html#RandoSettingsManager_SettingsManagement_Versioning_StrictModVersioningPolicy__ctor_Mod_
+  commentId: M:RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy.#ctor(Mod)
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy.StrictModVersioningPolicy(Mod)
+  nameWithType: StrictModVersioningPolicy.StrictModVersioningPolicy(Mod)
+- uid: RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy.#ctor*
+  name: StrictModVersioningPolicy
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy.html#RandoSettingsManager_SettingsManagement_Versioning_StrictModVersioningPolicy__ctor_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy.#ctor
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy.StrictModVersioningPolicy
+  nameWithType: StrictModVersioningPolicy.StrictModVersioningPolicy
+- uid: RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy.Allow(System.String)
+  name: Allow(String)
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy.html#RandoSettingsManager_SettingsManagement_Versioning_StrictModVersioningPolicy_Allow_System_String_
+  commentId: M:RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy.Allow(System.String)
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy.Allow(System.String)
+  nameWithType: StrictModVersioningPolicy.Allow(String)
+- uid: RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy.Allow*
+  name: Allow
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy.html#RandoSettingsManager_SettingsManagement_Versioning_StrictModVersioningPolicy_Allow_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy.Allow
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy.Allow
+  nameWithType: StrictModVersioningPolicy.Allow
+- uid: RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy.Version
+  name: Version
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy.html#RandoSettingsManager_SettingsManagement_Versioning_StrictModVersioningPolicy_Version
+  commentId: P:RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy.Version
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy.Version
+  nameWithType: StrictModVersioningPolicy.Version
+- uid: RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy.Version*
+  name: Version
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy.html#RandoSettingsManager_SettingsManagement_Versioning_StrictModVersioningPolicy_Version_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy.Version
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy.Version
+  nameWithType: StrictModVersioningPolicy.Version
+- uid: RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy`1
+  name: VersioningPolicy<T>
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy-1.html
+  commentId: T:RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy`1
+  name.vb: VersioningPolicy(Of T)
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T>
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T)
+  nameWithType: VersioningPolicy<T>
+  nameWithType.vb: VersioningPolicy(Of T)
+- uid: RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy`1.Allow(`0)
+  name: Allow(T)
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy-1.html#RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy_1_Allow__0_
+  commentId: M:RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy`1.Allow(`0)
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T>.Allow(T)
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T).Allow(T)
+  nameWithType: VersioningPolicy<T>.Allow(T)
+  nameWithType.vb: VersioningPolicy(Of T).Allow(T)
+- uid: RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy`1.Allow*
+  name: Allow
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy-1.html#RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy_1_Allow_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy`1.Allow
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T>.Allow
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T).Allow
+  nameWithType: VersioningPolicy<T>.Allow
+  nameWithType.vb: VersioningPolicy(Of T).Allow
+- uid: RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy`1.Version
+  name: Version
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy-1.html#RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy_1_Version
+  commentId: P:RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy`1.Version
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T>.Version
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T).Version
+  nameWithType: VersioningPolicy<T>.Version
+  nameWithType.vb: VersioningPolicy(Of T).Version
+- uid: RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy`1.Version*
+  name: Version
+  href: api/RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy-1.html#RandoSettingsManager_SettingsManagement_Versioning_VersioningPolicy_1_Version_
+  commentId: Overload:RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy`1.Version
+  isSpec: "True"
+  fullName: RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy<T>.Version
+  fullName.vb: RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy(Of T).Version
+  nameWithType: VersioningPolicy<T>.Version
+  nameWithType.vb: VersioningPolicy(Of T).Version

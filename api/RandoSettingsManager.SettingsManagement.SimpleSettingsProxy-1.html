@@ -1,0 +1,398 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class SimpleSettingsProxy&lt;T&gt;
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class SimpleSettingsProxy&lt;T&gt;
+   ">
+    <meta name="generator" content="docfx 2.59.4.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1">
+  
+  
+  <h1 id="RandoSettingsManager_SettingsManagement_SimpleSettingsProxy_1" data-uid="RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1" class="text-break">Class SimpleSettingsProxy&lt;T&gt;
+  </h1>
+  <div class="markdown level0 summary"><p>A simple settings proxy implementing strict versioning and standard naming</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><a class="xref" href="RandoSettingsManager.SettingsManagement.RandoSettingsProxy-2.html">RandoSettingsProxy</a>&lt;T, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>&gt;</div>
+    <div class="level2"><span class="xref">SimpleSettingsProxy&lt;T&gt;</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="RandoSettingsManager.SettingsManagement.RandoSettingsProxy-2.html#RandoSettingsManager_SettingsManagement_RandoSettingsProxy_2_ModKey">RandoSettingsProxy&lt;T, String&gt;.ModKey</a>
+    </div>
+    <div>
+      <a class="xref" href="RandoSettingsManager.SettingsManagement.RandoSettingsProxy-2.html#RandoSettingsManager_SettingsManagement_RandoSettingsProxy_2_VersioningPolicy">RandoSettingsProxy&lt;T, String&gt;.VersioningPolicy</a>
+    </div>
+    <div>
+      <a class="xref" href="RandoSettingsManager.SettingsManagement.RandoSettingsProxy-2.html#RandoSettingsManager_SettingsManagement_RandoSettingsProxy_2_TryProvideSettings__0__">RandoSettingsProxy&lt;T, String&gt;.TryProvideSettings(T)</a>
+    </div>
+    <div>
+      <a class="xref" href="RandoSettingsManager.SettingsManagement.RandoSettingsProxy-2.html#RandoSettingsManager_SettingsManagement_RandoSettingsProxy_2_ReceiveSettings__0_">RandoSettingsProxy&lt;T, String&gt;.ReceiveSettings(T)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="RandoSettingsManager.SettingsManagement.html">RandoSettingsManager.SettingsManagement</a></h6>
+  <h6><strong>Assembly</strong>: RandoSettingsManager.dll</h6>
+  <h5 id="RandoSettingsManager_SettingsManagement_SimpleSettingsProxy_1_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class SimpleSettingsProxy&lt;T&gt; : RandoSettingsProxy&lt;T, string&gt;</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type to use to store settings</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/BadMagic100/RandoSettingsManager/new/master/apiSpec/new?filename=RandoSettingsManager_SettingsManagement_SimpleSettingsProxy_1__ctor_Mod_System_Action__0__System_Func__0__.md&amp;value=---%0Auid%3A%20RandoSettingsManager.SettingsManagement.SimpleSettingsProxy%601.%23ctor(Mod%2CSystem.Action%7B%600%7D%2CSystem.Func%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/BadMagic100/RandoSettingsManager/blob/master/RandoSettingsManager/SettingsManagement/SimpleSettingsProxy.cs/#L27">View Source</a>
+  </span>
+  <a id="RandoSettingsManager_SettingsManagement_SimpleSettingsProxy_1__ctor_" data-uid="RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1.#ctor*"></a>
+  <h4 id="RandoSettingsManager_SettingsManagement_SimpleSettingsProxy_1__ctor_Mod_System_Action__0__System_Func__0__" data-uid="RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1.#ctor(Mod,System.Action{`0},System.Func{`0})">SimpleSettingsProxy(Mod, Action&lt;T&gt;, Func&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Constructs a SimpleSettingsProxy</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SimpleSettingsProxy(Mod mod, Action&lt;T&gt; receiveSettings, Func&lt;T&gt; provideSettings = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Mod</span></td>
+        <td><span class="parametername">mod</span></td>
+        <td><p>The mod to use for naming and versioning</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;T&gt;</td>
+        <td><span class="parametername">receiveSettings</span></td>
+        <td><p>A handler for settings to be received. Implements <a class="xref" href="RandoSettingsManager.SettingsManagement.SimpleSettingsProxy-1.html#RandoSettingsManager_SettingsManagement_SimpleSettingsProxy_1_ReceiveSettings__0_">ReceiveSettings(T)</a></p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;T&gt;</td>
+        <td><span class="parametername">provideSettings</span></td>
+        <td><p>A handler for settings to be provided. Implements <a class="xref" href="RandoSettingsManager.SettingsManagement.SimpleSettingsProxy-1.html#RandoSettingsManager_SettingsManagement_SimpleSettingsProxy_1_TryProvideSettings__0__">TryProvideSettings(out T)</a></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/BadMagic100/RandoSettingsManager/new/master/apiSpec/new?filename=RandoSettingsManager_SettingsManagement_SimpleSettingsProxy_1_ModKey.md&amp;value=---%0Auid%3A%20RandoSettingsManager.SettingsManagement.SimpleSettingsProxy%601.ModKey%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/BadMagic100/RandoSettingsManager/blob/master/RandoSettingsManager/SettingsManagement/SimpleSettingsProxy.cs/#L14">View Source</a>
+  </span>
+  <a id="RandoSettingsManager_SettingsManagement_SimpleSettingsProxy_1_ModKey_" data-uid="RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1.ModKey*"></a>
+  <h4 id="RandoSettingsManager_SettingsManagement_SimpleSettingsProxy_1_ModKey" data-uid="RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1.ModKey">ModKey</h4>
+  <div class="markdown level1 summary"><p>The unique key to identify this proxy (usually the mod name)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ModKey { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">RandoSettingsManager.SettingsManagement.RandoSettingsProxy&lt;T, System.String&gt;.ModKey</span></div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/BadMagic100/RandoSettingsManager/new/master/apiSpec/new?filename=RandoSettingsManager_SettingsManagement_SimpleSettingsProxy_1_VersioningPolicy.md&amp;value=---%0Auid%3A%20RandoSettingsManager.SettingsManagement.SimpleSettingsProxy%601.VersioningPolicy%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/BadMagic100/RandoSettingsManager/blob/master/RandoSettingsManager/SettingsManagement/SimpleSettingsProxy.cs/#L16">View Source</a>
+  </span>
+  <a id="RandoSettingsManager_SettingsManagement_SimpleSettingsProxy_1_VersioningPolicy_" data-uid="RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1.VersioningPolicy*"></a>
+  <h4 id="RandoSettingsManager_SettingsManagement_SimpleSettingsProxy_1_VersioningPolicy" data-uid="RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1.VersioningPolicy">VersioningPolicy</h4>
+  <div class="markdown level1 summary"><p>The versioning policy to accept and reject settings</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override VersioningPolicy&lt;string&gt; VersioningPolicy { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="RandoSettingsManager.SettingsManagement.Versioning.VersioningPolicy-1.html">VersioningPolicy</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">RandoSettingsManager.SettingsManagement.RandoSettingsProxy&lt;T, System.String&gt;.VersioningPolicy</span></div>
+  <h5 id="RandoSettingsManager_SettingsManagement_SimpleSettingsProxy_1_VersioningPolicy_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Generally, versioning policies cannot safely change type, and can usually
+only be safely changed to be less strict. Generally you'll be best to just
+pick one and stick with it, so think carefully about the guarantees you
+want to make so you don't have to change it in the future.</p>
+</div>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/BadMagic100/RandoSettingsManager/new/master/apiSpec/new?filename=RandoSettingsManager_SettingsManagement_SimpleSettingsProxy_1_ReceiveSettings__0_.md&amp;value=---%0Auid%3A%20RandoSettingsManager.SettingsManagement.SimpleSettingsProxy%601.ReceiveSettings(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/BadMagic100/RandoSettingsManager/blob/master/RandoSettingsManager/SettingsManagement/SimpleSettingsProxy.cs/#L50">View Source</a>
+  </span>
+  <a id="RandoSettingsManager_SettingsManagement_SimpleSettingsProxy_1_ReceiveSettings_" data-uid="RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1.ReceiveSettings*"></a>
+  <h4 id="RandoSettingsManager_SettingsManagement_SimpleSettingsProxy_1_ReceiveSettings__0_" data-uid="RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1.ReceiveSettings(`0)">ReceiveSettings(T)</h4>
+  <div class="markdown level1 summary"><p>Handles receiving settings, or disabling the connection if no
+settings were received for this connection. Connections may perform their
+own validation and throw <a class="xref" href="RandoSettingsManager.SettingsManagement.ValidationException.html">ValidationException</a> to indicate validation
+failures.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void ReceiveSettings(T settings)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">settings</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">RandoSettingsManager.SettingsManagement.RandoSettingsProxy&lt;T, System.String&gt;.ReceiveSettings(T)</span></div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/BadMagic100/RandoSettingsManager/new/master/apiSpec/new?filename=RandoSettingsManager_SettingsManagement_SimpleSettingsProxy_1_TryProvideSettings__0__.md&amp;value=---%0Auid%3A%20RandoSettingsManager.SettingsManagement.SimpleSettingsProxy%601.TryProvideSettings(%600%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/BadMagic100/RandoSettingsManager/blob/master/RandoSettingsManager/SettingsManagement/SimpleSettingsProxy.cs/#L36">View Source</a>
+  </span>
+  <a id="RandoSettingsManager_SettingsManagement_SimpleSettingsProxy_1_TryProvideSettings_" data-uid="RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1.TryProvideSettings*"></a>
+  <h4 id="RandoSettingsManager_SettingsManagement_SimpleSettingsProxy_1_TryProvideSettings__0__" data-uid="RandoSettingsManager.SettingsManagement.SimpleSettingsProxy`1.TryProvideSettings(`0@)">TryProvideSettings(out T)</h4>
+  <div class="markdown level1 summary"><p>Attempts to provide settings when sending/saving data</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool TryProvideSettings(out T settings)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">settings</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p>True if settings should be sent, otherwise false</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">RandoSettingsManager.SettingsManagement.RandoSettingsProxy&lt;T, System.String&gt;.TryProvideSettings(T)</span></div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/BadMagic100/RandoSettingsManager/new/master/apiSpec/new?filename=RandoSettingsManager_SettingsManagement_SimpleSettingsProxy_1.md&amp;value=---%0Auid%3A%20RandoSettingsManager.SettingsManagement.SimpleSettingsProxy%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/BadMagic100/RandoSettingsManager/blob/master/RandoSettingsManager/SettingsManagement/SimpleSettingsProxy.cs/#L11" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
