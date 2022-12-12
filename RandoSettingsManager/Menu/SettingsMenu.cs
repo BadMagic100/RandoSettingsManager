@@ -355,6 +355,21 @@ namespace RandoSettingsManager.Menu
                     messager.Write(ve.Message);
                 });
             }
+
+            catch (LateValidationException ve)
+            {
+                ThreadSupport.BeginInvoke(() =>
+                {
+                    WriteReceivedSettingsToMessager(manager, ve.Message);
+                });
+            }
+            catch (Exception ex) when (ex.InnerException is LateValidationException ve)
+            {
+                ThreadSupport.BeginInvoke(() =>
+                {
+                    WriteReceivedSettingsToMessager(manager, ve.Message);
+                });
+            }
             catch (Exception ex)
             {
                 RandoSettingsManagerMod.Instance.LogError(ex);
@@ -476,6 +491,20 @@ namespace RandoSettingsManager.Menu
                     messager.Clear();
                     messager.WriteLine($"The settings loaded from the temporary profile failed validation!");
                     messager.Write(ve.Message);
+                });
+            }
+            catch (LateValidationException ve)
+            {
+                ThreadSupport.BeginInvoke(() =>
+                {
+                    WriteReceivedSettingsToMessager(manager, ve.Message);
+                });
+            }
+            catch (Exception ex) when (ex.InnerException is LateValidationException ve)
+            {
+                ThreadSupport.BeginInvoke(() =>
+                {
+                    WriteReceivedSettingsToMessager(manager, ve.Message);
                 });
             }
             catch (Exception ex)

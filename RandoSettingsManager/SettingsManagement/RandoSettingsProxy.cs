@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using RandoSettingsManager.SettingsManagement.Versioning;
+using System;
 
 namespace RandoSettingsManager.SettingsManagement
 {
@@ -42,7 +43,9 @@ namespace RandoSettingsManager.SettingsManagement
 
         /// <summary>
         /// Handles receiving settings, or disabling the connection if no
-        /// settings were received for this connection
+        /// settings were received for this connection. Connections may perform their
+        /// own validation and throw <see cref="ValidationException"/> to indicate validation
+        /// failures.
         /// </summary>
         /// <param name="settings">The received settings, if any</param>
         public abstract void ReceiveSettings(TSettings? settings);
@@ -68,14 +71,24 @@ namespace RandoSettingsManager.SettingsManagement
                 ReceiveSettings(default);
                 return;
             }
-            
-            TSettings? s = JsonConvert.DeserializeObject<TSettings>(settings, 
-                new StringEnumConverter(new DefaultNamingStrategy()));
+
+            TSettings? s;
+            try
+            {
+                s = JsonConvert.DeserializeObject<TSettings>(settings,
+                    new StringEnumConverter(new DefaultNamingStrategy()));
+            }
+            catch (Exception ex)
+            {
+                RandoSettingsManagerMod.Instance.LogError($"Failed to deserialize settings for {GetType()}: {settings}");
+                RandoSettingsManagerMod.Instance.LogError(ex);
+                throw new ValidationException($"Failed to deserialize settings for {ModKey}.");
+            }
+
             if (s == null)
             {
-                // don't throw here - there are several reasons why settings may fail to deserialize under normal circumstances, such as
-                // mods changing their settings structure in contexts where versioning rules are ignored
                 RandoSettingsManagerMod.Instance.LogError($"Failed to deserialize settings for {GetType()}: {settings}");
+                throw new ValidationException($"Failed to deserialize settings for {ModKey}.");
             }
             else
             {

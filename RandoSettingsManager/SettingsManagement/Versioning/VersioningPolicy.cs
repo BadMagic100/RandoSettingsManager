@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
+using System;
 
 namespace RandoSettingsManager.SettingsManagement.Versioning
 {
@@ -46,7 +47,17 @@ namespace RandoSettingsManager.SettingsManagement.Versioning
 
         bool ISerializableVersioningPolicy.AllowSerialized(string version)
         {
-            T? ver = JsonConvert.DeserializeObject<T>(version, new StringEnumConverter(new DefaultNamingStrategy()));
+            T? ver;
+            try
+            {
+                ver = JsonConvert.DeserializeObject<T>(version, new StringEnumConverter(new DefaultNamingStrategy()));
+            }
+            catch (Exception ex)
+            {
+                RandoSettingsManagerMod.Instance.Log($"Encountered deserialization failure while reading {version}");
+                RandoSettingsManagerMod.Instance.LogError(ex);
+                return false;
+            }
             // if we're unable to recognize the type, of course we cannot allow the provided version
             if (ver == null)
             {

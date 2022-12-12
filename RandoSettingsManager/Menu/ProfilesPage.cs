@@ -250,7 +250,7 @@ namespace RandoSettingsManager.Menu
                 editProfileStatus.Text.text = "Loaded successfully!";
                 shouldGoToHomePage = true;
             }
-            catch (ValidationException ve)
+            catch (Exception ve) when (ve is ValidationException or LateValidationException)
             {
                 editProfileStatus.Text.text = ve.Message;
             }

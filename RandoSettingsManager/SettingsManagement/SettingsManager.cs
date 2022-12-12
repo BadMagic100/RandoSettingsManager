@@ -171,13 +171,26 @@ namespace RandoSettingsManager.SettingsManagement
             LastReceivedMods.Add("Randomizer 4");
             foreach (Action stagedSetter in modSettingsSetters)
             {
-                stagedSetter();
+                try
+                {
+                    stagedSetter();
+                }
+                catch (ValidationException ve)
+                {
+                    errors.Add(ve.Message);
+                }
             }
             LastReceivedMods.AddRange(receivedConnections);
             foreach (string unreceived in metadata.Keys.Except(receivedConnections))
             {
                 metadata[unreceived].Proxy.ReceiveSerializedSettings(null);
                 LastModsReceivedWithoutSettings.Add(unreceived);
+            }
+
+            if (errors.Count > 0)
+            {
+                throw new LateValidationException("One or more mods encountered partial validation errors. Some mods may not" +
+                    "have had their settings completely applied.\n - " + string.Join("\n - ", errors));
             }
         }
     }
