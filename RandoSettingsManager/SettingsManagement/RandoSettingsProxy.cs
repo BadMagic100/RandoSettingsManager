@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Serialization;
-using RandoSettingsManager.SettingsManagement.Versioning;
+﻿using RandoSettingsManager.SettingsManagement.Versioning;
 using System;
 
 namespace RandoSettingsManager.SettingsManagement
@@ -50,11 +47,11 @@ namespace RandoSettingsManager.SettingsManagement
         /// <param name="settings">The received settings, if any</param>
         public abstract void ReceiveSettings(TSettings? settings);
 
-        bool ISerializableSettingsProxy.TryProvideSerializedSettings(out string? settings)
+        bool ISerializableSettingsProxy.TryProvideSerializedSettings(JsonConverter jsonConverter, out string? settings)
         {
             if (TryProvideSettings(out TSettings? s))
             {
-                settings = JsonConvert.SerializeObject(s, new StringEnumConverter(new DefaultNamingStrategy()));
+                settings = jsonConverter.Serialize(s);
                 return true;
             }
             else
@@ -64,7 +61,7 @@ namespace RandoSettingsManager.SettingsManagement
             }
         }
 
-        void ISerializableSettingsProxy.ReceiveSerializedSettings(string? settings)
+        void ISerializableSettingsProxy.ReceiveSerializedSettings(JsonConverter jsonConverter, string? settings)
         {
             if (settings == null)
             {
@@ -75,8 +72,7 @@ namespace RandoSettingsManager.SettingsManagement
             TSettings? s;
             try
             {
-                s = JsonConvert.DeserializeObject<TSettings>(settings,
-                    new StringEnumConverter(new DefaultNamingStrategy()));
+                s = jsonConverter.Deserialize<TSettings>(settings);
             }
             catch (Exception ex)
             {

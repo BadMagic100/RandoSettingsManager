@@ -1,6 +1,5 @@
 ﻿using MenuChanger.MenuElements;
 using Modding;
-using Newtonsoft.Json;
 using RandomizerMod.Menu;
 using RandomizerMod.Settings;
 using RandoSettingsManager.SettingsManagement.Filer;
@@ -19,6 +18,7 @@ namespace RandoSettingsManager.SettingsManagement
         const string VERSION_TXT = "version.txt";
 
         readonly Dictionary<string, ProxyMetadata> metadata = new();
+        readonly JsonConverter jsonConverter = new();
         ISerializableVersioningPolicy? randoVersionPolicy;
 
         public List<string> LastSentMods { get; } = new();
@@ -37,12 +37,12 @@ namespace RandoSettingsManager.SettingsManagement
                 gs.Seed = int.MinValue;
             }
             IFile rando = targetDir.CreateFile(RANDO_JSON);
-            rando.WriteContent(JsonConvert.SerializeObject(gs));
+            rando.WriteContent(jsonConverter.Serialize(gs));
             if (storeVersion)
             {
                 IFile version = targetDir.CreateFile(VERSION_TXT);
                 randoVersionPolicy ??= new StrictModVersioningPolicy((Mod)ModHooks.GetMod("Randomizer 4"));
-                version.WriteContent(randoVersionPolicy.SerializedVersion);
+                version.WriteContent(randoVersionPolicy.GetSerializedVersion(jsonConverter));
             }
         }
 
@@ -58,7 +58,7 @@ namespace RandoSettingsManager.SettingsManagement
             {
                 string key = proxyData.Key;
                 var (proxy, vp) = proxyData.Value;
-                if (proxy.TryProvideSerializedSettings(out string? settings) && settings != null)
+                if (proxy.TryProvideSerializedSettings(jsonConverter, out string? settings) && settings != null)
                 {
                     IDirectory modDir = targetDir.CreateDirectory(key);
                     IFile modSettings = modDir.CreateFile(key + ".json");
@@ -66,7 +66,7 @@ namespace RandoSettingsManager.SettingsManagement
                     if (storeVersion)
                     {
                         IFile version = modDir.CreateFile(VERSION_TXT);
-                        version.WriteContent(vp.SerializedVersion);
+                        version.WriteContent(vp.GetSerializedVersion(jsonConverter));
                     }
                     LastSentMods.Add(key);
                 }
@@ -79,7 +79,7 @@ namespace RandoSettingsManager.SettingsManagement
             LastModsReceivedWithoutSettings.Clear();
             foreach (KeyValuePair<string, ProxyMetadata> md in metadata)
             {
-                md.Value.Proxy.ReceiveSerializedSettings(null);
+                md.Value.Proxy.ReceiveSerializedSettings(jsonConverter, null);
                 LastModsReceivedWithoutSettings.Add(md.Key);
             }
         }
@@ -98,7 +98,7 @@ namespace RandoSettingsManager.SettingsManagement
             }
             else
             {
-                randoSettings = JsonConvert.DeserializeObject<GenerationSettings>(randoJson.ReadContent());
+                randoSettings = jsonConverter.Deserialize<GenerationSettings>(randoJson.ReadContent());
                 if (randoSettings == null)
                 {
                     errors.Add("Failed to read randomizer settings from the provided settings");
@@ -114,9 +114,9 @@ namespace RandoSettingsManager.SettingsManagement
                 {
                     errors.Add("A randomizer version was expected, but was missing in the provided settings");
                 }
-                else if (!randoVersionPolicy.AllowSerialized(receivedRandoVersion = randoVersion.ReadContent()))
+                else if (!randoVersionPolicy.AllowSerialized(jsonConverter, receivedRandoVersion = randoVersion.ReadContent()))
                 {
-                    errors.Add($"The current randomizer version {randoVersionPolicy.SerializedVersion} "
+                    errors.Add($"The current randomizer version {randoVersionPolicy.GetSerializedVersion(jsonConverter)} "
                         + $"did not match the provided version {receivedRandoVersion}");
                 }
             }
@@ -133,7 +133,7 @@ namespace RandoSettingsManager.SettingsManagement
 
                 string? settings = modDir.GetFile(key + ".json")?.ReadContent();
                 // stage the file consumption after validation checks are done
-                modSettingsSetters.Add(() => md.Proxy.ReceiveSerializedSettings(settings));
+                modSettingsSetters.Add(() => md.Proxy.ReceiveSerializedSettings(jsonConverter, settings));
                 // note that we've received settings for this connection
                 receivedConnections.Add(key);
 
@@ -144,9 +144,9 @@ namespace RandoSettingsManager.SettingsManagement
                     {
                         errors.Add($"A version for {key} was expected, but was missing in the provided settings");
                     }
-                    else if (!md.VersioningPolicy.AllowSerialized(receivedVersion = ver.ReadContent()))
+                    else if (!md.VersioningPolicy.AllowSerialized(jsonConverter,receivedVersion = ver.ReadContent()))
                     {
-                        errors.Add($"The current version for {key} {md.VersioningPolicy.SerializedVersion} "
+                        errors.Add($"The current version for {key} {md.VersioningPolicy.GetSerializedVersion(jsonConverter)} "
                             + $"did not match the provided version {receivedVersion}");
                     }
                 }
@@ -183,14 +183,14 @@ namespace RandoSettingsManager.SettingsManagement
             LastReceivedMods.AddRange(receivedConnections);
             foreach (string unreceived in metadata.Keys.Except(receivedConnections))
             {
-                metadata[unreceived].Proxy.ReceiveSerializedSettings(null);
+                metadata[unreceived].Proxy.ReceiveSerializedSettings(jsonConverter, null);
                 LastModsReceivedWithoutSettings.Add(unreceived);
             }
 
             if (errors.Count > 0)
             {
                 throw new LateValidationException("One or more mods encountered partial validation errors. Some mods may not" +
-                    "have had their settings completely applied.\n - " + string.Join("\n - ", errors));
+                    " have had their settings completely applied.\n - " + string.Join("\n - ", errors));
             }
         }
     }

@@ -2,7 +2,7 @@
 {
     internal interface ISerializableVersioningPolicy
     {
-        internal string SerializedVersion { get; }
-        internal bool AllowSerialized(string version);
+        internal string GetSerializedVersion(JsonConverter jsonConverter);
+        internal bool AllowSerialized(JsonConverter jsonConverter, string version);
     }
 }

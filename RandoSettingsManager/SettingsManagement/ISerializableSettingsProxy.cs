@@ -2,8 +2,8 @@
 {
     internal interface ISerializableSettingsProxy
     {
-        internal bool TryProvideSerializedSettings(out string? settings);
+        internal bool TryProvideSerializedSettings(JsonConverter jsonConverter, out string? settings);
 
-        internal void ReceiveSerializedSettings(string? settings);
+        internal void ReceiveSerializedSettings(JsonConverter jsonConverter, string? settings);
     }
 }

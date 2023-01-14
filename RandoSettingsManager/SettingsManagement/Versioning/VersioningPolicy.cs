@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Serialization;
-using System;
+﻿using System;
 
 namespace RandoSettingsManager.SettingsManagement.Versioning
 {
@@ -42,15 +39,17 @@ namespace RandoSettingsManager.SettingsManagement.Versioning
         /// <returns>Whether the given version is allowed</returns>
         public abstract bool Allow(T version);
 
-        string ISerializableVersioningPolicy.SerializedVersion => JsonConvert.SerializeObject(Version,
-            new StringEnumConverter(new DefaultNamingStrategy()));
+        string ISerializableVersioningPolicy.GetSerializedVersion(JsonConverter jsonConverter)
+        {
+            return jsonConverter.Serialize(Version);
+        }
 
-        bool ISerializableVersioningPolicy.AllowSerialized(string version)
+        bool ISerializableVersioningPolicy.AllowSerialized(JsonConverter jsonConverter, string version)
         {
             T? ver;
             try
             {
-                ver = JsonConvert.DeserializeObject<T>(version, new StringEnumConverter(new DefaultNamingStrategy()));
+                ver = jsonConverter.Deserialize<T>(version);
             }
             catch (Exception ex)
             {
