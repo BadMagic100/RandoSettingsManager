@@ -1,5 +1,4 @@
-﻿using ICSharpCode.SharpZipLib.Zip;
-using MenuChanger;
+﻿using MenuChanger;
 using MenuChanger.Extensions;
 using MenuChanger.MenuElements;
 using MenuChanger.MenuPanels;
@@ -9,7 +8,6 @@ using RandomizerCore.Extensions;
 using RandomizerMod.Menu;
 using RandoSettingsManager.Model;
 using RandoSettingsManager.SettingsManagement;
-using RandoSettingsManager.SettingsManagement.Filer;
 using RandoSettingsManager.SettingsManagement.Filer.Disk;
 using RandoSettingsManager.SettingsManagement.Filer.Tar;
 using System;
@@ -27,7 +25,7 @@ namespace RandoSettingsManager.Menu
     internal class SettingsMenu
     {
         private const string quickShareServiceUrl = "https://wakqqsjpt464rapvz5rz4po3pm0ucgty.lambda-url.us-west-2.on.aws/";
-        private const string tempProfileName = "temp.zip";
+        private const string tempProfileName = "temp.tar.gz";
         private static readonly HttpClient httpClient = new()
         {
             Timeout = TimeSpan.FromSeconds(30)
@@ -453,16 +451,14 @@ namespace RandoSettingsManager.Menu
 
             try
             {
-                string profileName = Guid.NewGuid().ToString();
-                string folderPath = Path.Combine(ProfilesDir, profileName);
-                IDirectory tmpDirectory = profiler.RootDirectory.CreateDirectory(profileName);
+                TgzFiler filer = TgzFiler.CreateForWrite();
 
-                manager.SaveSettings(tmpDirectory, true, true);
+                manager.SaveSettings(filer.RootDirectory, true, true);
+                using (FileStream fs = File.Create(TempProfilePath))
+                {
+                    filer.WriteAll(fs);
+                }
 
-                FastZip z = new();
-                z.CreateZip(TempProfilePath, folderPath, true, "");
-
-                Directory.Delete(folderPath, true);
                 System.Diagnostics.Process.Start(ProfilesDir);
 
                 ThreadSupport.BeginInvoke(() =>
@@ -508,19 +504,17 @@ namespace RandoSettingsManager.Menu
 
             try
             {
-                string profileName = Guid.NewGuid().ToString();
-                string folderPath = Path.Combine(ProfilesDir, profileName);
-                IDirectory tmpDirectory = profiler.RootDirectory.CreateDirectory(profileName);
-
-                FastZip z = new();
-                z.ExtractZip(TempProfilePath, folderPath, "");
+                TgzFiler filer;
+                using (FileStream fs = File.OpenRead(TempProfilePath))
+                {
+                    filer = TgzFiler.LoadFromStream(fs);
+                }
 
                 ThreadSupport.BlockUntilInvoked(() =>
                 {
-                    manager.LoadSettings(tmpDirectory, true);
+                    manager.LoadSettings(filer.RootDirectory, true);
                 });
 
-                Directory.Delete(folderPath, true);
                 File.Delete(TempProfilePath);
 
                 ThreadSupport.BeginInvoke(() =>
