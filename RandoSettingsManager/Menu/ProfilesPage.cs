@@ -133,11 +133,15 @@ namespace RandoSettingsManager.Menu
         private void CustomGoBack()
         {
             editPage.Hide();
-            MenuPage next = shouldGoToHomePage switch
+            MenuPage next;
+            if (shouldGoToHomePage && RandoSettingsManagerMod.Instance.GS.GoHomeAfterApplyProfile)
             {
-                true => randoHomePage,
-                false => editPage.backTo
-            };
+                next = randoHomePage;
+            }
+            else
+            {
+                next = editPage.backTo;
+            }
             next.Show();
             shouldGoToHomePage = false;
         }

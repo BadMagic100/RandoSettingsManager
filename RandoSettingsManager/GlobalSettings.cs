@@ -20,6 +20,8 @@ namespace RandoSettingsManager
         public bool HasImportedProfiles { get; set; } = false;
 
         public HashSet<string> ModeProfiles { get; set; } = new();
+
+        public bool GoHomeAfterApplyProfile { get; set; } = true;
     }
 }
 
