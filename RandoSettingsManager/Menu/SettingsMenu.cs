@@ -41,12 +41,15 @@ namespace RandoSettingsManager.Menu
         private SmallButton navToClassic;
         private SmallButton quickShareCreate;
         private SmallButton quickShareLoad;
+        private SmallButton quickShareCancel;
         private SmallButton manageProfiles;
         private SmallButton createTempProfile;
         private SmallButton disableConnections;
         private Messager messager;
 
         private readonly SmallButton backButton;
+
+        private CancellationTokenSource? cancellationTokenSource;
 
         private SettingsMenu()
         {
@@ -79,7 +82,7 @@ namespace RandoSettingsManager.Menu
 
         [MemberNotNull(
             nameof(navToClassic), 
-            nameof(quickShareCreate), nameof(quickShareLoad),
+            nameof(quickShareCreate), nameof(quickShareLoad), nameof(quickShareCancel),
             nameof(manageProfiles), nameof(createTempProfile), nameof(disableConnections), 
             nameof(messager)
         )]
@@ -102,10 +105,14 @@ namespace RandoSettingsManager.Menu
             quickShareCreate.OnClick += CreateKeyClick;
             quickShareLoad = new(modern, "Paste Key");
             quickShareLoad.OnClick += LoadKeyClick;
+            quickShareCancel = new(modern, "Cancel");
+            quickShareCancel.OnClick += CancelClick;
+            quickShareCancel.Hide();
 
             VerticalItemPanel quickShareVip = new(modern, Vector2.zero, SpaceParameters.VSPACE_SMALL, false,
                 quickShareCreate,
-                quickShareLoad);
+                quickShareLoad,
+                quickShareCancel);
 
             ColumnHeader profileHeader = new(modern, "Profiles");
             manageProfiles = new(modern, "Manage Profiles");
@@ -181,6 +188,7 @@ namespace RandoSettingsManager.Menu
         private void CreateKeyClick()
         {
             LockMenu();
+            quickShareCancel.Show();
             messager.Clear();
             messager.Write("Creating settings key...");
 
@@ -209,6 +217,7 @@ namespace RandoSettingsManager.Menu
                 {
                     messager.Clear();
                     messager.Write("An unexpected error occurred while creating settings key.");
+                    quickShareCancel.Hide();
                     UnlockMenu();
                 });
                 return;
@@ -220,11 +229,11 @@ namespace RandoSettingsManager.Menu
             {
                 string reqContentS = JsonConvert.SerializeObject(new CreateSettingsInput() { Settings = encodedSettings });
                 StringContent reqContent = new(reqContentS, Encoding.UTF8, "application/json");
-                Task<HttpResponseMessage> t = httpClient.PostAsync(quickShareServiceUrl, reqContent);
-                t.Wait();
-
-                Task<string> respContent = t.Result.Content.ReadAsStringAsync();
-                respContent.Wait();
+                Task<string> respContent = httpClient.PostAsync(quickShareServiceUrl, reqContent)
+                    .ContinueWith(t => t.Result.Content.ReadAsStringAsync())
+                    .Unwrap();
+                cancellationTokenSource = new CancellationTokenSource();
+                respContent.Wait(cancellationTokenSource.Token);
 
                 CreateSettingsOutput? resp = JsonConvert.DeserializeObject<CreateSettingsOutput>(respContent.Result);
                 if (resp != null)
@@ -250,6 +259,23 @@ namespace RandoSettingsManager.Menu
                     });
                 }
             }
+            catch (ThreadAbortException ex)
+            {
+                RandoSettingsManagerMod.Instance.LogError($"The request to RSMS timed out: {ex}");
+                ThreadSupport.BeginInvoke(() =>
+                {
+                    messager.Clear();
+                    messager.WriteLine("The request to the server timed out while attempting to create a settings key.");
+                });
+            }
+            catch (OperationCanceledException)
+            {
+                ThreadSupport.BeginInvoke(() =>
+                {
+                    messager.Clear();
+                    messager.WriteLine("Cancelled creating settings key.");
+                });
+            }
             catch (Exception ex)
             {
                 RandoSettingsManagerMod.Instance.LogError(ex);
@@ -261,7 +287,11 @@ namespace RandoSettingsManager.Menu
             }
             finally
             {
-                ThreadSupport.BeginInvoke(() => UnlockMenu());
+                ThreadSupport.BeginInvoke(() =>
+                {
+                    quickShareCancel.Hide();
+                    UnlockMenu();
+                });
             }
         }
 
@@ -270,6 +300,7 @@ namespace RandoSettingsManager.Menu
             string key = GUIUtility.systemCopyBuffer.Trim();
 
             LockMenu();
+            quickShareCancel.Show();
             messager.Clear();
             messager.Write($"Looking up settings from key {key}...");
 
@@ -285,7 +316,8 @@ namespace RandoSettingsManager.Menu
             {
                 Task<string> t = httpClient.GetStringAsync(quickShareServiceUrl 
                     + new RetrieveSettingsInput() { SettingsKey = key }.ToQueryString());
-                t.Wait();
+                cancellationTokenSource = new CancellationTokenSource();
+                t.Wait(cancellationTokenSource.Token);
 
                 RetrieveSettingsOutput? resp = JsonConvert.DeserializeObject<RetrieveSettingsOutput>(t.Result);
                 if (resp == null)
@@ -313,6 +345,29 @@ namespace RandoSettingsManager.Menu
                     settings = Convert.FromBase64String(resp.Settings);
                 }
             }
+            catch (ThreadAbortException ex)
+            {
+                RandoSettingsManagerMod.Instance.LogError($"The request to RSMS timed out: {ex}");
+                ThreadSupport.BeginInvoke(() =>
+                {
+                    messager.Clear();
+                    messager.WriteLine("The request to the server timed out while attempting to load the settings key.");
+                    quickShareCancel.Hide();
+                    UnlockMenu();
+                });
+                return;
+            }
+            catch (OperationCanceledException)
+            {
+                ThreadSupport.BeginInvoke(() =>
+                {
+                    messager.Clear();
+                    messager.WriteLine("Cancelled loading settings key.");
+                    quickShareCancel.Hide();
+                    UnlockMenu();
+                });
+                return;
+            }
             catch (Exception ex)
             {
                 RandoSettingsManagerMod.Instance.LogError(ex);
@@ -320,6 +375,7 @@ namespace RandoSettingsManager.Menu
                 {
                     messager.Clear();
                     messager.Write($"An unexpected error occurred while reading settings from key {key}");
+                    quickShareCancel.Hide();
                     UnlockMenu();
                 });
                 return;
@@ -337,15 +393,6 @@ namespace RandoSettingsManager.Menu
                     WriteReceivedSettingsToMessager(manager, $"Successfully loaded settings from key {key}");
                 });
             }
-            catch (ValidationException ve)
-            {
-                ThreadSupport.BeginInvoke(() =>
-                {
-                    messager.Clear();
-                    messager.WriteLine($"The settings provided by key {key} failed validation!");
-                    messager.Write(ve.Message);
-                });
-            }
             catch (Exception ex) when (ex.InnerException is ValidationException ve)
             {
                 ThreadSupport.BeginInvoke(() =>
@@ -353,14 +400,6 @@ namespace RandoSettingsManager.Menu
                     messager.Clear();
                     messager.WriteLine($"The settings provided by key {key} failed validation!");
                     messager.Write(ve.Message);
-                });
-            }
-
-            catch (LateValidationException ve)
-            {
-                ThreadSupport.BeginInvoke(() =>
-                {
-                    WriteReceivedSettingsToMessager(manager, ve.Message);
                 });
             }
             catch (Exception ex) when (ex.InnerException is LateValidationException ve)
@@ -381,7 +420,21 @@ namespace RandoSettingsManager.Menu
             }
             finally
             {
-                ThreadSupport.BeginInvoke(() => UnlockMenu());
+                ThreadSupport.BeginInvoke(() =>
+                {
+                    quickShareCancel.Hide();
+                    UnlockMenu();
+                });
+            }
+        }
+
+        private void CancelClick()
+        {
+            if (cancellationTokenSource != null)
+            {
+                cancellationTokenSource.Cancel();
+                cancellationTokenSource.Dispose();
+                cancellationTokenSource = null;
             }
         }
 
@@ -475,15 +528,6 @@ namespace RandoSettingsManager.Menu
                     WriteReceivedSettingsToMessager(manager, "Successfully loaded settings from the temporary profile!");
                 });
             }
-            catch (ValidationException ve)
-            {
-                ThreadSupport.BeginInvoke(() =>
-                {
-                    messager.Clear();
-                    messager.WriteLine($"The settings loaded from the temporary profile failed validation!");
-                    messager.Write(ve.Message);
-                });
-            }
             catch (Exception ex) when (ex.InnerException is ValidationException ve)
             {
                 ThreadSupport.BeginInvoke(() =>
@@ -491,13 +535,6 @@ namespace RandoSettingsManager.Menu
                     messager.Clear();
                     messager.WriteLine($"The settings loaded from the temporary profile failed validation!");
                     messager.Write(ve.Message);
-                });
-            }
-            catch (LateValidationException ve)
-            {
-                ThreadSupport.BeginInvoke(() =>
-                {
-                    WriteReceivedSettingsToMessager(manager, ve.Message);
                 });
             }
             catch (Exception ex) when (ex.InnerException is LateValidationException ve)
