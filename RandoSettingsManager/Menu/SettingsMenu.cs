@@ -8,7 +8,6 @@ using RandomizerCore.Extensions;
 using RandomizerMod.Menu;
 using RandoSettingsManager.Model;
 using RandoSettingsManager.SettingsManagement;
-using RandoSettingsManager.SettingsManagement.Filer.Disk;
 using RandoSettingsManager.SettingsManagement.Filer.Tar;
 using System;
 using System.Collections.Generic;
@@ -25,14 +24,13 @@ namespace RandoSettingsManager.Menu
     internal class SettingsMenu
     {
         private const string quickShareServiceUrl = "https://wakqqsjpt464rapvz5rz4po3pm0ucgty.lambda-url.us-west-2.on.aws/";
-        private const string tempProfileName = "temp.tar.gz";
+        private const string tempProfileName = "rando-temp-profile.tar.gz";
         private static readonly HttpClient httpClient = new()
         {
             Timeout = TimeSpan.FromSeconds(30)
         };
         public static readonly string ProfilesDir = Path.Combine(Application.persistentDataPath, "Randomizer 4", "Profiles");
         private static readonly string TempProfilePath = Path.Combine(ProfilesDir, tempProfileName);
-        private static readonly DiskFiler profiler = new(ProfilesDir);
 
         private readonly FileSystemWatcher tempWatcher;
 
@@ -65,7 +63,7 @@ namespace RandoSettingsManager.Menu
             BuildManagePage(classic, modern); 
             PatchRandoMenuPages(manageBtn, classic, modern);
             
-            tempWatcher = new FileSystemWatcher(ProfilesDir, "*.zip")
+            tempWatcher = new FileSystemWatcher(ProfilesDir, "*.tar.gz")
             {
                 EnableRaisingEvents = false,
                 NotifyFilter = NotifyFilters.CreationTime
@@ -485,7 +483,7 @@ namespace RandoSettingsManager.Menu
         private void OnFileCreated(object sender, FileSystemEventArgs e)
         {
             RandoSettingsManagerMod.Instance.LogDebug($"Saw {e.Name} created");
-            // if the file is temp.zip, lock up and queue it for extraction
+            // if the file matches, lock up and queue it for extraction
             if (Path.GetFileName(e.Name) == tempProfileName)
             {
                 ThreadSupport.BlockUntilInvoked(() =>
