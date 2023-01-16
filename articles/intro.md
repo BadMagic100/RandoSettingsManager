@@ -17,9 +17,12 @@ serialized, and applying received settings to your connection menu after they ha
 get started with RSM is to create a [`SimpleSettingsProxy`](~/api/RandoSettingsManager.SettingsManagement.SimpleSettingsProxy-1.yml).
 
 ```cs
-RandoSettingsManagerMod.Instance.RegisterConnection(new SimpleSettingsProxy<MyRandoSettingsType>(MyMod.Instance,
-    (MyRandoSettingsType? settings) => { ... },
-    () => { ... });
+RandoSettingsManagerMod.Instance.RegisterConnection(
+    new SimpleSettingsProxy<MySettings>(MyMod.Instance,
+        (MySettings? settings) => { ... },
+        () => { ... }
+    )
+);
 ```
 
 SimpleSettingsProxy provides some shortcuts around naming and versioning for you. Now is also a good time to note that
@@ -28,6 +31,12 @@ complex to share (provide) easily, it's recommended to provide code to disable y
 This results in less manual effort and less margin for error, especially when players are setting up for races and 
 itemsyncs, and therefore a more pleasant experience. Conversely, also note that connections should not send settings
 if they are disabled to prevent issues for players which do not have the mod installed.
+
+> [!WARNING]
+> Remember that the binding from menu to settings is one way; when you receive settings you should apply them to your
+> menu and let MenuChanger update the settings. If you update your settings directly, your menu will not reflect the
+> changes and any further changes will not be reflected as your menu will likely hold a dangling reference to the old
+> settings object.
 
 `SimpleSettingsProxy` is the simplest way to get started with RSM, but you may find that you need more control over
 naming and versioning policies. It is also possible to derive directly from
@@ -44,5 +53,13 @@ As the name implies, this is the strictest policy available, and will break comp
 updated, effectively forcing everyone to always be on the same (usually latest) mod version. This is the versioning
 policy used by `SimpleSettingsProxy` and by Rando itself.
 
-Enabling broader compatibility in versioning is a very complex topic and can leave a lot of room for error if not done
-correctly. Versioning best practices are discussed in more detail in the article on [versioning best practices](~/articles/versioning.md).
+While strict versioning guarantees correctness by breaking compatibility every release, it may be desirable for some
+developers to employ permissive policies, especially if you yourself race with dev builds installed or your mod updates
+very frequently. A more flexible versioning policy can be a great convenience for players if implemented property.
+However, doing so is a very complex topic and can leave a lot of room for error if. Versioning best practices are
+discussed in more detail in the article on [versioning best practices](~/articles/versioning.md).
+
+> [!TIP]
+> Don't feel at all obligated to implement a versioning policy! For many mods, strict versioning will work perfectly
+> fine. Using a versioning policy which breaks compatibility more often then it needs to, such as strict versioning, 
+> is much better than implementing versioning incorrectly and causing preventable hash mismatches for opaque reasons.
