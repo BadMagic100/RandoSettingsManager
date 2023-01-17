@@ -81,7 +81,6 @@ internal class YourSettingsProxy : RandoSettingsProxy<YourRandomizationSettings,
         // and the content of all logic-modifying files
         VersioningPolicy = CompoundVersioningPolicy.Of(
             new EqualityVersioningPolicy<string>(YourMod.Instance.GetVersion(), new SemVerComparator(places: 2)),
-            new ContentHashVersioningPolicy(locations),
             new ContentHashVersioningPolicy(macros),
             new ContentHashVersioningPolicy(terms),
             new ContentHashVersioningPolicy(waypoints),
