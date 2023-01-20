@@ -1,5 +1,6 @@
 ﻿using MenuChanger;
 using Modding;
+using MonoMod.ModInterop;
 using RandomizerMod.Settings;
 using RandoSettingsManager.Menu;
 using RandoSettingsManager.SettingsManagement;
@@ -43,6 +44,7 @@ namespace RandoSettingsManager
         public RandoSettingsManagerMod() : base("RandoSettingsManager")
         {
             _instance = this;
+            typeof(ModExport).ModInterop();
         }
 
         /// <inheritdoc/>
