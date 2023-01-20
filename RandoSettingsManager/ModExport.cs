@@ -32,11 +32,11 @@ namespace RandoSettingsManager
             {
                 if (!typeof(Action<>).MakeGenericType(settingsType).IsAssignableFrom(receiveSettings.GetType()))
                 {
-                    throw new ArgumentException($"Failed to register connection {mod?.Name} through ModInterop: parameter {nameof(receiveSettings)} must convert to Action<{settingsType.Name}>");
+                    throw new ArgumentException($"Failed to register connection {mod?.Name} through ModInterop: parameter {nameof(receiveSettings)} must convert to Action<{settingsType.Name}?>");
                 }
                 if (provideSettings is not null && !typeof(Func<>).MakeGenericType(settingsType).IsAssignableFrom(provideSettings.GetType()))
                 {
-                    throw new ArgumentException($"Failed to register connection {mod?.Name} through ModInterop: parameter {nameof(provideSettings)} must convert to Func<{settingsType.Name}>");
+                    throw new ArgumentException($"Failed to register connection {mod?.Name} through ModInterop: parameter {nameof(provideSettings)} must convert to Func<{settingsType.Name}?>");
                 }
                 throw new InvalidOperationException($"Failed to register connection {mod?.Name} through ModInterop", mme);
             }
