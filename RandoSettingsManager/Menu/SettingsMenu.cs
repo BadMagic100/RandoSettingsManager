@@ -63,6 +63,7 @@ namespace RandoSettingsManager.Menu
             BuildManagePage(classic, modern); 
             PatchRandoMenuPages(manageBtn, classic, modern);
             
+            Directory.CreateDirectory(ProfilesDir);
             tempWatcher = new FileSystemWatcher(ProfilesDir, "*.tar.gz")
             {
                 EnableRaisingEvents = false,
