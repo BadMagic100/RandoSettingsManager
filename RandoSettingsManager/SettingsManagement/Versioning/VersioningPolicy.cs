@@ -39,6 +39,12 @@ namespace RandoSettingsManager.SettingsManagement.Versioning
         /// <returns>Whether the given version is allowed</returns>
         public abstract bool Allow(T version);
 
+        /// <summary>
+        /// Used to determine whether null versions can be allowed. By default,
+        /// only allows null if the version type is Nullable&lt;T&gt;.
+        /// </summary>
+        protected virtual bool AllowsNullValues => Nullable.GetUnderlyingType(typeof(T)) != null;
+
         string ISerializableVersioningPolicy.GetSerializedVersion(JsonConverter jsonConverter)
         {
             return jsonConverter.Serialize(Version);
@@ -60,7 +66,7 @@ namespace RandoSettingsManager.SettingsManagement.Versioning
             // if we're unable to recognize the type, of course we cannot allow the provided version
             if (ver == null)
             {
-                return false;
+                return AllowsNullValues;
             }
             return Allow(ver);
         }
