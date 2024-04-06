@@ -13,7 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -67,10 +67,10 @@ namespace RandoSettingsManager.Menu
 
             // root page
 
-            RootPage.AfterShow += () =>
+            RootPage.AfterShow += async () =>
             {
                 LockMenu();
-                new Thread(DoReloadProfiles).Start();
+                await DoReloadProfiles();
             };
 
             MenuLabel title = new(RootPage, "Manage Profiles", MenuLabel.Style.Title);
@@ -146,34 +146,31 @@ namespace RandoSettingsManager.Menu
             shouldGoToHomePage = false;
         }
 
-        private void DoReloadProfiles()
+        private async Task DoReloadProfiles()
         {
             try
             {
-                string[] dirs = Directory.GetDirectories(SettingsMenu.ProfilesDir);
-                ThreadSupport.BlockUntilInvoked(() =>
+                string[] dirs = await Task.Run(() => Directory.GetDirectories(SettingsMenu.ProfilesDir));
+                for (int i = 1; i < profilePanel.Items.Count; i++)
                 {
-                    for (int i = 1; i < profilePanel.Items.Count; i++)
+                    profilePanel.Items[i].Destroy();
+                }
+                profilePanel.Clear();
+                profilePanel.Add(newProfile);
+                foreach (string dir in dirs)
+                {
+                    string name = Path.GetFileName(dir);
+                    SmallButton prof = new(RootPage, name);
+                    prof.OnClick += () =>
                     {
-                        profilePanel.Items[i].Destroy();
-                    }
-                    profilePanel.Clear();
-                    profilePanel.Add(newProfile);
-                    foreach (string dir in dirs)
-                    {
-                        string name = Path.GetFileName(dir);
-                        SmallButton prof = new(RootPage, name);
-                        prof.OnClick += () =>
-                        {
-                            selectedProfile = name;
-                            editPageModeToggle.SetValue(
-                                RandoSettingsManagerMod.Instance.GS.ModeProfiles.Contains(selectedProfile));
-                            SetEntryFieldValueUnvalidated(editNameEntry, name);
-                        };
-                        prof.AddHideAndShowEvent(editPage);
-                        profilePanel.Add(prof);
-                    }
-                });
+                        selectedProfile = name;
+                        editPageModeToggle.SetValue(
+                            RandoSettingsManagerMod.Instance.GS.ModeProfiles.Contains(selectedProfile));
+                        SetEntryFieldValueUnvalidated(editNameEntry, name);
+                    };
+                    prof.AddHideAndShowEvent(editPage);
+                    profilePanel.Add(prof);
+                }
             }
             catch (Exception ex)
             {
@@ -181,7 +178,7 @@ namespace RandoSettingsManager.Menu
             }
             finally
             {
-                ThreadSupport.BeginInvoke(UnlockMenu);
+                UnlockMenu();
             }
         }
 
@@ -226,7 +223,6 @@ namespace RandoSettingsManager.Menu
 
             try
             {
-
                 manager.SaveSettings(new DiskFiler(path).RootDirectory, false, false);
                 createPage.Hide();
                 createPage.backTo.Show();

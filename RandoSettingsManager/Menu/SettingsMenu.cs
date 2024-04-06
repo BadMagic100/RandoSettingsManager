@@ -131,7 +131,7 @@ namespace RandoSettingsManager.Menu
             messager = new(modern);
             messager.MoveTo(new Vector2(0, 95));
 
-            modern.AfterShow += () =>
+            modern.AfterShow += async () =>
             {
                 tempWatcher.EnableRaisingEvents = true;
                 if (File.Exists(TempProfilePath))
@@ -139,7 +139,7 @@ namespace RandoSettingsManager.Menu
                     LockMenu();
                     messager.Clear();
                     messager.Write($"Attempting to load temporary profile from {TempProfilePath}");
-                    new Thread(DoLoadTempProfile).Start();
+                    await LoadTempProfileAsync();
                 }
             };
 
@@ -182,17 +182,17 @@ namespace RandoSettingsManager.Menu
             };
         }
 
-        private void CreateKeyClick()
+        private async void CreateKeyClick()
         {
             LockMenu();
             quickShareCancel.Show();
             messager.Clear();
             messager.Write("Creating settings key...");
 
-            new Thread(DoCreateSettings).Start();
+            await CreateSettingsAsync();
         }
 
-        private void DoCreateSettings()
+        private async Task CreateSettingsAsync()
         {
             SettingsManager manager = RandoSettingsManagerMod.Instance.settingsManager;
 
@@ -200,23 +200,24 @@ namespace RandoSettingsManager.Menu
             try
             {
                 TgzFiler filer = TgzFiler.CreateForWrite();
-                RandoSettingsManagerMod.Instance.settingsManager?.SaveSettings(filer.RootDirectory, true, true);
 
-                using MemoryStream ms = new();
-                filer.WriteAll(ms);
+                settings = await Task.Run(() =>
+                {
+                    manager.SaveSettings(filer.RootDirectory, true, true);
 
-                settings = ms.ToArray();
+                    using MemoryStream ms = new();
+                    filer.WriteAll(ms);
+
+                    return ms.ToArray();
+                });
             }
             catch (Exception ex)
             {
                 RandoSettingsManagerMod.Instance.LogError(ex);
-                ThreadSupport.BeginInvoke(() =>
-                {
-                    messager.Clear();
-                    messager.Write("An unexpected error occurred while creating settings key.");
-                    quickShareCancel.Hide();
-                    UnlockMenu();
-                });
+                messager.Clear();
+                messager.Write("An unexpected error occurred while creating settings key.");
+                quickShareCancel.Hide();
+                UnlockMenu();
                 return;
             }
 
@@ -225,74 +226,48 @@ namespace RandoSettingsManager.Menu
             try
             {
                 string reqContentS = JsonConvert.SerializeObject(new CreateSettingsInput() { Settings = encodedSettings });
-                StringContent reqContent = new(reqContentS, Encoding.UTF8, "application/json");
-                Task<string> respContent = httpClient.PostAsync(quickShareServiceUrl, reqContent)
-                    .ContinueWith(t => t.Result.Content.ReadAsStringAsync())
-                    .Unwrap();
                 cancellationTokenSource = new CancellationTokenSource();
-                respContent.Wait(cancellationTokenSource.Token);
+                StringContent reqContent = new(reqContentS, Encoding.UTF8, "application/json");
+                HttpResponseMessage postResp = await httpClient.PostAsync(quickShareServiceUrl, reqContent, cancellationTokenSource.Token);
+                string respContent = await postResp.Content.ReadAsStringAsync();
 
-                CreateSettingsOutput? resp = JsonConvert.DeserializeObject<CreateSettingsOutput>(respContent.Result);
+                CreateSettingsOutput? resp = JsonConvert.DeserializeObject<CreateSettingsOutput>(respContent);
                 if (resp != null)
                 {
-                    ThreadSupport.BeginInvoke(() =>
-                    {
-                        GUIUtility.systemCopyBuffer = resp.SettingsKey;
-                        messager.Clear();
-                        messager.WriteLine("Created settings code and copied to clipboard!");
-                        messager.WriteLine(resp.SettingsKey);
-                        messager.Write($"Settings were shared for {ListJoin(manager.LastSentMods)}. Settings for other " +
-                            $"connections must be shared manually if they're enabled.");
-                    });
+                    GUIUtility.systemCopyBuffer = resp.SettingsKey;
+                    messager.Clear();
+                    messager.WriteLine("Created settings code and copied to clipboard!");
+                    messager.WriteLine(resp.SettingsKey);
+                    messager.Write($"Settings were shared for {ListJoin(manager.LastSentMods)}. Settings for other " +
+                        $"connections must be shared manually if they're enabled.");
                 }
                 else
                 {
                     RandoSettingsManagerMod.Instance.LogError($"An unexpected response was received while " +
-                        $"creating settings key: {respContent.Result}");
-                    ThreadSupport.BeginInvoke(() =>
-                    {
-                        messager.Clear();
-                        messager.Write($"An unexpected response was received while creating settings key.");
-                    });
+                        $"creating settings key: {respContent}");
+                    messager.Clear();
+                    messager.Write($"An unexpected response was received while creating settings key.");
                 }
             }
-            catch (ThreadAbortException ex)
+            catch (OperationCanceledException ex)
             {
-                RandoSettingsManagerMod.Instance.LogError($"The request to RSMS timed out: {ex}");
-                ThreadSupport.BeginInvoke(() =>
-                {
-                    messager.Clear();
-                    messager.WriteLine("The request to the server timed out while attempting to create a settings key.");
-                });
-            }
-            catch (OperationCanceledException)
-            {
-                ThreadSupport.BeginInvoke(() =>
-                {
-                    messager.Clear();
-                    messager.WriteLine("Cancelled creating settings key.");
-                });
+                messager.Clear();
+                messager.WriteLine("Creating settings key cancelled or timed out.");
             }
             catch (Exception ex)
             {
                 RandoSettingsManagerMod.Instance.LogError(ex);
-                ThreadSupport.BeginInvoke(() =>
-                {
-                    messager.Clear();
-                    messager.Write("Failed to create settings key over the network.");
-                });
+                messager.Clear();
+                messager.Write("Failed to create settings key over the network.");
             }
             finally
             {
-                ThreadSupport.BeginInvoke(() =>
-                {
-                    quickShareCancel.Hide();
-                    UnlockMenu();
-                });
+                quickShareCancel.Hide();
+                UnlockMenu();
             }
         }
 
-        private void LoadKeyClick()
+        private async void LoadKeyClick()
         {
             string key = GUIUtility.systemCopyBuffer.Trim();
 
@@ -301,40 +276,36 @@ namespace RandoSettingsManager.Menu
             messager.Clear();
             messager.Write($"Looking up settings from key {key}...");
 
-            new Thread(() => DoLoadSettings(key)).Start();
+            await LoadSettingsAsync(key);
         }
 
-        private void DoLoadSettings(string key)
+        private async Task LoadSettingsAsync(string key)
         {
             SettingsManager manager = RandoSettingsManagerMod.Instance.settingsManager;
 
             byte[] settings;
             try
             {
-                Task<string> t = httpClient.GetStringAsync(quickShareServiceUrl 
-                    + new RetrieveSettingsInput() { SettingsKey = key }.ToQueryString());
                 cancellationTokenSource = new CancellationTokenSource();
-                t.Wait(cancellationTokenSource.Token);
+                HttpResponseMessage getSettingsResponse = await httpClient.GetAsync(quickShareServiceUrl 
+                    + new RetrieveSettingsInput() { SettingsKey = key }.ToQueryString(), cancellationTokenSource.Token);
+                string serializedSettings = await getSettingsResponse.Content.ReadAsStringAsync();
 
-                RetrieveSettingsOutput? resp = JsonConvert.DeserializeObject<RetrieveSettingsOutput>(t.Result);
+                RetrieveSettingsOutput? resp = JsonConvert.DeserializeObject<RetrieveSettingsOutput>(serializedSettings);
                 if (resp == null)
                 {
-                    ThreadSupport.BeginInvoke(() =>
-                    {
-                        messager.Clear();
-                        messager.Write($"An unexpected response was received while reading settings from key {key}: {t.Result}");
-                        UnlockMenu();
-                    });
+                    messager.Clear();
+                    messager.Write($"An unexpected response was received while reading settings from key {key}: {serializedSettings}");
+                    quickShareCancel.Hide();
+                    UnlockMenu();
                     return;
                 }
                 else if (!resp.Found || resp.Settings == null)
                 {
-                    ThreadSupport.BeginInvoke(() =>
-                    {
-                        messager.Clear();
-                        messager.Write($"Couldn't find settings with key {key}");
-                        UnlockMenu();
-                    });
+                    messager.Clear();
+                    messager.Write($"Couldn't find settings with key {key}");
+                    quickShareCancel.Hide();
+                    UnlockMenu();
                     return;
                 }
                 else
@@ -342,39 +313,21 @@ namespace RandoSettingsManager.Menu
                     settings = Convert.FromBase64String(resp.Settings);
                 }
             }
-            catch (ThreadAbortException ex)
-            {
-                RandoSettingsManagerMod.Instance.LogError($"The request to RSMS timed out: {ex}");
-                ThreadSupport.BeginInvoke(() =>
-                {
-                    messager.Clear();
-                    messager.WriteLine("The request to the server timed out while attempting to load the settings key.");
-                    quickShareCancel.Hide();
-                    UnlockMenu();
-                });
-                return;
-            }
             catch (OperationCanceledException)
             {
-                ThreadSupport.BeginInvoke(() =>
-                {
-                    messager.Clear();
-                    messager.WriteLine("Cancelled loading settings key.");
-                    quickShareCancel.Hide();
-                    UnlockMenu();
-                });
+                messager.Clear();
+                messager.WriteLine("Loading settings key cancelled or timed out.");
+                quickShareCancel.Hide();
+                UnlockMenu();
                 return;
             }
             catch (Exception ex)
             {
                 RandoSettingsManagerMod.Instance.LogError(ex);
-                ThreadSupport.BeginInvoke(() =>
-                {
-                    messager.Clear();
-                    messager.Write($"An unexpected error occurred while reading settings from key {key}");
-                    quickShareCancel.Hide();
-                    UnlockMenu();
-                });
+                messager.Clear();
+                messager.Write($"An unexpected error occurred while reading settings from key {key}");
+                quickShareCancel.Hide();
+                UnlockMenu();
                 return;
             }
 
@@ -383,45 +336,30 @@ namespace RandoSettingsManager.Menu
                 using MemoryStream ms = new(settings);
                 TgzFiler filer = TgzFiler.LoadFromStream(ms);
 
-                ThreadSupport.BlockUntilInvoked(() =>
-                {
-                    manager.LoadSettings(filer.RootDirectory, true);
+                manager.LoadSettings(filer.RootDirectory, true);
 
-                    WriteReceivedSettingsToMessager(manager, $"Successfully loaded settings from key {key}");
-                });
+                WriteReceivedSettingsToMessager(manager, $"Successfully loaded settings from key {key}");
             }
-            catch (Exception ex) when (ex.InnerException is ValidationException ve)
+            catch (ValidationException ve)
             {
-                ThreadSupport.BeginInvoke(() =>
-                {
-                    messager.Clear();
-                    messager.WriteLine($"The settings provided by key {key} failed validation!");
-                    messager.Write(ve.Message);
-                });
+                messager.Clear();
+                messager.WriteLine($"The settings provided by key {key} failed validation!");
+                messager.Write(ve.Message);
             }
-            catch (Exception ex) when (ex.InnerException is LateValidationException ve)
+            catch (LateValidationException ve)
             {
-                ThreadSupport.BeginInvoke(() =>
-                {
-                    WriteReceivedSettingsToMessager(manager, ve.Message);
-                });
+                WriteReceivedSettingsToMessager(manager, ve.Message);
             }
             catch (Exception ex)
             {
                 RandoSettingsManagerMod.Instance.LogError(ex);
-                ThreadSupport.BeginInvoke(() =>
-                {
-                    messager.Clear();
-                    messager.Write($"An unexpected error occurred loading settings from key {key}");
-                });
+                messager.Clear();
+                messager.Write($"An unexpected error occurred loading settings from key {key}");
             }
             finally
             {
-                ThreadSupport.BeginInvoke(() =>
-                {
-                    quickShareCancel.Hide();
-                    UnlockMenu();
-                });
+                quickShareCancel.Hide();
+                UnlockMenu();
             }
         }
 
@@ -435,16 +373,16 @@ namespace RandoSettingsManager.Menu
             }
         }
 
-        private void CreateTempProfileClick()
+        private async void CreateTempProfileClick()
         {
             LockMenu();
             messager.Clear();
             messager.Write("Creating temporary profile...");
 
-            new Thread(DoCreateTempProfile).Start();
+            await CreateTempProfileAsync();
         }
 
-        private void DoCreateTempProfile()
+        private async Task CreateTempProfileAsync()
         {
             SettingsManager manager = RandoSettingsManagerMod.Instance.settingsManager;
 
@@ -452,32 +390,28 @@ namespace RandoSettingsManager.Menu
             {
                 TgzFiler filer = TgzFiler.CreateForWrite();
 
-                manager.SaveSettings(filer.RootDirectory, true, true);
-                using (FileStream fs = File.Create(TempProfilePath))
+                await Task.Run(() =>
                 {
-                    filer.WriteAll(fs);
-                }
+                    manager.SaveSettings(filer.RootDirectory, true, true);
+                    using (FileStream fs = File.Create(TempProfilePath))
+                    {
+                        filer.WriteAll(fs);
+                    }
+                });
 
                 System.Diagnostics.Process.Start(ProfilesDir);
-
-                ThreadSupport.BeginInvoke(() =>
-                {
-                    messager.Clear();
-                    messager.Write($"Successfully wrote temp profile to {TempProfilePath}");
-                });
+                messager.Clear();
+                messager.Write($"Successfully wrote temp profile to {TempProfilePath}");
             }
             catch (Exception ex)
             {
                 RandoSettingsManagerMod.Instance.LogError(ex);
-                ThreadSupport.BeginInvoke(() =>
-                {
-                    messager.Clear();
-                    messager.Write("An unexpected error occurred while creating a temporary profile.");
-                });
+                messager.Clear();
+                messager.Write("An unexpected error occurred while creating a temporary profile.");
             }
             finally
             {
-                ThreadSupport.BeginInvoke(UnlockMenu);
+                UnlockMenu();
             }
         }
 
@@ -487,68 +421,56 @@ namespace RandoSettingsManager.Menu
             // if the file matches, lock up and queue it for extraction
             if (Path.GetFileName(e.Name) == tempProfileName)
             {
-                ThreadSupport.BlockUntilInvoked(() =>
+                // profile load needs to start on the main thread
+                ThreadSupport.BlockUntilInvoked(async () =>
                 {
                     LockMenu();
                     messager.Clear();
                     messager.Write($"Attempting to load temporary profile from {TempProfilePath}");
+                    await LoadTempProfileAsync();
                 });
-                new Thread(DoLoadTempProfile).Start();
             }
         }
 
-        private void DoLoadTempProfile()
+        private async Task LoadTempProfileAsync()
         {
             SettingsManager manager = RandoSettingsManagerMod.Instance.settingsManager;
 
             try
             {
-                TgzFiler filer;
-                using (FileStream fs = File.OpenRead(TempProfilePath))
+                TgzFiler filer = await Task.Run(() =>
                 {
-                    filer = TgzFiler.LoadFromStream(fs);
-                }
-
-                ThreadSupport.BlockUntilInvoked(() =>
-                {
-                    manager.LoadSettings(filer.RootDirectory, true);
+                    using (FileStream fs = File.OpenRead(TempProfilePath))
+                    {
+                        return TgzFiler.LoadFromStream(fs);
+                    }
                 });
+
+                manager.LoadSettings(filer.RootDirectory, true);
 
                 File.Delete(TempProfilePath);
 
-                ThreadSupport.BeginInvoke(() =>
-                {
-                    WriteReceivedSettingsToMessager(manager, "Successfully loaded settings from the temporary profile!");
-                });
+                WriteReceivedSettingsToMessager(manager, "Successfully loaded settings from the temporary profile!");
             }
-            catch (Exception ex) when (ex.InnerException is ValidationException ve)
+            catch (ValidationException ve)
             {
-                ThreadSupport.BeginInvoke(() =>
-                {
-                    messager.Clear();
-                    messager.WriteLine($"The settings loaded from the temporary profile failed validation!");
-                    messager.Write(ve.Message);
-                });
+                messager.Clear();
+                messager.WriteLine($"The settings loaded from the temporary profile failed validation!");
+                messager.Write(ve.Message);
             }
-            catch (Exception ex) when (ex.InnerException is LateValidationException ve)
+            catch (LateValidationException ve)
             {
-                ThreadSupport.BeginInvoke(() =>
-                {
-                    WriteReceivedSettingsToMessager(manager, ve.Message);
-                });
+                WriteReceivedSettingsToMessager(manager, ve.Message);
             }
             catch (Exception ex)
             {
                 RandoSettingsManagerMod.Instance.LogError(ex);
-                ThreadSupport.BeginInvoke(() =>
-                {
-                    messager.Clear();
-                    messager.Write("An unexpected error occurred while loading a temporary profile.");
-                });
+                messager.Clear();
+                messager.Write("An unexpected error occurred while loading a temporary profile.");
             }
             finally
             {
-                ThreadSupport.BeginInvoke(UnlockMenu);
+                UnlockMenu();
             }
         }
 
