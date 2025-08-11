@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Introduction </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Introduction ">
+    <meta name="generator" content="docfx 2.59.4.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="introduction">Introduction</h1>
+
+<p>This article gives an introduction to RandoSettingsManager (RSM) and some key concepts.</p>
+<h2 id="why-should-you-care-about-randosettingsmanager">Why should you care about RandoSettingsManager?</h2>
+<p>RandoSettingsManager provides improved support for connections on top of Rando's built-in settings management features.
+This allows players to more easily save their settings in profiles for later reuse, or quickly share their settings
+with other players for races or itemsyncs without having to dig into various connection menus. To put it simply,
+creating settings is one of the least pleasant parts of the rando experience, and integrating with RSM is the best
+way to help players simplify that process while your mod is installed.</p>
+<h2 id="the-settings-proxy">The Settings Proxy</h2>
+<p>The Settings Proxy is your primary interface to interact with RSM. It is responsible for collecting your settings to be
+serialized, and applying received settings to your connection menu after they have been deserialized. The simplest way
+get started with RSM is to create a <a href="../api/RandoSettingsManager.SettingsManagement.SimpleSettingsProxy-1.yml"><code>SimpleSettingsProxy</code></a>.</p>
+<pre><code class="lang-cs">RandoSettingsManagerMod.Instance.RegisterConnection(
+    new SimpleSettingsProxy&lt;MySettings&gt;(MyMod.Instance,
+        (MySettings? settings) =&gt; { ... },
+        () =&gt; { ... }
+    )
+);
+</code></pre>
+<p>SimpleSettingsProxy provides some shortcuts around naming and versioning for you. Now is also a good time to note that
+providing your settings is optional, but receiving settings is required. This is because even if your settings are too
+complex to share (provide) easily, it's recommended to provide code to disable your mod when no settings are received.
+This results in less manual effort and less margin for error, especially when players are setting up for races and
+itemsyncs, and therefore a more pleasant experience. Conversely, also note that connections should not send settings
+if they are disabled to prevent issues for players which do not have the mod installed.</p>
+<div class="WARNING">
+<h5>Warning</h5>
+<p>Remember that the binding from menu to settings is one way; when you receive settings you should apply them to your
+menu and let MenuChanger update the settings. If you update your settings directly, your menu will not reflect the
+changes and any further changes will not be reflected as your menu will likely hold a dangling reference to the old
+settings object.</p>
+</div>
+<p><code>SimpleSettingsProxy</code> is the simplest way to get started with RSM, but you may find that you need more control over
+naming and versioning policies. It is also possible to derive directly from
+<a href="../api/RandoSettingsManager.SettingsManagement.RandoSettingsProxy-2.yml"><code>RandoSettingsProxy</code></a> to achieve this control.</p>
+<h2 id="the-versioning-policy">The Versioning Policy</h2>
+<p>Versioning in RSM is used as a way to perform early validation on settings codes. Any potentially hash-impacting
+changes should result in an incompatibility in version. This is used only with RSM's sharing features to prevent
+hash mismatches when setting up races and itemsyncs. Saved profiles do not store or check version information.</p>
+<p>The easiest way to version your mod is by using a <a href="../api/RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy.yml"><code>StrictModVersioningPolicy</code></a>.
+As the name implies, this is the strictest policy available, and will break compatibility any time your mod version is
+updated, effectively forcing everyone to always be on the same (usually latest) mod version. This is the versioning
+policy used by <code>SimpleSettingsProxy</code> and by Rando itself.</p>
+<p>While strict versioning guarantees correctness by breaking compatibility every release, it may be desirable for some
+developers to employ permissive policies, especially if you yourself race with dev builds installed or your mod updates
+very frequently. A more flexible versioning policy can be a great convenience for players if implemented property.
+However, doing so is a very complex topic and can leave a lot of room for error if. Versioning best practices are
+discussed in more detail in the article on <a href="versioning.html">versioning best practices</a>.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Don't feel at all obligated to implement a versioning policy! For many mods, strict versioning will work perfectly
+fine. Using a versioning policy which breaks compatibility more often then it needs to, such as strict versioning,
+is much better than implementing versioning incorrectly and causing preventable hash mismatches for opaque reasons.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/BadMagic100/RandoSettingsManager/blob/docs-source/articles/intro.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

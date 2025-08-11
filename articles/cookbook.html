@@ -1,0 +1,432 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Settings Management Cookbook </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Settings Management Cookbook ">
+    <meta name="generator" content="docfx 2.59.4.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="settings-management-cookbook">Settings Management Cookbook</h1>
+
+<p>This article lists some common patterns which may be used to accomplish tasks in RandoSettingsManager, including some
+pointers on more advanced topics and corresponding technical challenges.</p>
+<p>These snippets are meant to be mostly copy-pasteable. Imports and other details not related to RSM integration are
+omitted for brevity.</p>
+<h2 id="basic-implementation">Basic Implementation</h2>
+<pre><code class="lang-cs">class YourMod
+{
+    // ...
+    
+    void Initialize()
+    {
+        if (ModHooks.GetMod(&quot;RandoSettingsManager&quot;) is Mod)
+        {
+            HookRSM();
+        }
+    }
+    
+    void HookRSM()
+    {
+        RandoSettingsManagerMod.Instance.RegisterConnection(new SimpleSettingsProxy&lt;YourSettings&gt;(
+            this,
+            (settings) =&gt; RandomizerMenu.Instance.PasteSettings(settings),
+            () =&gt; GS.Enabled ? GS : null,
+        );
+    }
+}
+
+class RandomizerMenu
+{
+    // ...
+
+    // note that we're setting values in the IValueElements/MEF which updates both the menu
+    // and the underlying data. The inverse is not true.
+    void PasteSettings(YourSettings? settings)
+    {
+        if (settings == null)
+        {
+            mef.ElementLookup[nameof(YourSettings.Enabled)].SetValue(false);
+            return;
+        }
+        
+        mef.SetMenuValues(settings);
+    }
+}
+</code></pre>
+<h2 id="custom-randosettingsproxy">Custom RandoSettingsProxy</h2>
+<pre><code class="lang-cs">internal static class SettingsManagement
+{
+    // to be called after checking RSM exists
+    public static void Hook()
+    {
+        RandoSettingsManagerMod.Instance.RegisterConnection(new YourSettingsProxy());
+    }
+}
+
+internal class YourSettingsProxy : RandoSettingsProxy&lt;YourRandomizationSettings, 
+    (string, string, string, string, string)&gt;
+{
+    public override string ModKey =&gt; YourMod.Instance.GetName();
+
+    public override VersioningPolicy&lt;(string, string, string, string, string)&gt; VersioningPolicy { get; }
+
+    public YourSettingsProxy()
+    {
+        Assembly a = typeof(YourSettingsProxy).Assembly;
+        using Stream macros = a.GetManifestResourceStream(&quot;YourMod.Resources.Logic.macros.json&quot;);
+        using Stream terms = a.GetManifestResourceStream(&quot;YourMod.Resources.Logic.terms.json&quot;);
+        using Stream waypoints = a.GetManifestResourceStream(&quot;YourMod.Resources.Logic.waypoints.json&quot;);
+        using Stream location = a.GetManifestResourceStream(&quot;YourMod.Resources.Logic.locations.json&quot;);
+
+        // version based off major.minor for settings (changes to settings will bump mod version),
+        // and the content of all logic-modifying files
+        VersioningPolicy = CompoundVersioningPolicy.Of(
+            new EqualityVersioningPolicy&lt;string&gt;(YourMod.Instance.GetVersion(), new SemVerComparator(places: 2)),
+            new ContentHashVersioningPolicy(macros),
+            new ContentHashVersioningPolicy(terms),
+            new ContentHashVersioningPolicy(waypoints),
+            new ContentHashVersioningPolicy(locations)
+        );
+    }
+
+    public override void ReceiveSettings(YourRandomizationSettings? settings)
+    {
+        if (settings != null)
+        {
+            ConnectionMenu.Instance!.ApplySettingsToMenu(settings);
+        }
+        else
+        {
+            ConnectionMenu.Instance!.Disable();
+        }
+    }
+
+    public override bool TryProvideSettings(out YourRandomizationSettings? settings)
+    {
+        settings = RandoInterop.Settings;
+        return settings.Enabled;
+    }
+}
+</code></pre>
+<h2 id="structured-versioning">Structured Versioning</h2>
+<p>Structured versioning is a high-effort pattern which essentially lists the enabled settings as part of the mod version.
+This approach is useful if you have several toggleable settings which only affect logic if enabled. This example is
+taken from Transcendence, where Pimpas wanted changes to logic files to impact the version because it's hash-impacting,
+but only if that subset of logic was enabled (Transcendence logic is togglable). This means that, for example, a
+future Transcendence version would be backward compatible with the current version if all logic is off.</p>
+<pre><code class="lang-cs">internal class StructuralVersioningPolicy : VersioningPolicy&lt;Signature&gt;
+{
+    internal Func&lt;RandoSettings&gt; settingsGetter;
+
+    public override Signature Version =&gt; new() { FeatureSet = FeatureSetForSettings(settingsGetter()) };
+
+    // list only enabled features in the version
+    private static List&lt;string&gt; FeatureSetForSettings(RandoSettings rs) =&gt;
+        SupportedFeatures.Where(f =&gt; f.feature(rs)).Select(f =&gt; f.name).ToList();
+
+    // allow if the feature set provided by the sender only contains supported features (i.e. doesn't contain extra
+    // things we don't know how to handle)
+    public override bool Allow(Signature s) =&gt; s.FeatureSet.All(name =&gt; SupportedFeatures.Any(sf =&gt; sf.name == name));
+
+    private static List&lt;(Predicate&lt;RandoSettings&gt; feature, string name)&gt; SupportedFeatures = new()
+    {
+        (rs =&gt; rs.AddCharms, &quot;AddCharms&quot;),
+        (rs =&gt; rs.IncreaseMaxCharmCostBy &gt; 0, &quot;IncreaseMaxCharmCost&quot;),
+        (rs =&gt; rs.Logic.AntigravityAmulet, &quot;AntigravLogic&quot;),
+        (rs =&gt; rs.Logic.BluemothWings == GeoCharmLogicMode.OnWithGeo, &quot;BluemothGeoLogic&quot;),
+        (rs =&gt; rs.Logic.BluemothWings == GeoCharmLogicMode.On, &quot;BluemothLogic&quot;),
+        (rs =&gt; rs.Logic.SnailSoul, &quot;SnailSoulLogic&quot;),
+        (rs =&gt; rs.Logic.SnailSlash, &quot;SnailSlashLogic&quot;),
+        (rs =&gt; rs.Logic.MillibellesBlessing, &quot;MillibelleLogic&quot;),
+        (rs =&gt; rs.Logic.NitroCrystal, &quot;NitroLogic&quot;),
+        (rs =&gt; rs.Logic.Crystalmaster == GeoCharmLogicMode.OnWithGeo, &quot;CrystalmasterGeoLogic&quot;),
+        (rs =&gt; rs.Logic.Crystalmaster == GeoCharmLogicMode.On, &quot;CrystalmasterLogic&quot;),
+        (rs =&gt; rs.Logic.ChaosOrb != ChaosOrbMode.Off, &quot;ChaosLogic&quot;),
+        (rs =&gt; rs.Logic.AnyEnabled(), &quot;LogicHash:&quot; + LogicHash())
+    };
+
+    private static string LogicHash()
+    {
+        if (!Transcendence.LogicAvailable())
+        {
+            return &quot;NIL&quot;;
+        }
+
+        using var hash = SHA256.Create();
+        using var hstream = new CryptoStream(Stream.Null, hash, CryptoStreamMode.Write);
+        var modDir = Path.GetDirectoryName(typeof(StructuralVersioningPolicy).Assembly.Location);
+        foreach (var name in new string[] { &quot;LogicMacros.json&quot;, &quot;LogicPatches.json&quot;, &quot;ConnectionLogicPatches.json&quot; })
+        {
+            using (var logicFile = File.OpenRead(Path.Combine(modDir, name)))
+            {
+                logicFile.CopyTo(hstream);
+            }
+        }
+        hash.TransformFinalBlock(new byte[] {}, 0, 0);
+        return ToHex(hash.Hash);
+    }
+
+    private static string ToHex(byte[] stuff)
+    {
+        var sb = new StringBuilder(stuff.Length * 2);
+        foreach (var b in stuff)
+        {
+            sb.AppendFormat(&quot;{0:x2}&quot;, b);
+        }
+        return sb.ToString();
+    }
+}
+
+internal struct Signature
+{
+    public List&lt;string&gt; FeatureSet;
+}
+</code></pre>
+<h2 id="sending-and-receiving-external-presets">Sending and Receiving External Presets</h2>
+<p>For mods which have substantially large preset settings which are stored and managed on disk, it can be desirable to
+share the content of the selected preset(s) using RSM, rather than requiring the preset files to be shared separately
+beforehand.</p>
+<pre><code class="lang-cs">// In this example, each pack is a single plaintext file in the DataPacks directory of the saves folder.
+//
+// This approach can easily be adapted to multi-file packs by searching for directories, and then including the content
+// of each file. Depending on how you choose to store the names of profiles, you may desire to store the path as well
+// (e.g. if name is defined in an additional metadata file). You can also easily deserialize your content to some data
+// structure (e.g. from JSON) when loading from disk if desired.
+//
+// If you allow multiple selected packs, you would just replace most DataPack with List&lt;DataPack&gt;
+internal class DataPack
+{
+    public static readonly string PacksDirectory = Path.Combine(Application.persistentDataPath, &quot;DataPacks&quot;);
+
+    public string PackName { get; set; }
+
+    public string PackContent { get; }
+
+    [JsonConstructor]
+    private DataPack(string packName, string packContent)
+    {
+        PackName = packName;
+        PackContent = packContent;
+    }
+
+    private DataPack(string path)
+    {
+        PackName = Path.GetFileNameWithoutExtension(path);
+        using StreamReader sr = File.OpenText(path);
+        // you can deserialize this to a data structure of your choosing if desired
+        PackContent = sr.ReadToEnd();
+    }
+
+    public void WriteToDisk()
+    {
+        if (!Directory.Exists(PacksDirectory))
+        {
+            Directory.CreateDirectory(PacksDirectory);
+        }
+
+        using StreamWriter sw = File.CreateText(Path.Combine(PacksDirectory, PackName + &quot;.txt&quot;));
+        sw.Write(PackContent);
+    }
+
+    // if pack content is large, it may be preferable to make the constructor above public,
+    // and only create a shareable pack for the single selected pack on-demand when sending
+    // settings - this kills several birds with one stone though as it lets you list available
+    // packs and loads/hashes the content all in one step
+    public static List&lt;DataPack&gt; LoadPacksFromDisk()
+    {
+        List&lt;DataPack&gt; results = new();
+        if (Directory.Exists(PacksDirectory))
+        {
+            foreach (string file in Directory.EnumerateFiles(PacksDirectory, &quot;*.txt&quot;))
+            {
+                results.Add(new DataPack(file));
+            }
+        }
+        return results;
+    }
+}
+
+internal class Menu
+{
+    private static List&lt;DataPack&gt; loadedPacks = new();
+
+    public static void LoadPacks()
+    {
+        loadedPacks = DataPack.LoadPacksFromDisk();
+    }
+
+    public DataPack? GetSelectedPack()
+    {
+        // Implementation of this is highly dependent on how your menu does pack selection/display.
+        ...
+    }
+
+    public void ApplyPack(DataPack pack)
+    {
+        // Implementation of this is highly dependent on how your menu does pack selection/display.
+        // You may need to add new elements/options to your menu to accomodate new packs; this is
+        // stubbed out here (by SelectPackByName);
+
+        bool reapply = false;
+        foreach (DataPack p in loadedPacks)
+        {
+            if (pack.PackName == p.PackName)
+            {
+                // duplicate detection - if using a custom structure, override Equals/HashCode and use that.
+                if (pack.PackContent == p.PackContent)
+                {
+                    // this is a known profile and we have it already, select it
+                    SelectPackByName(pack.PackName);
+                    return;
+                }
+                else
+                {
+                    // rename it and reapply with new name
+                    pack.PackName += &quot; (2)&quot;;
+                    reapply = true;
+                    break;
+                }
+            }
+        }
+
+        if (reapply)
+        {
+            ApplyPack(pack);
+        }
+        else
+        {
+            // never-before-seen, completely new pack with unique name
+            pack.WriteToDisk();
+            loadedPacks.Add(pack);
+            SelectPackByName(pack.PackName);
+        }
+    }
+}
+
+internal class SettingsProxy : RandoSettingsProxy&lt;DataPack, string&gt;
+{
+    public override string ModKey =&gt; YourMod.Instance.GetName();
+
+    public override VersioningPolicy&lt;string&gt; VersioningPolicy { get; } 
+        = new StrictModVersioningPolicy(YourMod.Instance);
+
+    public override bool TryProvideSettings(out DataPack? settings)
+    {
+        settings = Menu.Instance.GetSelectedPack();
+        return YourMod.Instance.GS.Enabled;
+    }
+
+    public override void ReceiveSettings(DataPack? settings)
+    {
+        if (settings == null)
+        {
+            Menu.Instance.Disable();
+        }
+        else
+        {
+            Menu.Instance.ApplyPack(settings);
+        }
+    }
+}
+</code></pre>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/BadMagic100/RandoSettingsManager/blob/docs-source/articles/cookbook.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
