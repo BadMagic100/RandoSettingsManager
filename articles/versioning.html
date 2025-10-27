@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Versioning Best Practices </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Versioning Best Practices ">
+    <meta name="generator" content="docfx 2.59.4.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="versioning-best-practices">Versioning Best Practices</h1>
+
+<p>This article discusses the dos and don'ts when implementing a versioning policy for backwards compatibility.</p>
+<h2 id="basics">Basics</h2>
+<p>Version checking is intended as an early validation mechanism for settings codes to flag any potential hash mismatches
+before they can happen. Any change to the semantics of your settings, any logic change, or anything else which could
+impact the randomizer hash should also affect the version provided by your versioning policy. Version checking policies
+are used on temporary profiles and quick share, but are not used for long-lived profiles. The expection is that the
+structure of settings rarely changes in a way that is truly breaking (for example, changing the type of a field), so
+settings profiles can continue to be reused for roughly the same experience across versions.</p>
+<p>The most important thing to do when creating a versioning policy is to not make one that's too permissive. Doing so can
+result in difficult to diagnose hash mismatches. When in doubt, a stricter policy, such as <a href="../api/RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy.yml"><code>StrictModVersioningPolicy</code></a>
+is preferred. In contrast, the most permissive policy available (<a href="../api/RandoSettingsManager.SettingsManagement.Versioning.NoVersioningPolicy.yml"><code>NoVersioningPolicy</code></a>)
+should almost never be used unless you never make any hash-impacting changes (however, if this is the case, it's also
+likely that you just don't need to send settings at all and leave it to players to locally configure based on their
+own preferences).</p>
+<p>Generally, implementing a less strict policy is only for the convenience of the players, and usually follows the rule
+of diminishing returns - as you add more permissiveness it becomes exponentially harder to implement (and especially,
+to implement correctly). If you're more interested in developer convenience, then <a href="../api/RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy.yml"><code>StrictModVersioningPolicy</code></a>
+is usually the correct choice for you.</p>
+<h2 id="choosing-a-versioning-policy">Choosing a Versioning Policy</h2>
+<p>Aside from the behavior discussed above, well-implemented versioning policies should have the following 2 properties:</p>
+<ul>
+<li>Versioning policies should allow settings from another version if an only if, based on the content of the version
+alone, it is guaranteed that any possible settings generated by the sender will yield the same hash when applied to
+the receiver.</li>
+<li>Versioning policies should be symmetric; they will both succeed or fail regardless of which build is the sender.</li>
+</ul>
+<p>This means that choosing/implementing a policy correctly is very important! In particular, it can be the case that
+changing policies can break the symmetry requirement. This section will guide you through how to pick a policy with
+these constraints in mind.</p>
+<h3 id="selecting-an-existing-policy">Selecting an Existing Policy</h3>
+<p>Before attempting to implement a custom versioning policy, consider whether any of the policies included in RSM will
+work for your use case. These policies fulfill all the requirements discussed previously in this documentation and
+cover many common needs you may encounter.</p>
+<ul>
+<li><a href="../api/RandoSettingsManager.SettingsManagement.Versioning.StrictModVersioningPolicy.yml"><code>StrictModVersioningPolicy</code></a> -
+as discussed many times, this policy is usually the safest policy when in doubt. It will &quot;break&quot; with every release
+of your connection, assuming that you remember to update the mod version.</li>
+<li><a href="../api/RandoSettingsManager.SettingsManagement.Versioning.EqualityVersioningPolicy-1.yml"><code>EqualityVersioningPolicy</code></a> -
+This policy allows you to arbitrarily version your settings (separately from your mod if desired) and use a custom
+comparison (for example, <a href="../api/RandoSettingsManager.SettingsManagement.Versioning.Comparators.SemVerComparator.yml"><code>SemVerComparator</code></a>),
+and checks equality based on the provided values.</li>
+<li><a href="../api/RandoSettingsManager.SettingsManagement.Versioning.ContentHashVersioningPolicy.yml"><code>ContentHashVersioningPolicy</code></a> -
+This policy performs version checking based on the SHA1 hash of a given (usually embedded) resource file.</li>
+<li><a href="../api/RandoSettingsManager.SettingsManagement.Versioning.CompoundVersioningPolicy.yml"><code>CompoundVersioningPolicy</code></a> -
+This policy combines the results of up to 8 different versioning policies.</li>
+</ul>
+<p>Aside from <code>StrictModVersioningPolicy</code>, using a <code>CompoundVersioningPolicy</code> which contains an <code>EqualityVersioningPolicy</code>
+with a <code>SemVerComparator</code>, and a <code>ContentHashVersioningPolicy</code> for each of your logic files is fairly safe, assuming
+that you bump your major or minor version whenever there is a significant change to your settings (This is BadMagic's
+preference in most cases as it allows players, including the developer, to play on different patch versions which is
+useful for development).</p>
+<h3 id="implementing-your-own-policies">Implementing Your Own Policies</h3>
+<p>The requirements of a well-implemented policy have already been discussed above. The code for the bundled policies is
+under MIT license and can be used as reference. Some more complex examples are also available in the
+<a href="cookbook.html">cookbook section</a>.</p>
+<h3 id="switching-policies">Switching Policies</h3>
+<p>As discussed above, ideally, you just won't ever switch policies. However this is not really a reasonable expectation.
+If you find yourself needing to switch policies, consider changing to a policy with a different underlying type if
+possible/helpful. This guarantees that symmetry will be maintained, since the policy will always fail to deserialize
+the provided version on either side. Conversely, changing policies without changing the underlying type is quite hard
+to do safely depending on the manner in which semantics change. Be mindful of this type of swap; in the worst case you
+may just need to inform users about the change so they're not caught off-guard by hash mismatches. Note that changing
+to or from NoVersioningPolicy will almost always break symmetry, as it sends <code>null</code> and allows any incoming value.
+This is another good reason to avoid it if at all possible.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/BadMagic100/RandoSettingsManager/blob/docs-source/articles/versioning.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
