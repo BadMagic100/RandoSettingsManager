@@ -10,11 +10,11 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: master
       - name: Checkout doc source
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: docs-source
           path: docs
